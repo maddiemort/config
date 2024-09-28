@@ -12,3 +12,7 @@ vim.g.gitgutter_sign_modified_removed = '▏'
 -- Don't highlight line numbers in a special way
 vim.g.gitgutter_highlight_linenrs = 0
 vim.cmd('highlight! link SignColumn LineNr')
+
+-- This might reduce performance (especially as the result of interactions with plugins/LSP), so be
+-- careful
+vim.cmd('set updatetime=500')

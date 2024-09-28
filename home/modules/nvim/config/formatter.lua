@@ -1,5 +1,4 @@
 local formatter = require'formatter'
-local util = require'formatter.util'
 
 formatter.setup {
     logging = true,
@@ -12,7 +11,23 @@ formatter.setup {
             require'formatter.filetypes.cpp'.clangformat,
         },
         rust = {
-            require'formatter.filetypes.rust'.rustfmt,
+            function()
+                return {
+                    exe = "rustfmt",
+                    args = {
+                        "--edition",
+                        "2021",
+                    },
+                    stdin = true,
+                }
+            end,
+        },
+        typst = {
+            function()
+                return {
+                    exe = "typstfmt",
+                }
+            end,
         },
     },
 }

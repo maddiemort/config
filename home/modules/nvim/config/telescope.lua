@@ -1,9 +1,9 @@
 require'telescope'.setup {
     extensions = {
-        ['file_browser'] = {
+        file_browser = {
             mappings = {
-                i = {
-                    ['<C-w>'] = false,
+                ["i"] = {
+                    ["<C-w>"] = function() vim.cmd('normal vbd') end,
                 },
             },
             hidden = true,

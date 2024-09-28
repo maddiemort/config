@@ -43,15 +43,13 @@ in
   };
 
   config = mkIf cfg.enable {
-    home.sessionVariables = (mkIf cfg.defaultEditor {
-      # Required for TLA+
-      JAVA_HOME = "${pkgs.jre_minimal}";
-
+    home.sessionVariables = mkIf cfg.defaultEditor {
       EDITOR = "nvim";
-    });
+    };
 
     programs.neovim = {
       inherit (cfg) enable;
+      package = pkgsUnstable.neovim-unwrapped;
 
       plugins = (with pkgs.vimPlugins; [
         haskell-vim
@@ -61,6 +59,7 @@ in
         swift-vim
         telescope-file-browser-nvim
         telescope-fzf-native-nvim
+        typst-vim
         vim-glsl
         vim-highlightedyank
         vim-javascript
@@ -71,76 +70,22 @@ in
         vim-toml
         vimtex
 
+        (luaPlugin catppuccin-vim ./config/catppuccin.lua)
         (luaPlugin dressing-nvim ./config/dressing.lua)
         (luaPlugin formatter-nvim ./config/formatter.lua)
         (luaPlugin git-blame-nvim ./config/git-blame.lua)
         (luaPlugin indent-blankline-nvim ./config/indent-blankline.lua)
         (luaPlugin lualine-nvim ./config/lualine.lua)
-        (luaPlugin nvim-treesitter ./config/treesitter.lua)
-        (luaPlugin onedark-vim ./config/onedark.lua)
         (luaPlugin rust-vim ./config/rust.lua)
         (luaPlugin telescope-nvim ./config/telescope.lua)
         (luaPlugin vim-gitgutter ./config/gitgutter.lua)
         (luaPlugin vim-rooter ./config/rooter.lua)
-        (luaPluginInline comment-nvim "require'Comment'.setup {}")
         (luaPluginInline nvim-colorizer-lua "require'colorizer'.setup {}")
-
-      ]) ++ (with pkgsUnstable.vimPlugins; [
-      ]) ++ (with pkgsUnstable; [
-        (luaPlugin key-menu-nvim ./config/key-menu.lua)
-
-        (luaPluginInline tla-nvim ''
-          require"tla".setup {
-            --java_executable = "${pkgs.jre_minimal}",
-            java_opts = { "-XX:+UseParallelGC" },
-            tla2tools = "${pkgs.tlaplus18}/share/java/tla2tools.jar",
-          }
-
-          local tla_group = vim.api.nvim_create_augroup('tla', {})
-          vim.api.nvim_create_autocmd({ 'BufNewFile', 'BufRead' }, {
-              group = id,
-              pattern = '*.tla',
-              callback = function()
-                  vim.keymap.set('n', 'M', "<cmd>TlaCheck<cr>", { desc = 'Model-check TLA+ code in the current buffer', buffer = true })
-              end,
-          })
-        '')
-      ]) ++ (with pkgs.vimPlugins.nvim-treesitter-parsers; [
-        bash
-        c
-        c_sharp
-        cmake
-        cpp
-        css
-        dart
-        dockerfile
-        java
-        javascript
-        json
-        jsonnet
-        kotlin
-        lua
-        make
-        markdown
-        markdown_inline
-        nix
-        objc
-        python
-        query
-        ruby
-        rust
-        tlaplus
-        toml
-        tsx
-        typescript
-        vim
-        vimdoc
-        xml
-        yaml
       ]);
 
       extraPackages = with pkgs; [
         glow
+        typstfmt # For typst formatting in formatter.lua
       ];
 
       extraConfig = ''
@@ -238,9 +183,11 @@ in
             " Same for CSS-family files
             au BufRead,BufNewFile *.css,*.less,*.scss,*.sass setlocal shiftwidth=2 softtabstop=2
             " Same for markup languages
-            au BufRead,BufNewFile *.html,*.md,*.yaml setlocal shiftwidth=2 softtabstop=2
+            au BufRead,BufNewFile *.html,*.yaml setlocal shiftwidth=2 softtabstop=2
             " Same for other JS-adjacent file types
             au BufRead,BufNewFile *.graphql,*.json setlocal shiftwidth=2 softtabstop=2
+            " But I want Markdown to use 4
+            au BufRead,BufNewFile *.md setlocal shiftwidth=4 softtabstop=4
         augroup END
 
         " ----
@@ -323,7 +270,7 @@ in
         set nojoinspaces
 
         " Wrap to 80 characters
-        set textwidth=80
+        set textwidth=100
 
         " Format options (default fo=jcroql)
         " set fo=ca " Auto-wrap comments to textwidth
@@ -433,9 +380,6 @@ in
         endfunction
         command DT call DT()
 
-        " Lower updatetime to make CursorHold more responsive
-        set updatetime=500
-
         " ---------------
         " Annoyance Fixes
         " ---------------
@@ -483,7 +427,6 @@ in
           vim.keymap.set('n', '<leader>/', '<cmd>noh<cr>', { desc = 'Clear Search Highlighting' })
 
           -- Create splits with <leader>s and a direction
-          require'key-menu'.set('n', '<leader>s', { desc = 'Split' })
           vim.keymap.set('n', '<leader>sh', '<cmd>leftabove vnew<cr>', { desc = 'Split Left' })
           vim.keymap.set('n', '<leader>sj', '<cmd>rightbelow new<cr>', { desc = 'Split Below' })
           vim.keymap.set('n', '<leader>sk', '<cmd>leftabove new<cr>', { desc = 'Split Above' })

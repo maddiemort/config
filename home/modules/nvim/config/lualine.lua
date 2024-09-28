@@ -39,7 +39,6 @@ end
 
 require'lualine'.setup {
     options = {
-        theme = onehalf,
         component_separators = {
             left = '',
             right = '',

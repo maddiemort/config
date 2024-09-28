@@ -9,7 +9,7 @@ vim.api.nvim_create_autocmd('ColorScheme', {
     group = colors_group,
     pattern = '*',
     callback = function()
-        vim.cmd('highlight FloatTitle guifg=#abb2bf guibg=NONE')
-        vim.cmd('highlight FloatBorder guifg=#abb2bf guibg=#3e4452')
+        -- This colour is "Surface 0" from Catppuccin Macchiato.
+        vim.api.nvim_set_hl(0, "NormalFloat", { bg = "#363a4f" })
     end,
 })

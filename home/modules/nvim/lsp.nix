@@ -47,15 +47,13 @@ in
       ]);
 
       extraPackages = with pkgs; [
-        # ccls # For C/C++ completions
+        lua-language-server
         nil # NIx Language server
         nixpkgs-fmt # For nil to format stuff
-        texlab # TeX language server
-        # python311Packages.python-lsp-server
-
-        # These cause ghc compilation:
         nodePackages.bash-language-server # Bash language server
-        # shellcheck # For Bash
+        shellcheck # For Bash
+        texlab # TeX language server
+        typst-lsp # Typst language server
       ];
     };
   };
