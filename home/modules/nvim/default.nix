@@ -421,6 +421,45 @@ in
           vim.keymap.set('n', '<leader>p', '"+p', { desc = 'Paste from System' })
           vim.keymap.set('n', '<leader>P', '"+P', { desc = 'Paste Above from System' })
 
+          vim.keymap.set(
+            'n',
+            '<leader>l',
+            [[<cmd>let @+ = expand("%") . ":" . line(".")<cr>]],
+            { desc = 'Copy Current File and Line Number' }
+          )
+          vim.keymap.set(
+            'v',
+            '<leader>l',
+            [[<cmd>let @+ = expand("%") . ":" . line("v") . "-" . line(".")<cr>]],
+            { desc = 'Copy Current File and Range of Lines' }
+          )
+
+          vim.keymap.set(
+            'n',
+            '<leader>hl',
+            [[<cmd>let @+ = expand("%") . " line " . line(".")<cr>]],
+            { desc = 'Copy Human-Readable Current File and Line Number' }
+          )
+          vim.keymap.set(
+            'v',
+            '<leader>hl',
+            [[<cmd>let @+ = expand("%") . " lines " . line("v") . " to " . line(".")<cr>]],
+            { desc = 'Copy Human-Readable Current File and Range of Lines' }
+          )
+
+          vim.keymap.set(
+            'n',
+            '<leader>gl',
+            [[<cmd>let base = system("git remote get-url origin | sed -e's|:|/|' -e 's|git@|https://|' -e 's|.git$||'") | let commit = system("git rev-parse HEAD") | let @+ = trim(base) . "/blob/" . trim(commit) . "/" . expand("%") . "#L" . line(".")<cr>]],
+            { desc = 'Copy GitHub Link to Current File and Line Number' }
+          )
+          vim.keymap.set(
+            'v',
+            '<leader>gl',
+            [[<cmd>let base = system("git remote get-url origin | sed -e's|:|/|' -e 's|git@|https://|' -e 's|.git$||'") | let commit = system("git rev-parse HEAD") | let @+ = trim(base) . "/blob/" . trim(commit) . "/" . expand("%") . "#L" . line("v") . "-L" . line(".")<cr>]],
+            { desc = 'Copy GitHub Link to Current File and Range of Lines' }
+          )
+
           -- Quick switch between the last two buffers using <leader><leader>
           vim.keymap.set('n', '<leader><leader>', '<c-^>', { desc = 'Quick Switch Buffers' })
 
