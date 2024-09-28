@@ -24,9 +24,16 @@ let
   # the moment.
   maddie-ditto = "age1yubikey1qgeyg6v9kch8g0tu05ms05z40lv250eguy0ujep7em4l2hqvrd3uwtjm47u";
 
-  # Keys that should always be able to access every secret, so they can be used 
+  maddie-wtf-c = "age1yubikey1q0cqe58rgzxjaky7nj3gzs6a9eujsu35lkchl9njlep80atwd6w4v3nu7pz";
+  maddie-ditto-c = "age1yubikey1q29q3ykjxvwxv6dmtldkxjuc2c0227x5lsknpvmxxk64nhggxc7dqzpnp0l";
+
+  # Keys that should always be able to access every secret, so they can be used
   # to access and re-encrypt secrets.
-  general = [ maddie-ditto ];
+  general = [
+    maddie-ditto
+    maddie-ditto-c
+    maddie-wtf-c
+  ];
 in
 # Map each secret's `publicKeys` list to a new one that also includes `general`.
 mapAttrs
