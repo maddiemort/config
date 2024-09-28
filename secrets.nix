@@ -11,6 +11,7 @@ let
   secrets = {
     "secrets/ditto-license.age".publicKeys = [ nashira ];
     "secrets/id_ed25519_jj_ditto.age".publicKeys = [ nashira ];
+    "secrets/id_ed25519_jj_wtf.age".publicKeys = [ ];
     "secrets/id_ed25519_sk_maddie_ditto.age".publicKeys = [ nashira ];
     "secrets/quay-email-ditto.age".publicKeys = [ nashira ];
     "secrets/quay-token-ditto.age".publicKeys = [ nashira ];

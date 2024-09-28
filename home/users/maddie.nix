@@ -46,6 +46,7 @@
       allowedSigners = [
         # { email = "me@maddie.wtf"; key = (builtins.readFile ../../keys/maddie-wtf.pub); }
         { email = "me@maddie.wtf"; key = (builtins.readFile ../../keys/maddie-wtf-c.pub); }
+        { email = "me@maddie.wtf"; key = (builtins.readFile ../../keys/maddie-jj-wtf.pub); }
         { email = "maddie@ditto.live"; key = (builtins.readFile ../../keys/maddie-ditto.pub); }
         { email = "maddie@ditto.live"; key = (builtins.readFile ../../keys/maddie-ditto-c.pub); }
         { email = "maddie@ditto.live"; key = (builtins.readFile ../../keys/maddie-jj-ditto.pub); }
