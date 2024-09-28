@@ -29,6 +29,18 @@ symbol = " "
 [elm]
 symbol = " "
 
+[git_branch]
+disabled = true
+
+[git_commit]
+disabled = true
+
+[git_state]
+disabled = true
+
+[git_status]
+disabled = true
+
 [golang]
 symbol = " "
 
@@ -40,6 +52,22 @@ symbol = " "
 
 [java]
 symbol = " "
+
+[jujutsu]
+symbol = "[@](green)"
+template = """
+separate(" ",
+  change_id.shortest(6),
+  branches.map(|x| if(
+    x.name().substr(0, 20).starts_with(x.name()),
+    x.name().substr(0, 20),
+    x.name().substr(0, 19) ++ "…")
+  ).join(" "),
+  commit_id.shortest(6),
+  if(conflict, "conflict"),
+  if(divergent, "divergent"),
+  if(hidden, "hidden"),
+)"""
 
 [julia]
 symbol = " "
