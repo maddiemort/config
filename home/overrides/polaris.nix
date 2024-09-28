@@ -13,10 +13,6 @@
 
   custom = {
     auth = {
-      allowedSigners = [
-        # { email = "me@maddie.wtf"; key = (builtins.readFile ../../keys/maddie-wtf.pub); }
-      ];
-
       publicKeys = [
         { host = "*"; path = "~/.ssh/id_ed25519_sk_maddie_wtf"; }
       ];
