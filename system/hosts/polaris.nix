@@ -46,4 +46,6 @@
       "zulip"
     ];
   };
+
+  system.stateVersion = 5;
 }

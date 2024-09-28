@@ -13,15 +13,15 @@
     path = "/Users/maddie/.ssh/id_ed25519_sk_maddie_ditto";
   };
 
-  # age.secrets.id_ed25519_sk_maddie_wtf = {
-  #   file = ../../secrets/id_ed25519_sk_maddie_wtf.age;
-  #   path = "/Users/maddie/.ssh/id_ed25519_sk_maddie_wtf";
-  # };
+  age.secrets.id_ed25519_sk_maddie_wtf = {
+    file = ../../secrets/id_ed25519_sk_maddie_wtf.age;
+    path = "/Users/maddie/.ssh/id_ed25519_sk_maddie_wtf";
+  };
 
   home = {
     file.".ssh/id_ed25519_jj_ditto.pub".source = ../../keys/maddie-jj-ditto.pub;
     file.".ssh/id_ed25519_sk_maddie_ditto.pub".source = ../../keys/maddie-ditto.pub;
-    # file.".ssh/id_ed25519_sk_maddie_wtf.pub".source = ../../keys/maddie-wtf.pub;
+    file.".ssh/id_ed25519_sk_maddie_wtf.pub".source = ../../keys/maddie-wtf.pub;
   };
 
   custom = {
@@ -33,10 +33,7 @@
 
     git = {
       user = {
-        # Temporarily until the commented key is set up
-        key = "~/.ssh/id_ed25519_sk_maddie_ditto";
-
-        # key = "~/.ssh/id_ed25519_sk_maddie_wtf";
+        key = "~/.ssh/id_ed25519_sk_maddie_wtf";
       };
 
       includes =

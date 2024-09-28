@@ -11,8 +11,6 @@
 
     stateVersion = "22.11";
 
-    # file.".ssh/id_ed25519_sk_maddie_ditto_c.pub".source = ../../keys/maddie-ditto-c.pub;
-
     sessionPath = [
       "$HOME/.cargo/bin"
     ];
@@ -44,7 +42,7 @@
 
     auth = {
       allowedSigners = [
-        # { email = "me@maddie.wtf"; key = (builtins.readFile ../../keys/maddie-wtf.pub); }
+        { email = "me@maddie.wtf"; key = (builtins.readFile ../../keys/maddie-wtf.pub); }
         { email = "me@maddie.wtf"; key = (builtins.readFile ../../keys/maddie-wtf-c.pub); }
         { email = "me@maddie.wtf"; key = (builtins.readFile ../../keys/maddie-jj-wtf.pub); }
         { email = "maddie@ditto.live"; key = (builtins.readFile ../../keys/maddie-ditto.pub); }

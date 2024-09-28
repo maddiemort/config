@@ -38,6 +38,7 @@
       inherit (flake-utils.lib.system) aarch64-darwin x86_64-darwin;
       inherit (inputs.home-manager.lib) homeManagerConfiguration;
       inherit (nix-darwin.lib) darwinSystem;
+      inherit (nixpkgs.lib) optional;
 
       supportedSystems = [ aarch64-darwin x86_64-darwin ];
 
@@ -112,12 +113,8 @@
           modules = [
             inputs.agenix.homeManagerModules.age
             ./home/modules
-          ] ++ (if override != null then [
-            ./home/overrides/${override}.nix
             ./home/users/${username}.nix
-          ] else [
-            ./home/users/${username}.nix
-          ]);
+          ] ++ optional (override != null) ./home/overrides/${override}.nix;
           extraSpecialArgs = {
             inherit pkgsUnstable;
           };
@@ -162,6 +159,7 @@
         polaris = mkDarwin { system = aarch64-darwin; hostname = "polaris"; };
         rigel = mkDarwin { system = x86_64-darwin; hostname = "rigel"; };
       };
+
       overlays = {
         iosevka-custom = (import ./overlays/iosevka-custom.nix);
       };
