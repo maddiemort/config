@@ -37,6 +37,6 @@ require'ibl'.setup {
         char = '│',
         -- Left aligned:
         -- char = '▏',
-        highlight = highlight,
+        -- highlight = highlight,
     },
 }
