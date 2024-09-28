@@ -59,7 +59,7 @@ in
         # python311Packages.python-lsp-server
 
         # These cause ghc compilation:
-        # nodePackages.bash-language-server # Bash language server
+        nodePackages.bash-language-server # Bash language server
         # shellcheck # For Bash
       ];
     };
