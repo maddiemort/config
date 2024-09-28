@@ -28,9 +28,6 @@
 
     systemPackages = (with pkgs; [
       asciiquarium
-      bottom
-      # cargo-about
-      # cargo-deny
       cargo-expand
       cargo-generate
       cargo-modules
@@ -44,13 +41,14 @@
       gh
       glow
       go
-      # gopls
+      gopls
       hyperfine
       jq
       python3
-      # python39Packages.pygments
-      # tectonic
       tokei
+      unzip
+      wget
+      zip
     ]) ++ (with pkgsUnstable; [
       bat
       btop
@@ -74,6 +72,8 @@
     ];
 
     variables = {
+      CURL_CA_BUNDLE = "/etc/ssl/certs/ca-certificates.crt";
+
       TERMINFO_DIRS = [
         "${pkgsUnstable.wezterm.terminfo}/share/terminfo"
       ];
@@ -90,11 +90,10 @@
     casks = [
       "1password"
       "contexts"
+      "discord"
       "firefox@developer-edition"
-      # "gnucash"
-      # "lagrange"
+      "linear-linear"
       "monodraw"
-      # "stolendata-mpv"
       "nordvpn"
       "radio-silence"
       "scroll-reverser"
@@ -109,10 +108,10 @@
     masApps = {
       "Spotica Menu" = 570549457;
       "Tailscale" = 1475387142;
+      "Xcode" = 497799835;
     };
 
     taps = [
-      "homebrew/cask-drivers"
       "homebrew/cask-versions"
       "homebrew/services"
     ];
@@ -155,6 +154,7 @@
     ];
 
     settings = {
+      auto-optimise-store = true;
       extra-experimental-features = "nix-command flakes";
 
       substituters = [
@@ -197,6 +197,11 @@
           set fish_user_paths $fish_user_paths
         '';
     };
+
+    zsh.interactiveShellInit = ''
+      source /Applications/WezTerm.app/Contents/Resources/wezterm.sh
+      export TERM=wezterm
+    '';
   };
 
   services = {

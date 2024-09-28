@@ -1,29 +1,17 @@
 { config
-, lib
 , pkgs
 , pkgsUnstable
 , ...
 }:
 
 {
-  age.secrets.id_ed25519_sk_maddie_ditto = {
-    file = ../../secrets/id_ed25519_sk_maddie_ditto.age;
-    path = "/Users/maddie/.ssh/id_ed25519_sk_maddie_ditto";
-  };
-
-  age.secrets.id_ed25519_jj_ditto = {
-    file = ../../secrets/id_ed25519_jj_ditto.age;
-    path = "/Users/maddie/.ssh/id_ed25519_jj_ditto";
-  };
-
   home = {
     username = "maddie";
     homeDirectory = "/Users/maddie";
 
     stateVersion = "22.11";
 
-    file.".ssh/id_ed25519_sk_maddie_ditto.pub".source = ../../keys/maddie-ditto.pub;
-    file.".ssh/id_ed25519_jj_ditto.pub".source = ../../keys/maddie-jj-ditto.pub;
+    # file.".ssh/id_ed25519_sk_maddie_ditto_c.pub".source = ../../keys/maddie-ditto-c.pub;
 
     sessionPath = [
       "$HOME/.cargo/bin"
@@ -54,39 +42,13 @@
   custom = {
     nvim.enable = true;
 
-    auth = {
-      publicKeys = [
-        { host = "*"; path = "~/.ssh/id_ed25519_sk_maddie_ditto"; }
-      ];
-      allowedSigners = [
-        { email = "maddie@ditto.live"; key = (builtins.readFile ../../keys/maddie-ditto.pub); }
-        { email = "maddie@ditto.live"; key = (builtins.readFile ../../keys/maddie-jj-ditto.pub); }
-      ];
-    };
-
     git = {
       enable = true;
 
       user = {
         name = "Madeleine Mortensen";
         email = "me@maddie.wtf";
-        key = "~/.ssh/id_ed25519_sk_maddie_ditto";
       };
-
-      includes =
-        let
-          ditto-include = pkgs.writeText "config-ditto-include" ''
-            [user]
-                email = "maddie@ditto.live"
-                signingkey = "~/.ssh/id_ed25519_sk_maddie_ditto"
-          '';
-        in
-        [
-          {
-            condition = "gitdir:~/src/github.com/getditto/";
-            path = ditto-include;
-          }
-        ];
     };
   };
 

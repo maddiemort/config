@@ -35,11 +35,11 @@
     } @ inputs:
     let
       inherit (flake-utils.lib) eachSystem;
-      inherit (flake-utils.lib.system) aarch64-darwin;
+      inherit (flake-utils.lib.system) aarch64-darwin x86_64-darwin;
       inherit (inputs.home-manager.lib) homeManagerConfiguration;
       inherit (nix-darwin.lib) darwinSystem;
 
-      supportedSystems = [ aarch64-darwin ];
+      supportedSystems = [ aarch64-darwin x86_64-darwin ];
 
       mkOverlays = system: [
         inputs.agenix.overlays.default
@@ -65,9 +65,8 @@
       stableFor = system: pkgsFor system nixpkgs (mkOverlays system);
       unstableFor = system: pkgsFor system nixpkgs-unstable (mkOverlays system);
 
-      mkDarwin = hostname:
+      mkDarwin = { system, hostname }:
         let
-          system = aarch64-darwin;
           pkgs = stableFor system;
           pkgsUnstable = unstableFor system;
         in
@@ -83,9 +82,8 @@
           };
         };
 
-      mkHome = username:
+      mkHome = { system, username, override ? null }:
         let
-          system = aarch64-darwin;
           pkgs = stableFor system;
           pkgsUnstable = unstableFor system;
         in
@@ -94,8 +92,12 @@
           modules = [
             inputs.agenix.homeManagerModules.age
             ./home/modules
+          ] ++ (if override != null then [
+            ./home/overrides/${override}.nix
             ./home/users/${username}.nix
-          ];
+          ] else [
+            ./home/users/${username}.nix
+          ]);
           extraSpecialArgs = {
             inherit pkgsUnstable;
           };
@@ -121,16 +123,24 @@
 
       legacyPackages = {
         homeConfigurations = {
-          maddie = mkHome "maddie";
+          maddie-betelgeuse = mkHome { inherit system; username = "maddie"; override = "betelgeuse"; };
+          maddie-nashira = mkHome { inherit system; username = "maddie"; override = "nashira"; };
+          maddie-polaris = mkHome { inherit system; username = "maddie"; override = "polaris"; };
+          maddie-rigel = mkHome { inherit system; username = "maddie"; override = "rigel"; };
         };
       };
 
       packages = {
-        neovim = self.legacyPackages.${system}.homeConfigurations.maddie.config.programs.neovim.finalPackage;
+        # neovim =
+        #   let maddie = mkHome { inherit system; username = "maddie"; };
+        #   in maddie.config.programs.neovim.finalPackage;
       };
     })) // {
       darwinConfigurations = {
-        nashira = mkDarwin "nashira";
+        betelgeuse = mkDarwin { system = aarch64-darwin; hostname = "betelgeuse"; };
+        nashira = mkDarwin { system = aarch64-darwin; hostname = "nashira"; };
+        polaris = mkDarwin { system = aarch64-darwin; hostname = "polaris"; };
+        rigel = mkDarwin { system = x86_64-darwin; hostname = "rigel"; };
       };
       overlays = {
         iosevka-custom = (import ./overlays/iosevka-custom.nix);

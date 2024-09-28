@@ -12,7 +12,7 @@ let
 in
 {
   options.custom.auth = with lib; {
-    publicKeys = mkOption rec {
+    publicKeys = mkOption {
       description = ''
         A list of the user's SSH public key(s), optionally paired with an SSH 
         host match declaration to use for each key.
@@ -35,7 +35,7 @@ in
       default = [ ];
     };
 
-    allowedSigners = mkOption rec {
+    allowedSigners = mkOption {
       description = ''
         List of SSH keys that should be considered as valid when used to sign 
         Git commits.
@@ -90,5 +90,9 @@ in
         };
       })
     ];
+
+    programs.ssh.extraConfig = ''
+      SetEnv TERM=xterm-256color
+    '';
   };
 }

@@ -59,7 +59,6 @@
       # "insomnia"
       "docker"
       "jetbrains-toolbox"
-      "linear-linear"
       "loom"
       "notion"
       "obs"
@@ -68,10 +67,6 @@
       # "zoom" # installed automatically by Pixel
       "zulip"
     ];
-
-    masApps = {
-      "Xcode" = 497799835;
-    };
   };
 
   system.stateVersion = 5;
