@@ -153,8 +153,9 @@
       "darwin=/etc/nix/inputs/darwin"
     ];
 
+    optimise.automatic = true;
+
     settings = {
-      auto-optimise-store = true;
       extra-experimental-features = "nix-command flakes";
 
       substituters = [
