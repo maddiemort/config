@@ -148,9 +148,9 @@
       };
 
       packages = {
-        # neovim =
-        #   let maddie = mkHome { inherit system; username = "maddie"; };
-        #   in maddie.config.programs.neovim.finalPackage;
+        neovim =
+          let maddie = mkHome { inherit system; username = "maddie"; };
+          in maddie.config.programs.neovim.finalPackage;
       };
     })) // {
       darwinConfigurations = {
