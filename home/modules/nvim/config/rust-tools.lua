@@ -40,6 +40,9 @@ require('rust-tools').setup({
                     importEnforceGranularity = true,
                     importPrefix = "crate",
                 },
+                -- cargo = {
+                --     allFeatures = true,
+                -- },
                 checkOnSave = {
                     command = "clippy",
                 },

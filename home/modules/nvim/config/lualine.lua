@@ -1,14 +1,6 @@
 vim.opt.showmode = false
 
-local onehalf = require'lualine.themes.onedark'
 local git_blame = require'gitblame'
-
-local colors = {
-    fg = '#dcdfe4',
-}
-
-onehalf.normal.b.fg = colors.fg
-onehalf.normal.c.fg = colors.fg
 
 function blame_components()
     local components = {}
@@ -47,7 +39,7 @@ require'lualine'.setup {
             left = '',
             right = '',
         },
-        globalstatus = true,
+        -- globalstatus = true,
     },
     sections = {
         lualine_a = {

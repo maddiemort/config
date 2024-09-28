@@ -116,43 +116,37 @@
           ${pkgs.fastfetch}/bin/fastfetch
         end
 
-        # onehalf theme
-        set -l red e06c75 #e06c75
-        set -l green 98c379 #98c379
-        set -l yellow e5c07b #e5c07b
-        set -l blue 61afef #61afef
-        set -l purple c678dd #c678dd
-        set -l cyan 56b6c2 #56b6c2
-
-        set -l black 282c34 #282c34
-        set -l grey 383e49 #383e49
-        set -l white dcdfe4 #dcdfe4
-
-        set --universal fish_color_normal $white
-        set --universal fish_color_command $purple
-        set --universal fish_color_keyword $yellow
-        set --universal fish_color_quote $green
-        set --universal fish_color_redirection $white
-        set --universal fish_color_end $yellow
-        set --universal fish_color_error $red
-        set --universal fish_color_param $blue
-        set --universal fish_color_comment $grey
-        set --universal fish_color_selection --background=$grey
-        set --universal fish_color_search_match --background=$grey
-        set --universal fish_color_operator $green
-        set --universal fish_color_escape $cyan
-        set --universal fish_color_autosuggestion $grey
-        set --universal fish_color_cwd $green
-        set --universal fish_color_cwd_root $red
-        set --universal fish_color_cancel --background=$grey
+        # catppuccin macchiato theme
+        set -l red ed8796 #ed8796
+        set -l green a6da95 #a6da95
+        set -l yellow eed49f #eed49f
+        set -l blue 8aadf4 #8aadf4
+        set -l purple c6a0f6 #c6a0f6
+        set -l cyan 8bd5ca #8bd5ca
+        set -l black 1e2030 #1e2030
+        set -l grey 5b6078 #5b6078
+        set -l white cad3f5 #cad3f5
+        set -g fish_color_normal $white
+        set -g fish_color_command $purple
+        set -g fish_color_keyword $yellow
+        set -g fish_color_quote $green
+        set -g fish_color_redirection $white
+        set -g fish_color_error $red
+        set -g fish_color_param $blue
+        set -g fish_color_comment $grey
+        set -g fish_color_selection --background=$grey
+        set -g fish_color_search_match --background=$grey
+        set -g fish_color_operator $green
+        set -g fish_color_escape $cyan
+        set -g fish_color_autosuggestion $grey
+        set -g fish_color_cancel --background=$grey
 
         # Completion Pager Colors
-        set --universal fish_pager_color_progress $grey
-        set --universal fish_pager_color_prefix $cyan
-        set --universal fish_pager_color_completion $white
-        set --universal fish_pager_color_description $grey
-        set --universal fish_pager_color_background --background=$grey
-        set --universal fish_pager_color_selected_background --background=$grey
+        set -g fish_pager_color_progress $grey
+        set -g fish_pager_color_prefix $cyan
+        set -g fish_pager_color_completion $white
+        set -g fish_pager_color_description $grey
+        set -g fish_pager_color_selected_background --background=$grey
       '';
 
       shellAbbrs = {
@@ -317,7 +311,7 @@
             }
           end
           return tab.active_pane.title
-          end)
+        end)
 
         wezterm.on('gui-attached', function(domain)
           -- maximize all displayed windows on startup
@@ -330,7 +324,7 @@
         end)
 
         return {
-          color_scheme = "OneDark (base16)",
+          color_scheme = "Catppuccin Macchiato",
           font = wezterm.font("Iosevka Custom", { weight = "Light" }),
           enable_scroll_bar = true,
 
@@ -357,9 +351,9 @@
 
           font_size = 16.0,
           window_decorations = "RESIZE",
+          native_macos_fullscreen_mode = false,
           send_composed_key_when_left_alt_is_pressed = true,
           send_composed_key_when_right_alt_is_pressed = false,
-          native_macos_fullscreen_mode = false,
         }
       '';
     };
