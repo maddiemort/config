@@ -39,7 +39,7 @@ require'lualine'.setup {
             left = '',
             right = '',
         },
-        -- globalstatus = true,
+        globalstatus = true,
     },
     sections = {
         lualine_a = {
