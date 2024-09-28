@@ -99,7 +99,7 @@ in
         pager.branch = false;
         rerere.enabled = true;
         init.defaultBranch = "main";
-        core.excludesFile = "/etc/gitignore";
+        core.excludesFile = "~/.config/git/ignore";
 
         merge.conflictStyle = "zdiff3";
 

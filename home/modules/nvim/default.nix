@@ -19,13 +19,7 @@ let
     config = builtins.readFile configPath;
   };
 
-  vimPlugin = plugin: configPath: {
-    inherit plugin;
-    type = "viml";
-    config = builtins.readFile configPath;
-  };
-
-  inherit (lib) mkIf mkOverride optionals;
+  inherit (lib) mkIf;
 in
 {
   imports = [
