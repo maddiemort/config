@@ -8,15 +8,15 @@
     path = "/Users/maddie/.ssh/id_ed25519_jj_ditto";
   };
 
-  # age.secrets.id_ed25519_sk_maddie_ditto_c = {
-  #   file = ../../secrets/id_ed25519_sk_maddie_ditto_c.age;
-  #   path = "/Users/maddie/.ssh/id_ed25519_sk_maddie_ditto_c";
-  # };
+  age.secrets.id_ed25519_sk_maddie_ditto_c = {
+    file = ../../secrets/id_ed25519_sk_maddie_ditto_c.age;
+    path = "/Users/maddie/.ssh/id_ed25519_sk_maddie_ditto_c";
+  };
 
-  # age.secrets.id_ed25519_sk_maddie_wtf_c = {
-  #   file = ../../secrets/id_ed25519_sk_maddie_wtf_c.age;
-  #   path = "/Users/maddie/.ssh/id_ed25519_sk_maddie_wtf_c";
-  # };
+  age.secrets.id_ed25519_sk_maddie_wtf_c = {
+    file = ../../secrets/id_ed25519_sk_maddie_wtf_c.age;
+    path = "/Users/maddie/.ssh/id_ed25519_sk_maddie_wtf_c";
+  };
 
   home = {
     file.".ssh/id_ed25519_jj_ditto.pub".source = ../../keys/maddie-jj-ditto.pub;
