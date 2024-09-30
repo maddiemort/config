@@ -70,7 +70,6 @@ in
         vim-toml
         vimtex
 
-        (luaPlugin catppuccin-vim ./config/catppuccin.lua)
         (luaPlugin dressing-nvim ./config/dressing.lua)
         (luaPlugin formatter-nvim ./config/formatter.lua)
         (luaPlugin git-blame-nvim ./config/git-blame.lua)
@@ -81,6 +80,8 @@ in
         (luaPlugin vim-gitgutter ./config/gitgutter.lua)
         (luaPlugin vim-rooter ./config/rooter.lua)
         (luaPluginInline nvim-colorizer-lua "require'colorizer'.setup {}")
+
+        (luaPlugin catppuccin-vim ./config/catppuccin.lua)
       ]);
 
       extraPackages = with pkgs; [
