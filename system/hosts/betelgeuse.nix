@@ -8,6 +8,7 @@
     systemPackages = (with pkgs; [
       jdk17
       pandoc
+      postgresql_15
       python39Packages.pygments
     ]) ++ (with pkgsUnstable; [
       catgirl
