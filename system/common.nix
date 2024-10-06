@@ -52,6 +52,7 @@
     ]) ++ (with pkgsUnstable; [
       bat
       btop
+      carapace
       direnv
       eza
       fd

@@ -39,7 +39,6 @@
       tlaplus18
     ]) ++ (with pkgsUnstable; [
       cachix
-      carapace
     ]);
 
     systemPath = [
