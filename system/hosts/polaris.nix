@@ -9,6 +9,7 @@
       # jdk17
       jdk21
       pandoc
+      postgresql_15
       python39Packages.pygments
     ]) ++ (with pkgsUnstable; [
       catgirl
