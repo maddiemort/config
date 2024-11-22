@@ -27,7 +27,7 @@
     ];
 
     systemPackages = (with pkgs; [
-      asciiquarium
+      asciiquarium-transparent
       cargo-expand
       cargo-generate
       cargo-modules
