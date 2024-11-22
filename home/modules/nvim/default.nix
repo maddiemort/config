@@ -283,6 +283,7 @@ in
 
         " Enable mouse usage (all modes) in terminals
         set mouse=a
+        set mousescroll=ver:1,hor:6
 
         " ------------
         " Text Display
