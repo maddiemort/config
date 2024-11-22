@@ -61,6 +61,7 @@ in
         telescope-fzf-native-nvim
         typst-vim
         vim-glsl
+        vim-graphql
         vim-highlightedyank
         vim-javascript
         vim-jsonnet
