@@ -209,9 +209,6 @@
   };
 
   services = {
-    # Recreate /run/current-system symlink after boot
-    activate-system.enable = true;
-
     nix-daemon.enable = true;
   };
 
