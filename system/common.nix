@@ -94,6 +94,8 @@
       "discord"
       "firefox@developer-edition"
       "linear-linear"
+      "linearmouse"
+      "logi-options+"
       "monodraw"
       "nordvpn"
       "radio-silence"
