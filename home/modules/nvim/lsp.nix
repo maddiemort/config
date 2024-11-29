@@ -39,10 +39,10 @@ in
         luasnip
 
         (luaPlugin fidget-nvim ./config/fidget.lua)
-        (luaPlugin nvim-cmp ./config/nvim-cmp.lua)
         (luaPlugin nvim-lspconfig ./config/lspconfig.lua)
         (luaPlugin vim-illuminate ./config/illuminate.lua)
       ]) ++ (with pkgsUnstable.vimPlugins; [
+        (luaPlugin nvim-cmp ./config/nvim-cmp.lua)
         (luaPlugin rust-tools-nvim ./config/rust-tools.lua)
       ]);
 
