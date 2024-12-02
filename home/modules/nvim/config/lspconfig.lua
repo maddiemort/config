@@ -9,6 +9,10 @@ for type, icon in pairs(signs) do
     vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
 end
 
+-- parameter hints: "› "
+-- other hints: "» "
+vim.fn.sign_define("LspInlayHint", { text = "» ", texthl = "LspInlayHint", numhl = "LspInlayHint" })
+
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
     vim.lsp.diagnostic.on_publish_diagnostics,
     {

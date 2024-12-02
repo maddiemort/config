@@ -43,7 +43,7 @@ in
         (luaPlugin vim-illuminate ./config/illuminate.lua)
       ]) ++ (with pkgsUnstable.vimPlugins; [
         (luaPlugin nvim-cmp ./config/nvim-cmp.lua)
-        (luaPlugin rust-tools-nvim ./config/rust-tools.lua)
+        (luaPlugin rustaceanvim ./config/rustaceanvim.lua)
       ]);
 
       extraPackages = with pkgs; [
