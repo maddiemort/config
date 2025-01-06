@@ -9,12 +9,4 @@ vim.api.nvim_create_autocmd({ 'BufNewFile', 'BufRead' }, {
     end,
 })
 
-vim.api.nvim_create_autocmd({ 'BufNewFile', 'BufRead' }, {
-    group = id,
-    pattern = '*.rs',
-    callback = function()
-        vim.opt_local.textwidth = 100
-    end,
-})
-
 vim.cmd('highlight rustSelf ctermfg=38 guifg=#56B6C2 gui=italic')

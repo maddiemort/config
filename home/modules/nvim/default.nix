@@ -271,7 +271,7 @@ in
         " Don't insert two spaces after certain characters when using a join command
         set nojoinspaces
 
-        " Wrap to 80 characters
+        " Wrap to 100 characters
         set textwidth=100
 
         " Format options (default fo=jcroql)
