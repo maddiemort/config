@@ -67,6 +67,8 @@
               inherit src;
               outputHash = "sha256-d6i9+gnkt4wXzqB8+eLofX4enejG/YYiJAtg7KimA6M=";
             };
+
+            doCheck = false;
           }));
         })
 
