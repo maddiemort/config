@@ -38,7 +38,7 @@ in
         lspkind-nvim
         luasnip
 
-        (luaPlugin fidget-nvim ./config/fidget.lua)
+        # (luaPlugin fidget-nvim ./config/fidget.lua)
         (luaPlugin nvim-lspconfig ./config/lspconfig.lua)
         (luaPlugin vim-illuminate ./config/illuminate.lua)
       ]) ++ (with pkgsUnstable.vimPlugins; [
