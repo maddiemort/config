@@ -63,6 +63,7 @@
       "obs"
       # "slack" # installed automatically by Pixel
       "tla+-toolbox"
+      "zed@preview"
       # "zoom" # installed automatically by Pixel
       "zulip"
     ];
