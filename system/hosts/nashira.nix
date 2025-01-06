@@ -50,6 +50,7 @@
     brews = [
       # "ios-deploy"
       # "libimobiledevice"
+      "sourcekitten"
       "swiftlint"
     ];
 
