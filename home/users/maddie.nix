@@ -19,6 +19,7 @@
       CLICOLOR = 1;
       LANG = "en_GB.UTF-8";
       LESS = "R";
+      # EDITOR = "hx";
     };
 
     file.".indentconfig.yaml".text = ''
@@ -38,7 +39,10 @@
   };
 
   custom = {
-    nvim.enable = true;
+    nvim = {
+      enable = true;
+      defaultEditor = true;
+    };
 
     auth = {
       allowedSigners = [
