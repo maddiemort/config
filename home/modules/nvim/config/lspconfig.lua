@@ -48,18 +48,29 @@ vim.api.nvim_create_autocmd('ColorScheme', {
 })
 
 -- Code navigation shortcuts
-vim.keymap.set('n', 'K', vim.lsp.buf.hover, { desc = 'Documentation' })
-vim.keymap.set('n', 'gr', vim.lsp.buf.rename, { desc = 'Rename' })
-vim.keymap.set('n', 'ga', vim.lsp.buf.code_action, { desc = 'Code Actions' })
+vim.keymap.set('n', '<leader>k', vim.lsp.buf.hover, { desc = 'Documentation' })
+vim.keymap.set('n', '<leader>r', vim.lsp.buf.rename, { desc = 'Rename' })
+vim.keymap.set('n', '<leader>a', vim.lsp.buf.code_action, { desc = 'Code Actions' })
+
+vim.api.nvim_create_autocmd('LspAttach', {
+    callback = function(ev)
+        vim.keymap.del('n', 'K', { buffer = ev.buf })
+    end,
+})
 
 -- Map shortcuts for telescope LSP pickers
-vim.keymap.set('n', 'gd', '<cmd>Telescope lsp_definitions<cr>', { desc = 'Definition' })
-vim.keymap.set('n', 'gi', '<cmd>Telescope lsp_implementations<cr>', { desc = 'Implementations' })
-vim.keymap.set('n', 'gu', '<cmd>Telescope lsp_references<cr>', { desc = 'References' })
-vim.keymap.set('n', 'gD', '<cmd>Telescope lsp_type_definitions<cr>', { desc = 'Type Definitions' })
-vim.keymap.set('n', 'g0', '<cmd>Telescope lsp_document_symbols<cr>', { desc = 'Document Symbols' })
-vim.keymap.set('n', 'gW', '<cmd>Telescope lsp_workspace_symbols<cr>', { desc = 'LSP Workspace Symbols' })
-vim.keymap.set('n', '<leader>d', '<cmd>Telescope diagnostics<cr>', { desc = 'Diagnostics' })
+vim.keymap.set('n', 'gd', '<cmd>Telescope lsp_definitions<cr>', { desc = 'Goto Definition' })
+vim.keymap.set('n', 'gi', '<cmd>Telescope lsp_implementations<cr>', { desc = 'Goto Implementations' })
+vim.keymap.set('n', 'gr', '<cmd>Telescope lsp_references<cr>', { desc = 'Goto References' })
+vim.keymap.set('n', 'gy', '<cmd>Telescope lsp_type_definitions<cr>', { desc = 'Goto Type Definition' })
+vim.keymap.set('n', '<leader>d', '<cmd>Telescope diagnostics bufnr=0<cr>', { desc = 'Document Diagnostics' })
+vim.keymap.set('n', '<leader>e', '<cmd>Telescope diagnostics bufnr=0 severity_limit=1<cr>', { desc = 'Document Errors' })
+vim.keymap.set('n', '<leader>w', '<cmd>Telescope diagnostics bufnr=0 severity_limit=2<cr>', { desc = 'Document Warnings/Errors' })
+vim.keymap.set('n', '<leader>D', '<cmd>Telescope diagnostics<cr>', { desc = 'Workspace Diagnostics' })
+vim.keymap.set('n', '<leader>E', '<cmd>Telescope diagnostics severity_limit=1<cr>', { desc = 'Document Errors' })
+vim.keymap.set('n', '<leader>W', '<cmd>Telescope diagnostics severity_limit=2<cr>', { desc = 'Document Warnings/Errors' })
+vim.keymap.set('n', '<leader>s', '<cmd>Telescope lsp_document_symbols<cr>', { desc = 'Document Symbols' })
+vim.keymap.set('n', '<leader>S', '<cmd>Telescope lsp_workspace_symbols<cr>', { desc = 'Workspace Symbols' })
 
 lspconfig.bashls.setup {}
 
