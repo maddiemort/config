@@ -44,6 +44,7 @@
       gopls
       hyperfine
       jq
+      k2pdfopt
       python3
       tokei
       unzip
