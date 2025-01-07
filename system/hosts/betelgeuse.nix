@@ -33,6 +33,7 @@
       "lagrange"
       "obs"
       "prismlauncher"
+      "radio-silence"
       "skim"
       "splice"
       "steam"

@@ -99,7 +99,6 @@
       "logi-options+"
       "monodraw"
       "nordvpn"
-      "radio-silence"
       "scroll-reverser"
       "spotify"
       "wezterm@nightly"
