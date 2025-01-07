@@ -233,6 +233,23 @@
         delete-branches = "git branch | rg -v '\*' | cut -c 3- | fzf --multi --preview='git hist {}' | xargs git branch --delete --force";
       };
     };
+
+    helix = {
+      enable = true;
+      package = pkgsUnstable.helix;
+      settings = {
+        theme = "catppuccin_macchiato";
+        editor.cursor-shape = {
+          normal = "block";
+          insert = "bar";
+          select = "block";
+        };
+        editor.end-of-line-diagnostics = "hint";
+        editor.inline-diagnostics = {
+          cursor-line = "error";
+        };
+      };
+    };
   };
 
   xdg = {
