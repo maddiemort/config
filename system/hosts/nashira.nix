@@ -64,6 +64,7 @@
       "obs"
       # "slack" # installed automatically by Pixel
       "tla+-toolbox"
+      "visual-studio-code"
       "zed@preview"
       # "zoom" # installed automatically by Pixel
       "zulip"
