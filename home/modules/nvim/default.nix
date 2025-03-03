@@ -54,6 +54,7 @@ in
       plugins = (with pkgs.vimPlugins; [
         haskell-vim
         kotlin-vim
+        nvim-notify
         plenary-nvim
         swift-vim
         telescope-file-browser-nvim
@@ -75,7 +76,6 @@ in
         (luaPlugin git-blame-nvim ./config/git-blame.lua)
         (luaPlugin indent-blankline-nvim ./config/indent-blankline.lua)
         (luaPlugin lualine-nvim ./config/lualine.lua)
-        (luaPlugin noice-nvim ./config/noice.lua)
         (luaPlugin rust-vim ./config/rust.lua)
         (luaPlugin telescope-nvim ./config/telescope.lua)
         (luaPlugin vim-gitgutter ./config/gitgutter.lua)

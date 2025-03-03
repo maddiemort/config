@@ -1,4 +1,5 @@
 local lspconfig = require'lspconfig'
+local notify = require'notify'
 
 -- Override the default signs shown in the signcolumn for each type of 
 -- diagnostic.
@@ -18,6 +19,20 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
         severity_sort = true,
     }
 )
+
+vim.lsp.handlers['window/showMessage'] = function(_, result, ctx)
+    local client = vim.lsp.get_client_by_id(ctx.client_id)
+    local lvl = ({ 'ERROR', 'WARN', 'INFO', 'DEBUG' })[result.type]
+    notify(result.message, lvl, {
+        title = 'LSP | ' .. client.name,
+        -- timeout = 10000,
+        keep = function()
+            return lvl == 'ERROR' or lvl == 'WARN'
+        end,
+    })
+end
+
+vim.notify = notify
 
 vim.lsp.handlers["textDocument/hover"] = function(_, result, ctx, config)
     config = config or {}
