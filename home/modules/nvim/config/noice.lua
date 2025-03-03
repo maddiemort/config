@@ -8,15 +8,6 @@ require'noice'.setup {
     },
     cmdline = {
         view = "cmdline",
-        format = {
-            cmdline = { pattern = "^:", conceal = false, icon = false, lang = "vim" },
-            search_down = { kind = "search", pattern = "^/", conceal = false, icon = false, lang = "regex" },
-            search_up = { kind = "search", pattern = "^%?", conceal = false, icon = false, lang = "regex" },
-            filter = { pattern = "^:%s*!", conceal = false, icon = false, lang = "bash" },
-            lua = { pattern = { "^:%s*lua%s+", "^:%s*lua%s*=%s*", "^:%s*=%s*" }, conceal = false, icon = false, lang = "lua" },
-            help = false,
-            input = false,
-        },
     },
     presets = {
         bottom_search = true,
