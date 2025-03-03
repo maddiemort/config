@@ -189,7 +189,7 @@ vim.diagnostic.config({
     },
 })
 
-lspconfig.typst_lsp.setup {
+lspconfig.tinymist.setup {
     settings = {
         exportPdf = "onSave",
     }

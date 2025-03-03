@@ -1,6 +1,5 @@
 { config
 , lib
-, pkgs
 , pkgsUnstable
 , ...
 }:
@@ -29,7 +28,7 @@ in
 
   config = mkIf (parent.enable && cfg.enable) {
     programs.neovim = {
-      plugins = (with pkgs.vimPlugins; [
+      plugins = (with pkgsUnstable.vimPlugins; [
         cmp-cmdline
         cmp-fuzzy-path
         cmp-nvim-lsp
@@ -39,21 +38,20 @@ in
         luasnip
 
         (luaPlugin fidget-nvim ./config/fidget.lua)
-        (luaPlugin nvim-lspconfig ./config/lspconfig.lua)
-        (luaPlugin vim-illuminate ./config/illuminate.lua)
-      ]) ++ (with pkgsUnstable.vimPlugins; [
         (luaPlugin nvim-cmp ./config/nvim-cmp.lua)
+        (luaPlugin nvim-lspconfig ./config/lspconfig.lua)
         (luaPlugin rustaceanvim ./config/rustaceanvim.lua)
+        (luaPlugin vim-illuminate ./config/illuminate.lua)
       ]);
 
-      extraPackages = with pkgs; [
+      extraPackages = with pkgsUnstable; [
         lua-language-server
         nil # NIx Language server
         nixpkgs-fmt # For nil to format stuff
         nodePackages.bash-language-server # Bash language server
         shellcheck # For Bash
         texlab # TeX language server
-        typst-lsp # Typst language server
+        tinymist # Typst language server
       ];
     };
   };

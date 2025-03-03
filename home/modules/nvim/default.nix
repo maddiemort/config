@@ -51,10 +51,11 @@ in
       inherit (cfg) enable;
       package = pkgsUnstable.neovim-unwrapped;
 
-      plugins = (with pkgs.vimPlugins; [
+      plugins = (with pkgsUnstable.vimPlugins; [
         haskell-vim
         kotlin-vim
         nvim-notify
+        nvim-treesitter.withAllGrammars
         plenary-nvim
         swift-vim
         telescope-file-browser-nvim
@@ -71,6 +72,7 @@ in
         vim-toml
         vimtex
 
+        (luaPlugin catppuccin-vim ./config/catppuccin.lua)
         (luaPlugin dressing-nvim ./config/dressing.lua)
         (luaPlugin formatter-nvim ./config/formatter.lua)
         (luaPlugin git-blame-nvim ./config/git-blame.lua)
@@ -81,8 +83,6 @@ in
         (luaPlugin vim-gitgutter ./config/gitgutter.lua)
         (luaPlugin vim-rooter ./config/rooter.lua)
         (luaPluginInline nvim-colorizer-lua "require'colorizer'.setup {}")
-
-        (luaPlugin catppuccin-vim ./config/catppuccin.lua)
       ]);
 
       extraPackages = with pkgs; [

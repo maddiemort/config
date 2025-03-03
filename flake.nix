@@ -23,6 +23,9 @@
     jj.url = "github:maddiemort/jj/openssh-and-mailmap";
     jj.inputs.flake-utils.follows = "flake-utils";
     jj.inputs.nixpkgs.follows = "nixpkgs";
+
+    neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay/master";
+    neovim-nightly-overlay.inputs.nixpkgs.follows = "nixpkgs-unstable";
   };
 
   outputs =
@@ -80,13 +83,17 @@
         self.overlays.iosevka-custom
       ];
 
+      mkUnstableOverlays = system: [
+        inputs.neovim-nightly-overlay.overlays.default
+      ] ++ mkOverlays system;
+
       pkgsFor = system: channel: overlays: import channel {
         inherit system overlays;
         config.allowUnfree = true;
       };
 
       stableFor = system: pkgsFor system nixpkgs (mkOverlays system);
-      unstableFor = system: pkgsFor system nixpkgs-unstable (mkOverlays system);
+      unstableFor = system: pkgsFor system nixpkgs-unstable (mkUnstableOverlays system);
 
       mkDarwin = { system, hostname }:
         let
