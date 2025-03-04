@@ -14,6 +14,7 @@ vim.g.rustaceanvim = {
     tools = {
     },
     server = {
+        cmd = { '/run/current-system/sw/bin/rust-analyzer' },
         capabilities = capabilities,
         on_attach = function(client, bufnr)
             vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
