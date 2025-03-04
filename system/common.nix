@@ -129,9 +129,6 @@
   };
 
   nix = {
-    # Auto manage nixbld users with nix darwin.
-    configureBuildUsers = true;
-
     extraOptions = ''
       min-free = 536870912
       keep-outputs = true
@@ -206,10 +203,6 @@
       source /Applications/WezTerm.app/Contents/Resources/wezterm.sh
       export TERM=wezterm
     '';
-  };
-
-  services = {
-    nix-daemon.enable = true;
   };
 
   system = {

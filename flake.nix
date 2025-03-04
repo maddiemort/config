@@ -6,13 +6,13 @@
   inputs = {
     flake-utils.url = "github:numtide/flake-utils/main";
 
-    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-24.05-darwin";
+    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-24.11-darwin";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
 
-    nix-darwin.url = "github:LnL7/nix-darwin/master";
+    nix-darwin.url = "github:LnL7/nix-darwin/nix-darwin-24.11";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
 
-    home-manager.url = "github:nix-community/home-manager/release-24.05";
+    home-manager.url = "github:nix-community/home-manager/release-24.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     agenix.url = "github:ryantm/agenix/main";
@@ -22,7 +22,6 @@
 
     jj.url = "github:maddiemort/jj/openssh-and-mailmap";
     jj.inputs.flake-utils.follows = "flake-utils";
-    jj.inputs.nixpkgs.follows = "nixpkgs";
 
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay/master";
     neovim-nightly-overlay.inputs.nixpkgs.follows = "nixpkgs-unstable";
@@ -68,7 +67,7 @@
 
             cargoDeps = old.cargoDeps.overrideAttrs {
               inherit src;
-              outputHash = "sha256-d6i9+gnkt4wXzqB8+eLofX4enejG/YYiJAtg7KimA6M=";
+              outputHash = "sha256-h4/q4psYU+9UxHbLnRj64JzH33kJoyV8R6UWgHZqbmM=";
             };
 
             doCheck = false;

@@ -93,14 +93,17 @@ final: prev: {
         "ltgt-diamond",
         "ltgt-slash-tag",
         "slash-asterisk",
-        "plusplus",
+        "plus-plus",
+        "plus-plus-plus",
         "kern-dotty",
         "kern-bars",
         "logic",
         "llggeq",
         "html-comment",
-        "connected-number-sign",
-        "connected-tilde-as-wave",
+        "hash-hash",
+        "hash-hash-hash",
+        "tilde-tilde",
+        "tilde-tilde-tilde",
       ]
       disables = [
         "center-op-trigger-plus-minus-l",
@@ -118,8 +121,10 @@ final: prev: {
         "colon-greater-as-colon-arrow",
         "brace-bar",
         "brack-bar",
-        "connected-underscore",
-        "connected-hyphen",
+        "underscore-underscore",
+        "underscore-underscore-underscore",
+        "minus-minus",
+        "minus-minus-minus",
       ]
 
       [buildPlans.IosevkaCustom.widths.Normal]
