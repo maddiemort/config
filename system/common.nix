@@ -61,7 +61,7 @@
       jujutsu
       openssh
       ripgrep
-      rust-analyzer
+      rustup
       sd
       tailscale
       yubikey-manager

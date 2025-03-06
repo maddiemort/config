@@ -8,6 +8,11 @@ let
   cfg = config.custom.nvim.lsp;
   parent = config.custom.nvim;
 
+  luaPluginInline = plugin: config: {
+    inherit plugin config;
+    type = "lua";
+  };
+
   luaPlugin = plugin: configPath: {
     inherit plugin;
     type = "lua";
@@ -40,8 +45,71 @@ in
         (luaPlugin fidget-nvim ./config/fidget.lua)
         (luaPlugin nvim-cmp ./config/nvim-cmp.lua)
         (luaPlugin nvim-lspconfig ./config/lspconfig.lua)
-        (luaPlugin rustaceanvim ./config/rustaceanvim.lua)
         (luaPlugin vim-illuminate ./config/illuminate.lua)
+
+        (luaPluginInline rustaceanvim ''
+          local cmp_lsp = require'cmp_nvim_lsp'
+          local capabilities = cmp_lsp.default_capabilities()
+          
+          local inlay_group = vim.api.nvim_create_augroup('inlay_highlight', {})
+          vim.api.nvim_create_autocmd('ColorScheme', {
+            group = inlay_group,
+            pattern = '*',
+            callback = function()
+              vim.cmd('highlight! LspInlayHint ctermfg=59 guifg=#5c6370 gui=italic')
+            end,
+          })
+          
+          vim.g.rustaceanvim = {
+            tools = {
+            },
+            server = {
+              cmd = { '${pkgsUnstable.rust-analyzer}/bin/rust-analyzer' },
+              capabilities = capabilities,
+              on_attach = function(client, bufnr)
+                vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+              end,
+              default_settings = {
+                ['rust-analyzer'] = {
+                  assist = {
+                    importEnforceGranularity = true,
+                    importPrefix = "crate",
+                  },
+                  -- cargo = {
+                  --   allFeatures = true,
+                  -- },
+                  -- checkOnSave = {
+                  --   command = "clippy",
+                  -- },
+                  completion = {
+                    postfix = {
+                      enable = false,
+                    },
+                  },
+                  diagnostics = {
+                    disabled = {
+                      "unresolved-proc-macro",
+                    },
+                  },
+                  hover = {
+                    links = {
+                      -- It's ugly when rust-analyzer tries to display docs.rs links for links in
+                      -- markdown docs.
+                      enable = false,
+                    },
+                    imports = {
+                      prefix = {
+                        "self",
+                      },
+                    },
+                  },
+                },
+              },
+            },
+            dap = {
+            },
+          }
+        '')
       ]);
 
       extraPackages = with pkgsUnstable; [
