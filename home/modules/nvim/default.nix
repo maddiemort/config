@@ -63,7 +63,6 @@ in
         typst-vim
         vim-glsl
         vim-graphql
-        vim-highlightedyank
         vim-javascript
         vim-jsonnet
         vim-jsx-pretty
@@ -252,6 +251,12 @@ in
         set cursorline
         " Always show the signcolumn
         set signcolumn=yes
+
+        " Highlight yanked text
+        augroup highlight_yank
+            autocmd!
+            au TextYankPost * silent! lua vim.highlight.on_yank { higroup = 'IncSearch', timeout = 500 }
+        augroup END
 
         " ------------
         " Text Editing
