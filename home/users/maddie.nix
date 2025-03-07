@@ -367,6 +367,7 @@
         
         [git]
         subprocess = true
+        fetch = ["glob:*"]
         
         [signing]
         backend = "ssh"
