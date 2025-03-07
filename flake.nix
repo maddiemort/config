@@ -20,7 +20,7 @@
     agenix.inputs.darwin.follows = "nixpkgs";
     agenix.inputs.home-manager.follows = "home-manager";
 
-    jj.url = "github:maddiemort/jj/openssh-and-mailmap";
+    jj.url = "github:maddiemort/jj/updated-mailmap";
     jj.inputs.flake-utils.follows = "flake-utils";
 
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay/master";

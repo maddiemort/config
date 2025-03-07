@@ -113,8 +113,7 @@
         export TERM=wezterm
         set -g fish_key_bindings fish_vi_key_bindings
 
-        ${pkgsUnstable.jujutsu}/bin/jj util completion fish | source
-        ${pkgsUnstable.carapace}/bin/carapace jj | source
+        COMPLETE=fish ${pkgsUnstable.jujutsu}/bin/jj | source
 
         function fish_greeting
           ${pkgs.fastfetch}/bin/fastfetch
@@ -348,6 +347,31 @@
   xdg = {
     configFile = {
       "git/ignore".source = ../../static/gitignore;
+
+      # By default, jj wants to look in ~/Library/Application Support for this file on macOS, so in
+      # order for this to work, the env var `JJ_CONFIG` has to be set to `~/.config/jj` in the
+      # system config.
+      "jj/config.toml".text = ''
+        [colors]
+        "diff token" = { underline = false }
+        
+        [git]
+        subprocess = true
+        
+        [signing]
+        backend = "ssh"
+        backends.ssh.allowed-signers = "~/.ssh/allowed_signers"
+        behavior = "own"
+        key = "~/.ssh/id_ed25519_jj_wtf.pub"
+        
+        [ui]
+        movement.edit = true
+        show-cryptographic-signatures = true
+        
+        [user]
+        name = "Madeleine Mortensen"
+        email = "me@maddie.wtf"
+      '';
 
       "wezterm/wezterm.lua".text = ''
         local wezterm = require 'wezterm';

@@ -58,7 +58,7 @@ symbol = "[@](green)"
 template = """
 separate(" ",
   change_id.shortest(6),
-  branches.map(|x| if(
+  bookmarks.map(|x| if(
     x.name().substr(0, 20).starts_with(x.name()),
     x.name().substr(0, 20),
     x.name().substr(0, 19) ++ "…")

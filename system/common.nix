@@ -16,6 +16,7 @@
       ''
         export SSH_AUTH_SOCK="/tmp/ssh-agent.sock"
         export STARSHIP_CONFIG=${starship-toml}
+        export JJ_CONFIG="$HOME/.config/jj"
       '';
 
     pathsToLink = [
@@ -54,7 +55,6 @@
     ]) ++ (with pkgsUnstable; [
       bat
       btop
-      carapace
       direnv
       eza
       fd
