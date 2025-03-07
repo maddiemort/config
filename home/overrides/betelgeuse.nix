@@ -17,6 +17,11 @@
     file.".ssh/id_ed25519_sk_maddie_wtf_c.pub".source = ../../keys/maddie-wtf-c.pub;
   };
 
+  xdg.configFile."jj/conf.d/20-betelgeuse.toml".text = ''
+    [signing]
+    key = "~/.ssh/id_ed25519_jj_wtf.pub"
+  '';
+
   custom = {
     auth = {
       publicKeys = [

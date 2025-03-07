@@ -24,6 +24,18 @@
     file.".ssh/id_ed25519_sk_maddie_wtf.pub".source = ../../keys/maddie-wtf.pub;
   };
 
+  xdg.configFile."jj/conf.d/20-nashira.toml".text = ''
+    [signing]
+    key = "~/.ssh/id_ed25519_jj_ditto.pub"
+  '';
+
+  xdg.configFile."jj/conf.d/30-ditto.toml".text = ''
+    --when.repositories = ["~/src/github.com/getditto"]
+
+    [user]
+    email = "maddie@ditto.live"
+  '';
+
   custom = {
     auth = {
       publicKeys = [

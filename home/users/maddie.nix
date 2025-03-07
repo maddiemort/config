@@ -351,7 +351,7 @@
       # By default, jj wants to look in ~/Library/Application Support for this file on macOS, so in
       # order for this to work, the env var `JJ_CONFIG` has to be set to `~/.config/jj` in the
       # system config.
-      "jj/config.toml".text = ''
+      "jj/conf.d/10-config.toml".text = ''
         [colors]
         "diff token" = { underline = false }
         
@@ -362,12 +362,11 @@
         backend = "ssh"
         backends.ssh.allowed-signers = "~/.ssh/allowed_signers"
         behavior = "own"
-        key = "~/.ssh/id_ed25519_jj_wtf.pub"
         
         [ui]
         movement.edit = true
         show-cryptographic-signatures = true
-        
+
         [user]
         name = "Madeleine Mortensen"
         email = "me@maddie.wtf"

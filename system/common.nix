@@ -16,7 +16,7 @@
       ''
         export SSH_AUTH_SOCK="/tmp/ssh-agent.sock"
         export STARSHIP_CONFIG=${starship-toml}
-        export JJ_CONFIG="$HOME/.config/jj"
+        export JJ_CONFIG="$HOME/.config/jj:$HOME/.config/jj/conf.d"
       '';
 
     pathsToLink = [
