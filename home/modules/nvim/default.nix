@@ -139,6 +139,22 @@ in
             au FileType go setlocal tabstop=8 softtabstop=8 shiftwidth=8 noexpandtab
         augroup END
 
+        " --------
+        " markdown
+        " --------
+
+        augroup markdown | au!
+            au Filetype markdown setlocal wrap
+            au Filetype markdown nnoremap <buffer> j gj
+            au Filetype markdown nnoremap <buffer> k gk
+            au Filetype markdown nnoremap <buffer> $ g$
+            au Filetype markdown nnoremap <buffer> 0 g0
+            au Filetype markdown vnoremap <buffer> j gj
+            au Filetype markdown vnoremap <buffer> k gk
+            au Filetype markdown vnoremap <buffer> $ g$
+            au Filetype markdown vnoremap <buffer> 0 g0
+        augroup END
+
         " -----
         " marsh
         " -----
