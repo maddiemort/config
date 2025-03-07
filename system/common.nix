@@ -39,10 +39,12 @@
       erdtree
       fzf
       gh
+      ghostscript
       glow
       go
       gopls
       hyperfine
+      imagemagick
       jq
       python3
       tokei

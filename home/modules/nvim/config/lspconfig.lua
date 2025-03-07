@@ -189,11 +189,7 @@ vim.diagnostic.config({
     },
 })
 
-lspconfig.tinymist.setup {
-    settings = {
-        exportPdf = "onSave",
-    }
-}
+lspconfig.tinymist.setup {}
 
 lspconfig.lua_ls.setup {
     on_init = function(client)
