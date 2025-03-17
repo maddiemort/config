@@ -8,6 +8,11 @@
     path = "/Users/maddie/.ssh/id_ed25519_jj_ditto";
   };
 
+  age.secrets.id_ed25519_jj_ditto_com = {
+    file = ../../secrets/id_ed25519_jj_ditto_com.age;
+    path = "/Users/maddie/.ssh/id_ed25519_jj_ditto_com";
+  };
+
   age.secrets.id_ed25519_sk_maddie_ditto_c = {
     file = ../../secrets/id_ed25519_sk_maddie_ditto_c.age;
     path = "/Users/maddie/.ssh/id_ed25519_sk_maddie_ditto_c";
@@ -20,6 +25,7 @@
 
   home = {
     file.".ssh/id_ed25519_jj_ditto.pub".source = ../../keys/maddie-jj-ditto.pub;
+    file.".ssh/id_ed25519_jj_ditto_com.pub".source = ../../keys/maddie-jj-ditto-com.pub;
     file.".ssh/id_ed25519_sk_maddie_ditto_c.pub".source = ../../keys/maddie-ditto-c.pub;
     file.".ssh/id_ed25519_sk_maddie_wtf_c.pub".source = ../../keys/maddie-wtf-c.pub;
   };
@@ -40,7 +46,7 @@
         let
           ditto-include = pkgs.writeText "config-ditto-include" ''
             [user]
-                email = "maddie@ditto.live"
+                email = "maddie@ditto.com"
                 signingkey = "~/.ssh/id_ed25519_sk_maddie_ditto_c"
           '';
         in

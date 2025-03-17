@@ -8,6 +8,11 @@
     path = "/Users/maddie/.ssh/id_ed25519_jj_ditto";
   };
 
+  age.secrets.id_ed25519_jj_ditto_com = {
+    file = ../../secrets/id_ed25519_jj_ditto_com.age;
+    path = "/Users/maddie/.ssh/id_ed25519_jj_ditto_com";
+  };
+
   age.secrets.id_ed25519_sk_maddie_ditto = {
     file = ../../secrets/id_ed25519_sk_maddie_ditto.age;
     path = "/Users/maddie/.ssh/id_ed25519_sk_maddie_ditto";
@@ -20,20 +25,22 @@
 
   home = {
     file.".ssh/id_ed25519_jj_ditto.pub".source = ../../keys/maddie-jj-ditto.pub;
+    file.".ssh/id_ed25519_jj_ditto_com.pub".source = ../../keys/maddie-jj-ditto-com.pub;
     file.".ssh/id_ed25519_sk_maddie_ditto.pub".source = ../../keys/maddie-ditto.pub;
     file.".ssh/id_ed25519_sk_maddie_wtf.pub".source = ../../keys/maddie-wtf.pub;
   };
 
   xdg.configFile."jj/conf.d/20-nashira.toml".text = ''
     [signing]
-    key = "~/.ssh/id_ed25519_jj_ditto.pub"
+    key = "~/.ssh/id_ed25519_jj_ditto_com.pub"
   '';
 
   xdg.configFile."jj/conf.d/30-ditto.toml".text = ''
+    [[--scope]]
     --when.repositories = ["~/src/github.com/getditto"]
 
-    [user]
-    email = "maddie@ditto.live"
+    [--scope.user]
+    email = "maddie@ditto.com"
   '';
 
   custom = {
@@ -52,7 +59,7 @@
         let
           ditto-include = pkgs.writeText "config-ditto-include" ''
             [user]
-                email = "maddie@ditto.live"
+                email = "maddie@ditto.com"
                 signingkey = "~/.ssh/id_ed25519_sk_maddie_ditto"
           '';
         in
