@@ -232,7 +232,8 @@
         gnd = "git clone";
 
         # Kubernetes
-        kc = "kubectl";
+        k = "kubectl";
+        kn = "kubectl -n $QUAY_USER";
 
         # Select which folders called target/ inside ~/src to delete
         delete-targets = "fd -It d '^target$' ~/src | fzf --multi --preview='eza -al {}/..' | xargs rm -r";
