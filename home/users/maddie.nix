@@ -390,11 +390,17 @@
         diff-editor = ":builtin"
         diff.format = "git"
         movement.edit = true
-        show-cryptographic-signatures = true
+        show-cryptographic-signatures = false
 
         [user]
         name = "Madeleine Mortensen"
         email = "me@maddie.wtf"
+
+        [[--scope]]
+        --when.commands = ["status"]
+
+        [--scope.ui]
+        paginate = "never"
       '';
 
       "wezterm/wezterm.lua".text = ''
