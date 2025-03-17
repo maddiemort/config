@@ -493,6 +493,8 @@
           font = wezterm.font("Iosevka Custom", { weight = "Light" }),
           enable_scroll_bar = true,
 
+          audible_bell = "Disabled",
+
           scrollback_lines = 100000,
 
           exit_behavior = "Close",
