@@ -112,12 +112,6 @@
     # onActivation.autoUpdate = true;
     # onActivation.upgrade = true;
 
-    masApps = {
-      "Spotica Menu" = 570549457;
-      "Tailscale" = 1475387142;
-      "Xcode" = 497799835;
-    };
-
     taps = [
       "homebrew/cask-versions"
       "homebrew/services"
