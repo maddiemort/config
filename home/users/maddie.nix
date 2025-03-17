@@ -354,6 +354,10 @@
       "jj/conf.d/10-config.toml".text = ''
         [colors]
         "diff token" = { underline = false }
+
+        [fix.tools.rustfmt]
+        command = ["rustfmt", "--emit", "stdout"]
+        patterns = ["glob:'**/*.rs'"]
         
         [git]
         subprocess = true
@@ -362,8 +366,24 @@
         backend = "ssh"
         backends.ssh.allowed-signers = "~/.ssh/allowed_signers"
         behavior = "own"
-        
+
+        [template-aliases]
+        'format_short_signature(signature)' = ''''
+        if(signature.email().domain().ends_with("users.noreply.github.com"),
+          signature.name() ++ ' (GitHub)',
+          signature.email(),
+        )
+        ''''
+        'format_timestamp(timestamp)' = ''''
+        if(timestamp.before("1 week ago"),
+          timestamp.ago() ++ timestamp.format(" (%Y-%m-%d at %H:%M)"),
+          timestamp.ago()
+        )
+        ''''
+
         [ui]
+        diff-editor = ":builtin"
+        diff.format = "git"
         movement.edit = true
         show-cryptographic-signatures = true
 
