@@ -17,6 +17,11 @@
     file.".ssh/id_ed25519_sk_maddie_wtf.pub".source = ../../keys/maddie-wtf.pub;
   };
 
+  xdg.configFile."jj/conf.d/20-polaris.toml".text = ''
+    [signing]
+    key = "~/.ssh/id_ed25519_jj_wtf.pub"
+  '';
+
   custom = {
     auth = {
       publicKeys = [
