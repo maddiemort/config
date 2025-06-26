@@ -85,6 +85,7 @@
 
   fonts.packages = with pkgs; [
     iosevka-custom
+    lora
   ];
 
   homebrew = {
@@ -103,6 +104,7 @@
       "obsidian"
       "scroll-reverser"
       "spotify"
+      "thunderbird"
       "wezterm@nightly"
     ];
 
