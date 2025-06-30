@@ -33,6 +33,7 @@
       "gnucash"
       "handbrake"
       "jetbrains-toolbox"
+      "jubler"
       "lagrange"
       "mkvtoolnix"
       "obs"
