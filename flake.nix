@@ -65,9 +65,9 @@
               hash = "sha256-m0eA4Kv5RikMcnYqRlGnyHV1bQS3kDgHhGYGqTvbZBE=";
             };
 
-            cargoDeps = old.cargoDeps.overrideAttrs {
+            cargoDeps = final.rustPlatform.fetchCargoVendor {
               inherit src;
-              outputHash = "sha256-h4/q4psYU+9UxHbLnRj64JzH33kJoyV8R6UWgHZqbmM=";
+              hash = "sha256-Cbps27WYpwTPZBMmzW9ex4RJM4utk7ck0opTZoftSl0=";
             };
 
             doCheck = false;
