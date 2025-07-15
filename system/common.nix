@@ -203,6 +203,10 @@
     '';
   };
 
+  services = {
+    yknotify-rs.enable = true;
+  };
+
   system = {
     defaults = {
       LaunchServices = {
