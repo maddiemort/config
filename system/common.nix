@@ -204,7 +204,11 @@
   };
 
   services = {
-    yknotify-rs.enable = true;
+    yknotify-rs = {
+      enable = true;
+      requestSound = "Purr";
+      dismissedSound = "Pop";
+    };
   };
 
   system = {

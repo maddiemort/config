@@ -467,11 +467,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1752596390,
-        "narHash": "sha256-LErXcJeSqPblaR94xgq265b6KllRDFam80ezVFMtDz8=",
+        "lastModified": 1752621886,
+        "narHash": "sha256-mbdeui20/S2oN696+BbSa6kcRsEjxCnkOCSwEReyHQI=",
         "owner": "maddiemort",
         "repo": "yknotify-rs",
-        "rev": "50261cc094de6a772a8839086565e35fc141cbcd",
+        "rev": "05b9238534d16b728e678eab1a2e20d2b75d4f7f",
         "type": "github"
       },
       "original": {
