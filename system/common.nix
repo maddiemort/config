@@ -218,6 +218,10 @@
         LSQuarantine = false;
       };
 
+      ".GlobalPreferences" = {
+        "com.apple.sound.beep.sound" = /System/Library/Sounds/Morse.aiff;
+      };
+
       NSGlobalDomain = {
         # Turn off "font smoothing", because it looks terrible on HiDPI displays that aren't Retina.
         AppleFontSmoothing = 0;
