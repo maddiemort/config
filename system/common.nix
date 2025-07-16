@@ -206,8 +206,8 @@
   services = {
     yknotify-rs = {
       enable = true;
-      requestSound = "Purr";
-      dismissedSound = "Pop";
+      requestSound = "Funk";
+      dismissedSound = "Hero";
     };
   };
 
