@@ -388,6 +388,14 @@
         )
         ''''
 
+        [revset-aliases]
+        "closest_bookmark(to)" = "heads(::to & bookmarks())"
+        "move_closest_target()" = "heads(closest_bookmark(@)..@ ~ empty())"
+
+        [aliases]
+        move-closest = ["bookmark", "move", "--from", "closest_bookmark(@)"]
+        advance = ["bookmark", "move", "--from", "closest_bookmark(@)", "--to", "move_closest_target()"]
+
         [ui]
         diff-editor = ":builtin"
         diff.format = "git"
