@@ -154,6 +154,7 @@
         homeConfigurations = {
           maddie-betelgeuse = mkHome { inherit system; username = "maddie"; override = "betelgeuse"; };
           maddie-nashira = mkHome { inherit system; username = "maddie"; override = "nashira"; };
+          maddie-natasha = mkHome { inherit system; username = "maddie"; override = "natasha"; };
           maddie-polaris = mkHome { inherit system; username = "maddie"; override = "polaris"; };
           maddie-rigel = mkHome { inherit system; username = "maddie"; override = "rigel"; };
         };
@@ -168,6 +169,7 @@
       darwinConfigurations = {
         betelgeuse = mkDarwin { system = aarch64-darwin; hostname = "betelgeuse"; };
         nashira = mkDarwin { system = aarch64-darwin; hostname = "nashira"; };
+        natasha = mkDarwin { system = aarch64-darwin; hostname = "natasha"; };
         polaris = mkDarwin { system = aarch64-darwin; hostname = "polaris"; };
         rigel = mkDarwin { system = x86_64-darwin; hostname = "rigel"; };
       };
