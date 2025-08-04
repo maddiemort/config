@@ -399,6 +399,11 @@ in
         endfunction
         command DT call DT()
 
+        augroup quickfix | au!
+            " Rebind p to "preview" command in quickfix window
+            au FileType qf nnoremap <buffer> p <CR><C-w>p
+        augroup END
+
         " ---------------
         " Annoyance Fixes
         " ---------------
