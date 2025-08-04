@@ -3,23 +3,24 @@ let
 
   # Public keys of specific machines.
   nashira = readFile ./keys/nashira.pub;
+  natasha = readFile ./keys/natasha.pub;
 
   # Each of the secrets is given a list of public keys that should be used to
   # encrypt them. Right now, only the machine-specific keys from above are added
   # to the list for each secret, because these are the keys that will not
   # necessarily be given access to every secret.
   secrets = {
-    "secrets/ditto-license.age".publicKeys = [ nashira ];
+    "secrets/ditto-license.age".publicKeys = [ nashira natasha ];
     "secrets/id_ed25519_jj_ditto.age".publicKeys = [ nashira ];
-    "secrets/id_ed25519_jj_ditto_com.age".publicKeys = [ nashira ];
+    "secrets/id_ed25519_jj_ditto_com.age".publicKeys = [ nashira natasha ];
     "secrets/id_ed25519_jj_wtf.age".publicKeys = [ ];
     "secrets/id_ed25519_sk_maddie_ditto.age".publicKeys = [ nashira ];
-    "secrets/id_ed25519_sk_maddie_ditto_c.age".publicKeys = [ ];
+    "secrets/id_ed25519_sk_maddie_ditto_c.age".publicKeys = [ natasha ];
     "secrets/id_ed25519_sk_maddie_wtf.age".publicKeys = [ ];
-    "secrets/id_ed25519_sk_maddie_wtf_c.age".publicKeys = [ ];
-    "secrets/quay-email-ditto.age".publicKeys = [ nashira ];
-    "secrets/quay-token-ditto.age".publicKeys = [ nashira ];
-    "secrets/quay-user-ditto.age".publicKeys = [ nashira ];
+    "secrets/id_ed25519_sk_maddie_wtf_c.age".publicKeys = [ natasha ];
+    "secrets/quay-email-ditto.age".publicKeys = [ nashira natasha ];
+    "secrets/quay-token-ditto.age".publicKeys = [ nashira natasha ];
+    "secrets/quay-user-ditto.age".publicKeys = [ nashira natasha ];
   };
 
   # Public keys of age-plugin-yubikey keys, the counterparts to the keygrips in
