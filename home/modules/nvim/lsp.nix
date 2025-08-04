@@ -64,7 +64,7 @@ in
             tools = {
             },
             server = {
-              cmd = { '${pkgsUnstable.rust-analyzer}/bin/rust-analyzer' },
+              cmd = { 'rust-analyzer' },
               capabilities = capabilities,
               on_attach = function(client, bufnr)
                 vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
