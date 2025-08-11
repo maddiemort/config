@@ -30,7 +30,7 @@
       "ableton-live-standard"
       "calibre"
       "chromium"
-      "discord@ptb"
+      "discord"
       "gnucash"
       "handbrake-app"
       "jetbrains-toolbox"
@@ -40,6 +40,7 @@
       "obs"
       "prismlauncher"
       "radio-silence"
+      "signal"
       "skim"
       "splice"
       "steam"
@@ -47,6 +48,7 @@
       "subler"
       "teamspeak-client"
       "transmission"
+      "whatsapp"
       "zulip"
     ];
   };

@@ -56,7 +56,6 @@
     ];
 
     casks = [
-      "jordanbaird-ice"
       "cool-retro-term"
       # "insomnia"
       "docker"
