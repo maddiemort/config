@@ -112,11 +112,6 @@
     global.brewfile = true;
     # onActivation.autoUpdate = true;
     # onActivation.upgrade = true;
-
-    taps = [
-      "homebrew/cask-versions"
-      "homebrew/services"
-    ];
   };
 
   launchd.user.agents = {
