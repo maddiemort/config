@@ -60,6 +60,7 @@
       fd
       git
       gnupg
+      hl-log-viewer
       jujutsu
       openssh
       ripgrep
