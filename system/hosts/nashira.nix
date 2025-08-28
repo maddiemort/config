@@ -57,8 +57,8 @@
     casks = [
       "jordanbaird-ice"
       "cool-retro-term"
+      "docker-desktop"
       # "insomnia"
-      "docker"
       "jetbrains-toolbox"
       "loom"
       "notion"
