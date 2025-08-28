@@ -39,6 +39,10 @@
       tlaplus18
     ]) ++ (with pkgsUnstable; [
       cachix
+      colima
+      docker
+      docker-buildx
+      kubectl
     ]);
 
     systemPath = [
