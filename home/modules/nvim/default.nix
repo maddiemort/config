@@ -63,9 +63,11 @@ in
         typst-vim
         vim-glsl
         vim-graphql
+        vim-helm
         vim-javascript
         vim-jsonnet
         vim-jsx-pretty
+        vim-mustache-handlebars
         vim-nix
         vim-numbertoggle
         vim-toml
