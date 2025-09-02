@@ -428,6 +428,16 @@ in {
             " Linux Specific Settings
         endif
 
+        " -----
+        " Typst
+        " -----
+
+        augroup typst | au!
+            au BufRead,BufNewFile *.typ setlocal fo+=a
+            au BufRead,BufNewFile *.typ setlocal fo-=c
+            au BufRead,BufNewFile *.typ setlocal textwidth=80
+        augroup END
+
         " ==================
         " KEYBOARD SHORTCUTS
         " ==================
