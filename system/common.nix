@@ -94,7 +94,7 @@
 
     casks = [
       "1password"
-      "contexts"
+      "alt-tab"
       "discord"
       "firefox@developer-edition"
       "linear-linear"
