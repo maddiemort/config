@@ -221,3 +221,5 @@ lspconfig.lua_ls.setup {
         return true
     end
 }
+
+vim.lsp.enable('ts_ls')

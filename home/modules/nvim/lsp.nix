@@ -117,9 +117,12 @@ in
         nil # NIx Language server
         nixpkgs-fmt # For nil to format stuff
         nodePackages.bash-language-server # Bash language server
+        nodePackages.prettier
         shellcheck # For Bash
         texlab # TeX language server
         tinymist # Typst language server
+        typescript-language-server
+        vscode-langservers-extracted
       ];
     };
   };

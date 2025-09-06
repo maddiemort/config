@@ -159,7 +159,7 @@
 
       shellAbbrs = {
         lsl = "eza -al";
-        lst = "eza -alT -I '.git|.jj|target'";
+        lst = "eza -alT -I '.git|.jj|target|node_modules'";
         lsta = "eza -alT";
 
         # Status/info
