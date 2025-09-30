@@ -26,7 +26,7 @@
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay/master";
     neovim-nightly-overlay.inputs.nixpkgs.follows = "nixpkgs-unstable";
 
-    yknotify-rs.url = "github:maddiemort/yknotify-rs/tracing";
+    yknotify-rs.url = "github:reo101/yknotify-rs/master";
     yknotify-rs.inputs.nixpkgs.follows = "nixpkgs-unstable";
   };
 
