@@ -1,4 +1,3 @@
-local lspconfig = require'lspconfig'
 local notify = require'notify'
 
 -- Override the default signs shown in the signcolumn for each type of 
@@ -87,9 +86,9 @@ vim.keymap.set('n', '<leader>W', '<cmd>Telescope diagnostics severity_limit=2<cr
 vim.keymap.set('n', '<leader>s', '<cmd>Telescope lsp_document_symbols<cr>', { desc = 'Document Symbols' })
 vim.keymap.set('n', '<leader>S', '<cmd>Telescope lsp_workspace_symbols<cr>', { desc = 'Workspace Symbols' })
 
-lspconfig.bashls.setup {}
+vim.lsp.enable('bashls')
 
-lspconfig.gopls.setup {}
+vim.lsp.enable('gopls')
 
 local go_group = vim.api.nvim_create_augroup('go', {})
 vim.api.nvim_create_autocmd('BufWritePre', {
@@ -98,8 +97,6 @@ vim.api.nvim_create_autocmd('BufWritePre', {
     callback = function() vim.lsp.buf.format({ async = false }) end,
 })
 
-lspconfig.ocamllsp.setup{}
-
 local ocaml_group = vim.api.nvim_create_augroup('ocaml', {})
 vim.api.nvim_create_autocmd('BufWritePre', {
     group = ocaml_group,
@@ -107,7 +104,7 @@ vim.api.nvim_create_autocmd('BufWritePre', {
     callback = function() vim.lsp.buf.format({ async = false }) end,
 })
 
-lspconfig.texlab.setup {
+vim.lsp.config('texlab', {
     settings = {
         texlab = {
             auxDirectory = "./build",
@@ -126,7 +123,8 @@ lspconfig.texlab.setup {
             },
         },
     },
-}
+})
+vim.lsp.enable('texlab')
 
 local latex_group = vim.api.nvim_create_augroup('latex', {})
 vim.api.nvim_create_autocmd('BufWritePre', {
@@ -135,7 +133,7 @@ vim.api.nvim_create_autocmd('BufWritePre', {
     callback = function() vim.lsp.buf.format({ async = false }) end,
 })
 
-lspconfig.pylsp.setup {
+vim.lsp.config('pylsp', {
     settings = {
         pylsp = {
             plugins = {
@@ -149,7 +147,8 @@ lspconfig.pylsp.setup {
             },
         },
     },
-}
+})
+vim.lsp.enable('pylsp')
 
 local python_group = vim.api.nvim_create_augroup('python', {})
 vim.api.nvim_create_autocmd('BufWritePre', {
@@ -165,7 +164,7 @@ vim.api.nvim_create_autocmd({ 'BufNewFile', 'BufRead' }, {
     end,
 })
 
-lspconfig.nil_ls.setup {
+vim.lsp.config('nil_ls', {
     autostart = true,
     settings = {
         ['nil'] = {
@@ -174,7 +173,8 @@ lspconfig.nil_ls.setup {
             },
         },
     },
-}
+})
+vim.lsp.enable('nil_ls')
 
 local nix_group = vim.api.nvim_create_augroup('nix', {})
 vim.api.nvim_create_autocmd('BufWritePre', {
@@ -189,10 +189,10 @@ vim.diagnostic.config({
     },
 })
 
-lspconfig.tinymist.setup {}
+vim.lsp.enable('tinymist')
 
-lspconfig.lua_ls.setup {
-    on_init = function(client)
+vim.lsp.config('lua_ls', {
+    on_init = function(client, result)
         local path = client.workspace_folders[1].name
         if not vim.loop.fs_stat(path..'/.luarc.json') and not vim.loop.fs_stat(path..'/.luarc.jsonc') then
             client.config.settings = vim.tbl_deep_extend('force', client.config.settings, {
@@ -220,6 +220,7 @@ lspconfig.lua_ls.setup {
         end
         return true
     end
-}
+})
+vim.lsp.enable('lua_ls')
 
 vim.lsp.enable('ts_ls')
