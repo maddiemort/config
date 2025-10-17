@@ -410,7 +410,7 @@
 
         [revset-aliases]
         "closest_bookmark(to)" = "heads(::to & bookmarks())"
-        "move_closest_target()" = "heads(closest_bookmark(@)..@ ~ empty())"
+        "move_closest_target()" = "heads(closest_bookmark(@)..@ ~ empty() ~ description(exact:\"\"))"
 
         [aliases]
         move-closest = ["bookmark", "move", "--from", "closest_bookmark(@)"]
