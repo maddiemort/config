@@ -116,6 +116,7 @@ in
         lua-language-server
         nil # NIx Language server
         nixpkgs-fmt # For nil to format stuff
+        alejandra
         nodePackages.bash-language-server # Bash language server
         nodePackages.prettier
         shellcheck # For Bash
