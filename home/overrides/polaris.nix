@@ -1,7 +1,4 @@
-{ ...
-}:
-
-{
+{...}: {
   age.secrets.id_ed25519_jj_wtf = {
     file = ../../secrets/id_ed25519_jj_wtf.age;
     path = "/Users/maddie/.ssh/id_ed25519_jj_wtf";
@@ -25,7 +22,10 @@
   custom = {
     auth = {
       publicKeys = [
-        { host = "*"; path = "~/.ssh/id_ed25519_sk_maddie_wtf"; }
+        {
+          host = "*";
+          path = "~/.ssh/id_ed25519_sk_maddie_wtf";
+        }
       ];
     };
 

@@ -1,23 +1,21 @@
-{ config
-, lib
-, pkgs
-, pkgsUnstable
-, ...
-}:
-
 {
+  config,
+  lib,
+  pkgs,
+  pkgsUnstable,
+  ...
+}: {
   environment = {
-    extraInit =
-      let
-        starship-toml = pkgs.writeText
-          "starship.toml"
-          (lib.fileContents ../static/starship.toml);
-      in
-      ''
-        export SSH_AUTH_SOCK="/tmp/ssh-agent.sock"
-        export STARSHIP_CONFIG=${starship-toml}
-        export JJ_CONFIG="$HOME/.config/jj:$HOME/.config/jj/conf.d"
-      '';
+    extraInit = let
+      starship-toml =
+        pkgs.writeText
+        "starship.toml"
+        (lib.fileContents ../static/starship.toml);
+    in ''
+      export SSH_AUTH_SOCK="/tmp/ssh-agent.sock"
+      export STARSHIP_CONFIG=${starship-toml}
+      export JJ_CONFIG="$HOME/.config/jj:$HOME/.config/jj/conf.d"
+    '';
 
     pathsToLink = [
       "/Applications"
@@ -27,50 +25,52 @@
       fish
     ];
 
-    systemPackages = (with pkgs; [
-      asciiquarium-transparent
-      cargo-expand
-      cargo-generate
-      cargo-modules
-      cargo-nextest
-      cargo-update
-      convco
-      curl
-      dig
-      erdtree
-      fzf
-      gh
-      ghostscript
-      glow
-      go
-      gopls
-      hyperfine
-      imagemagick
-      jq
-      python3
-      tokei
-      unzip
-      wget
-      zip
-    ]) ++ (with pkgsUnstable; [
-      bat
-      btop
-      direnv
-      eza
-      fd
-      git
-      gnupg
-      hl-log-viewer
-      jujutsu
-      openssh
-      ripgrep
-      rustup
-      rust-analyzer
-      sd
-      tailscale
-      yubikey-manager
-      yubikey-personalization
-    ]);
+    systemPackages =
+      (with pkgs; [
+        asciiquarium-transparent
+        cargo-expand
+        cargo-generate
+        cargo-modules
+        cargo-nextest
+        cargo-update
+        convco
+        curl
+        dig
+        erdtree
+        fzf
+        gh
+        ghostscript
+        glow
+        go
+        gopls
+        hyperfine
+        imagemagick
+        jq
+        python3
+        tokei
+        unzip
+        wget
+        zip
+      ])
+      ++ (with pkgsUnstable; [
+        bat
+        btop
+        direnv
+        eza
+        fd
+        git
+        gnupg
+        hl-log-viewer
+        jujutsu
+        openssh
+        ripgrep
+        rustup
+        rust-analyzer
+        sd
+        tailscale
+        yubikey-manager
+        yubikey-personalization
+      ]);
 
     systemPath = [
       "/opt/homebrew/bin"
@@ -117,7 +117,7 @@
 
   launchd.user.agents = {
     ssh-agent = {
-      path = [ config.environment.systemPath ];
+      path = [config.environment.systemPath];
       command = "${pkgs.openssh}/bin/ssh-agent -D -a /tmp/ssh-agent.sock";
       serviceConfig.KeepAlive = true;
     };
@@ -176,22 +176,20 @@
     fish = {
       enable = true;
 
-      loginShellInit =
-        let
-          # Fix for incorrect order of items in $PATH, from:
-          # https://github.com/LnL7/nix-darwin/issues/122#issuecomment-1659465635
-          #
-          # This naive quoting is good enough in this case. There shouldn't be any
-          # double quotes in the input string, and it needs to be double quoted in case
-          # it contains a space (which is unlikely!)
-          dquote = str: "\"" + str + "\"";
+      loginShellInit = let
+        # Fix for incorrect order of items in $PATH, from:
+        # https://github.com/LnL7/nix-darwin/issues/122#issuecomment-1659465635
+        #
+        # This naive quoting is good enough in this case. There shouldn't be any
+        # double quotes in the input string, and it needs to be double quoted in case
+        # it contains a space (which is unlikely!)
+        dquote = str: "\"" + str + "\"";
 
-          makeBinPathList = map (path: path + "/bin");
-        in
-        ''
-          fish_add_path --move --prepend --path ${lib.concatMapStringsSep " " dquote (makeBinPathList config.environment.profiles)}
-          set fish_user_paths $fish_user_paths
-        '';
+        makeBinPathList = map (path: path + "/bin");
+      in ''
+        fish_add_path --move --prepend --path ${lib.concatMapStringsSep " " dquote (makeBinPathList config.environment.profiles)}
+        set fish_user_paths $fish_user_paths
+      '';
     };
 
     zsh.interactiveShellInit = ''

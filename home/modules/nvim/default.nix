@@ -1,11 +1,10 @@
-{ config
-, lib
-, pkgs
-, pkgsUnstable
-, ...
-}:
-
-let
+{
+  config,
+  lib,
+  pkgs,
+  pkgsUnstable,
+  ...
+}: let
   cfg = config.custom.nvim;
 
   luaPluginInline = plugin: config: {
@@ -20,8 +19,7 @@ let
   };
 
   inherit (lib) mkIf;
-in
-{
+in {
   imports = [
     ./lsp.nix
   ];
@@ -51,7 +49,7 @@ in
       inherit (cfg) enable;
       package = pkgsUnstable.neovim-unwrapped;
 
-      plugins = (with pkgsUnstable.vimPlugins; [
+      plugins = with pkgsUnstable.vimPlugins; [
         haskell-vim
         kotlin-vim
         nvim-notify
@@ -84,7 +82,7 @@ in
         (luaPlugin vim-gitgutter ./config/gitgutter.lua)
         (luaPlugin vim-rooter ./config/rooter.lua)
         (luaPluginInline nvim-colorizer-lua "require'colorizer'.setup {}")
-      ]);
+      ];
 
       extraPackages = with pkgs; [
         glow

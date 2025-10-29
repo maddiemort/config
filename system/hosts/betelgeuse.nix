@@ -1,20 +1,21 @@
-{ pkgs
-, pkgsUnstable
-, ...
-}:
-
 {
+  pkgs,
+  pkgsUnstable,
+  ...
+}: {
   environment = {
-    systemPackages = (with pkgs; [
-      jdk17
-      pandoc
-      postgresql_15
-      python39Packages.pygments
-    ]) ++ (with pkgsUnstable; [
-      catgirl
-      tectonic
-      typst
-    ]);
+    systemPackages =
+      (with pkgs; [
+        jdk17
+        pandoc
+        postgresql_15
+        python39Packages.pygments
+      ])
+      ++ (with pkgsUnstable; [
+        catgirl
+        tectonic
+        typst
+      ]);
 
     variables = {
       JRE8 = "${pkgs.jre8}";

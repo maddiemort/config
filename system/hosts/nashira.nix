@@ -1,11 +1,10 @@
-{ config
-, lib
-, pkgs
-, pkgsUnstable
-, ...
-}:
-
 {
+  config,
+  lib,
+  pkgs,
+  pkgsUnstable,
+  ...
+}: {
   age.secrets.ditto-license = {
     file = ../../secrets/ditto-license.age;
     owner = "maddie";
@@ -33,17 +32,19 @@
       ulimit -n unlimited
     '';
 
-    systemPackages = (with pkgs; [
-      # ninja
-      # swig
-      tlaplus18
-    ]) ++ (with pkgsUnstable; [
-      cachix
-      colima
-      docker
-      docker-buildx
-      kubectl
-    ]);
+    systemPackages =
+      (with pkgs; [
+        # ninja
+        # swig
+        tlaplus18
+      ])
+      ++ (with pkgsUnstable; [
+        cachix
+        colima
+        docker
+        docker-buildx
+        kubectl
+      ]);
 
     systemPath = [
       "/opt/jetbrains-toolbox"

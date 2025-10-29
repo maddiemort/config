@@ -1,8 +1,4 @@
-{ pkgs
-, ...
-}:
-
-{
+{pkgs, ...}: {
   age.secrets.id_ed25519_jj_ditto_com = {
     file = ../../secrets/id_ed25519_jj_ditto_com.age;
     path = "/Users/maddie/.ssh/id_ed25519_jj_ditto_com";
@@ -40,7 +36,10 @@
   custom = {
     auth = {
       publicKeys = [
-        { host = "*"; path = "~/.ssh/id_ed25519_sk_maddie_ditto_c"; }
+        {
+          host = "*";
+          path = "~/.ssh/id_ed25519_sk_maddie_ditto_c";
+        }
       ];
     };
 
@@ -49,20 +48,18 @@
         key = "~/.ssh/id_ed25519_sk_maddie_wtf_c";
       };
 
-      includes =
-        let
-          ditto-include = pkgs.writeText "config-ditto-include" ''
-            [user]
-                email = "maddie@ditto.com"
-                signingkey = "~/.ssh/id_ed25519_sk_maddie_ditto_c"
-          '';
-        in
-        [
-          {
-            condition = "gitdir:~/src/github.com/getditto/";
-            path = ditto-include;
-          }
-        ];
+      includes = let
+        ditto-include = pkgs.writeText "config-ditto-include" ''
+          [user]
+              email = "maddie@ditto.com"
+              signingkey = "~/.ssh/id_ed25519_sk_maddie_ditto_c"
+        '';
+      in [
+        {
+          condition = "gitdir:~/src/github.com/getditto/";
+          path = ditto-include;
+        }
+      ];
     };
   };
 }

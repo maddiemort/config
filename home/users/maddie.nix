@@ -1,10 +1,9 @@
-{ config
-, pkgs
-, pkgsUnstable
-, ...
-}:
-
 {
+  config,
+  pkgs,
+  pkgsUnstable,
+  ...
+}: {
   home = {
     username = "maddie";
     homeDirectory = "/Users/maddie";
@@ -47,13 +46,34 @@
     auth = {
       allowedSigners = [
         # My own keys
-        { email = "me@maddie.wtf"; key = (builtins.readFile ../../keys/maddie-wtf.pub); }
-        { email = "me@maddie.wtf"; key = (builtins.readFile ../../keys/maddie-wtf-c.pub); }
-        { email = "me@maddie.wtf"; key = (builtins.readFile ../../keys/maddie-jj-wtf.pub); }
-        { email = "maddie@ditto.live"; key = (builtins.readFile ../../keys/maddie-ditto.pub); }
-        { email = "maddie@ditto.live"; key = (builtins.readFile ../../keys/maddie-ditto-c.pub); }
-        { email = "maddie@ditto.live"; key = (builtins.readFile ../../keys/maddie-jj-ditto.pub); }
-        { email = "maddie@ditto.com"; key = (builtins.readFile ../../keys/maddie-jj-ditto-com.pub); }
+        {
+          email = "me@maddie.wtf";
+          key = builtins.readFile ../../keys/maddie-wtf.pub;
+        }
+        {
+          email = "me@maddie.wtf";
+          key = builtins.readFile ../../keys/maddie-wtf-c.pub;
+        }
+        {
+          email = "me@maddie.wtf";
+          key = builtins.readFile ../../keys/maddie-jj-wtf.pub;
+        }
+        {
+          email = "maddie@ditto.live";
+          key = builtins.readFile ../../keys/maddie-ditto.pub;
+        }
+        {
+          email = "maddie@ditto.live";
+          key = builtins.readFile ../../keys/maddie-ditto-c.pub;
+        }
+        {
+          email = "maddie@ditto.live";
+          key = builtins.readFile ../../keys/maddie-jj-ditto.pub;
+        }
+        {
+          email = "maddie@ditto.com";
+          key = builtins.readFile ../../keys/maddie-jj-ditto-com.pub;
+        }
 
         # Known signers who are not me
         # { email = ""; key = ""; }
@@ -101,14 +121,13 @@
       enableFishIntegration = true;
 
       defaultCommand = "${pkgsUnstable.fd}/bin/fd -H --type f";
-      defaultOptions = [ "--height 50%" "--border" ];
+      defaultOptions = ["--height 50%" "--border"];
       fileWidgetCommand = "${defaultCommand}";
       fileWidgetOptions = [
         "--preview '${pkgsUnstable.bat}/bin/bat --color=always --plain --line-range=:200 {}'"
       ];
       changeDirWidgetCommand = "${pkgsUnstable.fd}/bin/fd --type d";
-      changeDirWidgetOptions =
-        [ "--preview '${pkgs.tree}/bin/tree -C {} | head -200'" ];
+      changeDirWidgetOptions = ["--preview '${pkgs.tree}/bin/tree -C {} | head -200'"];
     };
 
     fish = {
@@ -264,7 +283,7 @@
         editor = {
           scrolloff = 3;
           scroll-lines = 2;
-          shell = [ "fish" "-c" ];
+          shell = ["fish" "-c"];
           line-number = "relative";
           cursorline = true;
           auto-completion = false;
@@ -284,7 +303,7 @@
               "read-only-indicator"
               "file-modification-indicator"
             ];
-            center = [ ];
+            center = [];
             right = [
               "workspace-diagnostics"
               "selections"
@@ -346,19 +365,21 @@
         ];
       };
 
-      extraPackages = (with pkgs; [
-        lua-language-server
-        marksman
-        nil
-        nixpkgs-fmt
-        shellcheck
-        taplo
-        tinymist
-        yaml-language-server
-      ]) ++ (with pkgs.nodePackages; [
-        bash-language-server
-        vscode-json-languageserver
-      ]);
+      extraPackages =
+        (with pkgs; [
+          lua-language-server
+          marksman
+          nil
+          nixpkgs-fmt
+          shellcheck
+          taplo
+          tinymist
+          yaml-language-server
+        ])
+        ++ (with pkgs.nodePackages; [
+          bash-language-server
+          vscode-json-languageserver
+        ]);
     };
   };
 
@@ -403,7 +424,7 @@
         'tracked_bookmark_name' = ''''
           if(remote, label("bookmark", name ++ "@" ++ remote) ++ "\n", "")
         ''''
-        
+
         'untracked_bookmark_name' = ''''
           if(tracked, "", if(remote, label("bookmark", name ++ "@" ++ remote) ++ "\n", ""))
         ''''

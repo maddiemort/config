@@ -1,20 +1,18 @@
-{ config
-, lib
-, pkgs
-, ...
-}:
-
-let
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}: let
   cfg = config.custom.auth;
 
   inherit (lib) concatMapStrings mkIf mkMerge;
   inherit (pkgs.stdenv.hostPlatform) isDarwin;
-in
-{
+in {
   options.custom.auth = with lib; {
     publicKeys = mkOption {
       description = ''
-        A list of the user's SSH public key(s), optionally paired with an SSH 
+        A list of the user's SSH public key(s), optionally paired with an SSH
         host match declaration to use for each key.
       '';
       type = types.listOf (types.submodule {
@@ -32,20 +30,20 @@ in
           };
         };
       });
-      default = [ ];
+      default = [];
     };
 
     allowedSigners = mkOption {
       description = ''
-        List of SSH keys that should be considered as valid when used to sign 
+        List of SSH keys that should be considered as valid when used to sign
         Git commits.
       '';
       type = types.listOf (types.submodule {
         options = {
           email = mkOption {
             description = ''
-              The email address of the owner of the SSH key. If unset, this will 
-              default to "*", which is a wildcard that allows any email address 
+              The email address of the owner of the SSH key. If unset, this will
+              default to "*", which is a wildcard that allows any email address
               for commits signed with this key.
             '';
             type = types.str;
@@ -60,7 +58,7 @@ in
           };
         };
       });
-      default = [ ];
+      default = [];
     };
   };
 
@@ -69,8 +67,12 @@ in
     home.file.".ssh/allowed_signers".text = concatMapStrings (key: "${key.email} ${key.key}") cfg.allowedSigners;
 
     programs.ssh.matchBlocks = mkMerge [
-      (builtins.listToAttrs (map
-        ({ path, host }: {
+      (builtins.listToAttrs (
+        map
+        ({
+          path,
+          host,
+        }: {
           name = host;
           value = {
             identityFile = path;

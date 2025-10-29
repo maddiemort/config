@@ -1,13 +1,11 @@
-{ config
-, lib
-, ...
-}:
-
-with lib;
-let
-  cfg = config.custom.git;
-in
 {
+  config,
+  lib,
+  ...
+}:
+with lib; let
+  cfg = config.custom.git;
+in {
   options.custom.git = with types; {
     enable = mkEnableOption "git configuration";
 
@@ -51,7 +49,7 @@ in
           };
         };
       });
-      default = [ ];
+      default = [];
     };
   };
 
@@ -106,7 +104,7 @@ in
         # Set the SSH key to sign with.
         user.signingKey = cfg.user.key;
 
-        # Turn on commit signing. This isn't actually going to use GPG, because we're about to set it 
+        # Turn on commit signing. This isn't actually going to use GPG, because we're about to set it
         # to use SSH instead.
         commit.gpgSign = true;
 
@@ -117,7 +115,8 @@ in
         };
       };
 
-      includes = map
+      includes =
+        map
         (include: {
           inherit (include) condition;
           path = "${include.path}";

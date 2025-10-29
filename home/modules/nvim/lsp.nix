@@ -1,10 +1,9 @@
-{ config
-, lib
-, pkgsUnstable
-, ...
-}:
-
-let
+{
+  config,
+  lib,
+  pkgsUnstable,
+  ...
+}: let
   cfg = config.custom.nvim.lsp;
   parent = config.custom.nvim;
 
@@ -20,8 +19,7 @@ let
   };
 
   inherit (lib) mkIf;
-in
-{
+in {
   options.custom.nvim.lsp = with lib; {
     enable = mkOption rec {
       description = "Whether to enable and configure LSP-related neovim plugins";
@@ -33,7 +31,7 @@ in
 
   config = mkIf (parent.enable && cfg.enable) {
     programs.neovim = {
-      plugins = (with pkgsUnstable.vimPlugins; [
+      plugins = with pkgsUnstable.vimPlugins; [
         cmp-cmdline
         cmp-fuzzy-path
         cmp-nvim-lsp
@@ -50,7 +48,7 @@ in
         (luaPluginInline rustaceanvim ''
           local cmp_lsp = require'cmp_nvim_lsp'
           local capabilities = cmp_lsp.default_capabilities()
-          
+
           local inlay_group = vim.api.nvim_create_augroup('inlay_highlight', {})
           vim.api.nvim_create_autocmd('ColorScheme', {
             group = inlay_group,
@@ -59,7 +57,7 @@ in
               vim.cmd('highlight! LspInlayHint ctermfg=59 guifg=#5c6370 gui=italic')
             end,
           })
-          
+
           vim.g.rustaceanvim = {
             tools = {
             },
@@ -110,7 +108,7 @@ in
             },
           }
         '')
-      ]);
+      ];
 
       extraPackages = with pkgsUnstable; [
         lua-language-server
