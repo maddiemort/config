@@ -148,7 +148,7 @@
         ]);
       };
 
-      formatter = pkgs.nixpkgs-fmt;
+      formatter = pkgsUnstable.alejandra;
 
       legacyPackages = {
         homeConfigurations = {
