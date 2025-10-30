@@ -79,6 +79,12 @@ in {
                   -- checkOnSave = {
                   --   command = "clippy",
                   -- },
+                  check = {
+                    extraArgs = {
+                      "--profile",
+                      "rust-analyzer",
+                    },
+                  },
                   completion = {
                     postfix = {
                       enable = false,
@@ -99,6 +105,11 @@ in {
                       prefix = {
                         "self",
                       },
+                    },
+                  },
+                  server = {
+                    extraEnv = {
+                      ["CARGO_PROFILE_RUST_ANALYZER_INHERITS"] = "dev",
                     },
                   },
                 },
