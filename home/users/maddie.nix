@@ -236,10 +236,22 @@
         kn = "kubectl -n $QUAY_USER";
 
         # Select which folders called target/ inside ~/src to delete
-        delete-targets = "fd -It d '^target$' ~/src | fzf --multi --preview='eza -al {}/..' | xargs rm -r";
+        delete-targets = "fd -It d '^target$' ~/src | fzf --multi --preview='eza -al {}/..' | xargs -r rm -r";
 
         # Select git branches to delete
-        delete-branches = "git branch | rg -v '\*' | cut -c 3- | fzf --multi --preview='git hist {}' | xargs git branch --delete --force";
+        delete-branches = "git branch | rg -v '\*' | cut -c 3- | fzf --multi --preview='git hist {}' | xargs -r git branch --delete --force";
+
+        # Select jj bookmarks to track/untrack
+        track-bookmarks = ''
+          jj bookmark list --all-remotes --quiet -T untracked_bookmark_name |\
+            fzf --multi --preview='jj log --color=always -r \'::{}\' --limit $(math "floor($LINES / 2)")' |\
+            xargs -r jj bookmark track
+        '';
+        untrack-bookmarks = ''
+          jj bookmark list --tracked --quiet -T tracked_bookmark_name |\
+            fzf --multi --preview='jj log --color=always -r \'::{}\' --limit $(math "floor($LINES / 2)")' |\
+            xargs -r jj bookmark untrack
+        '';
       };
     };
 
@@ -364,11 +376,11 @@
         [fix.tools.rustfmt]
         command = ["rustfmt", "--emit", "stdout"]
         patterns = ["glob:'**/*.rs'"]
-        
+
         [git]
         subprocess = true
         fetch = ["glob:*"]
-        
+
         [signing]
         backend = "ssh"
         backends.ssh.allowed-signers = "~/.ssh/allowed_signers"
@@ -386,6 +398,14 @@
           timestamp.ago() ++ timestamp.format(" (%Y-%m-%d at %H:%M)"),
           timestamp.ago()
         )
+        ''''
+
+        'tracked_bookmark_name' = ''''
+          if(remote, label("bookmark", name ++ "@" ++ remote) ++ "\n", "")
+        ''''
+        
+        'untracked_bookmark_name' = ''''
+          if(tracked, "", if(remote, label("bookmark", name ++ "@" ++ remote) ++ "\n", ""))
         ''''
 
         [revset-aliases]
