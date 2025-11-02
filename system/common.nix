@@ -96,7 +96,7 @@
     casks = [
       "1password"
       "alt-tab"
-      "firefox@developer-edition"
+      "firefox"
       "jordanbaird-ice"
       "linear-linear"
       "linearmouse"
