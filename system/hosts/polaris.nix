@@ -53,5 +53,13 @@
     ];
   };
 
+  services = {
+    yknotify-rs = {
+      enable = true;
+      requestSound = "Funk";
+      dismissedSound = "Hero";
+    };
+  };
+
   system.stateVersion = 5;
 }
