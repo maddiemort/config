@@ -59,6 +59,7 @@
       "cool-retro-term"
       # "insomnia"
       "docker"
+      "firefox@developer-edition"
       "jetbrains-toolbox"
       "loom"
       "notion"

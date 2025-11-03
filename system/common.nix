@@ -96,13 +96,11 @@
     casks = [
       "1password"
       "alt-tab"
-      "firefox"
       "jordanbaird-ice"
       "linear-linear"
       "linearmouse"
       "logi-options+"
       "monodraw"
-      "mullvad-vpn"
       "obsidian"
       "scroll-reverser"
       "spotify"

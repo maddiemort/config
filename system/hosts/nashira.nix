@@ -62,6 +62,7 @@
     casks = [
       "cool-retro-term"
       "docker-desktop"
+      "firefox@developer-edition"
       # "insomnia"
       "jetbrains-toolbox"
       "loom"
