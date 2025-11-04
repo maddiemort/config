@@ -143,6 +143,54 @@
           ${pkgs.fastfetch}/bin/fastfetch
         end
 
+        function git
+          # Check if 'clean' appears as a subcommand and look for dangerous flags
+          set -l has_clean false
+          set -l has_x false
+          set -l has_n false
+          set -l has_i false
+
+          for arg in $argv
+            # Stop processing after -- (everything after is paths/filenames)
+            if test "$arg" = "--"
+              break
+            end
+
+            # Check if 'clean' appears as a complete argument. This means it's probably a subcommand,
+            # and although there's the potential for some false positives by not taking the position of
+            # the arg into account to determine whether it's a subcommand, this lets us avoid complex
+            # logic to detect cases like `git -C foo clean` (where `clean` is the subcommand, but most
+            # naïve approaches would think the subcommand is `foo`).
+            if test "$arg" = "clean"
+              set has_clean true
+            end
+
+            # Check for flags
+            if string match -qr -- '^-[a-zA-Z]*[xX]' $arg
+              set has_x true
+            end
+            if string match -qr -- '^-[a-zA-Z]*n' $arg
+              set has_n true
+            end
+            if string match -qr -- '^-[a-zA-Z]*i' $arg
+              set has_i true
+            end
+          end
+
+          # Only prompt if this is 'clean' with -x/-X and without -n or -i
+          if test "$has_clean" = true -a "$has_x" = true -a "$has_n" = false -a "$has_i" = false
+            echo "warning: this might remove all ignored and untracked files (such as `.jj/`)"
+            echo "warning: you can dry-run a `git clean` command by adding `-n` to its flags"
+            read -l -P "Proceed? (y/n): " confirm
+            if test "$confirm" != "y"
+              echo "Aborting."
+              return 1
+            end
+          end
+
+          command git $argv
+        end
+
         # catppuccin macchiato theme
         set -l red ed8796 #ed8796
         set -l green a6da95 #a6da95
