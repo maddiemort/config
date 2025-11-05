@@ -483,7 +483,30 @@ in {
           vim.keymap.set(
             'n',
             '<leader>gl',
-            [[<cmd>let base = system("git remote get-url origin | sed -e's|:|/|' -e 's|git@|https://|' -e 's|.git$||'") | let commit = system("git rev-parse HEAD") | let @+ = trim(base) . "/blob/" . trim(commit) . "/" . expand("%") . "#L" . line(".")<cr>]],
+            function()
+              -- local base = vim.system(
+              --   {
+              --     "bash",
+              --     "-c",
+              --     "jj git remote list | grep origin | sed -e 's/origin //' -e's|:|/|' -e 's|git@|https://|' -e 's|.git$||'"
+              --   },
+              --   { text = true },
+              -- ):wait()
+
+              -- local file = vim.fn.expand("%")
+
+              -- local commit = vim.system(
+              --   {
+              --     "jj",
+              --     "log",
+              --     "-r",
+              --     "remote_children(@) & last_to_modify(@, '" .. file .. "')::@",
+              --   },
+              --   { text = true },
+              -- ):wait()
+
+              -- vim.fn.setreg("+", base .. "/blob/" .. commit .. "/" .. file .. "#L" .. vim.fn.line("."))
+            end,
             { desc = 'Copy GitHub Link to Current File and Line Number' }
           )
           vim.keymap.set(

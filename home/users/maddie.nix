@@ -480,10 +480,13 @@
         [revset-aliases]
         "closest_bookmark(to)" = "heads(::to & bookmarks())"
         "move_closest_target()" = "heads(closest_bookmark(@)..@ ~ empty() ~ description(exact:\"\"))"
+        "remote_children(of)" = "heads(::of ~ remote_bookmarks(remote=\"origin\")..)"
+        "last_to_modify(tip, file)" = "heads(ancestors(tip) & files(file))"
 
         [aliases]
         move-closest = ["bookmark", "move", "--from", "closest_bookmark(@)"]
         advance = ["bookmark", "move", "--from", "closest_bookmark(@)", "--to", "move_closest_target()"]
+        remote-head = ["log", "--no-pager", "--no-graph", "-r", "remote_children(@)", "-T", "commit_id.short(7) ++ \"\\n\""]
 
         [ui]
         diff-editor = ":builtin"
