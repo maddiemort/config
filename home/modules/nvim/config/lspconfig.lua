@@ -86,6 +86,57 @@ vim.keymap.set('n', '<leader>W', '<cmd>Telescope diagnostics severity_limit=2<cr
 vim.keymap.set('n', '<leader>s', '<cmd>Telescope lsp_document_symbols<cr>', { desc = 'Document Symbols' })
 vim.keymap.set('n', '<leader>S', '<cmd>Telescope lsp_workspace_symbols<cr>', { desc = 'Workspace Symbols' })
 
+vim.lsp.config('rust_analyzer', {
+    settings = {
+        ['rust-analyzer'] = {
+            assist = {
+                importEnforceGranularity = true,
+                importPrefix = "crate",
+            },
+            -- cargo = {
+            --     allFeatures = true,
+            -- },
+            -- checkOnSave = {
+            --     command = "clippy",
+            -- },
+            check = {
+                extraArgs = {
+                    "--profile",
+                    "rust-analyzer",
+                },
+            },
+            completion = {
+                postfix = {
+                    enable = false,
+                },
+            },
+            diagnostics = {
+                disabled = {
+                    "unresolved-proc-macro",
+                },
+            },
+            hover = {
+                links = {
+                    -- It's ugly when rust-analyzer tries to display docs.rs links for links in
+                    -- markdown docs.
+                    enable = false,
+                },
+                imports = {
+                    prefix = {
+                        "self",
+                    },
+                },
+            },
+            server = {
+                extraEnv = {
+                    ["CARGO_PROFILE_RUST_ANALYZER_INHERITS"] = "dev",
+                },
+            },
+        },
+    },
+})
+vim.lsp.enable('rust_analyzer')
+
 vim.lsp.enable('bashls')
 
 vim.lsp.enable('gopls')
