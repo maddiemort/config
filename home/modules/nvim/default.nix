@@ -515,12 +515,12 @@ in {
           vim.keymap.set('n', 'M', '<cmd>make<cr>', { desc = 'Run `make`' })
 
           -- Go to next/previous diagnostic
-          vim.keymap.set('n', ']d', function() vim.diagnostic.goto_next({ float = false }) end, { desc = 'Next Diagnostic' })
-          vim.keymap.set('n', '[d', function() vim.diagnostic.goto_prev({ float = false }) end, { desc = 'Previous Diagnostic' })
-          vim.keymap.set('n', ']e', function() vim.diagnostic.goto_next({ float = false, severity = vim.diagnostic.severity.ERROR }) end, { desc = 'Next Error' })
-          vim.keymap.set('n', '[e', function() vim.diagnostic.goto_prev({ float = false, severity = vim.diagnostic.severity.ERROR }) end, { desc = 'Previous Error' })
-          vim.keymap.set('n', ']w', function() vim.diagnostic.goto_next({ float = false, severity = { min = vim.diagnostic.severity.WARN } }) end, { desc = 'Next Warning/Error' })
-          vim.keymap.set('n', '[w', function() vim.diagnostic.goto_prev({ float = false, severity = { min = vim.diagnostic.severity.WARN } }) end, { desc = 'Previous Warning/Error' })
+          vim.keymap.set('n', ']d', function() vim.diagnostic.jump({ count = 1 }) end, { desc = 'Next Diagnostic' })
+          vim.keymap.set('n', '[d', function() vim.diagnostic.jump({ count = -1 }) end, { desc = 'Previous Diagnostic' })
+          vim.keymap.set('n', ']e', function() vim.diagnostic.jump({ count = 1, severity = vim.diagnostic.severity.ERROR }) end, { desc = 'Next Error' })
+          vim.keymap.set('n', '[e', function() vim.diagnostic.jump({ count = -1, severity = vim.diagnostic.severity.ERROR }) end, { desc = 'Previous Error' })
+          vim.keymap.set('n', ']w', function() vim.diagnostic.jump({ count = 1, severity = { min = vim.diagnostic.severity.WARN } }) end, { desc = 'Next Warning/Error' })
+          vim.keymap.set('n', '[w', function() vim.diagnostic.jump({ count = -1, severity = { min = vim.diagnostic.severity.WARN } }) end, { desc = 'Previous Warning/Error' })
         EOF
 
         " Write buffer through sudo

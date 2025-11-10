@@ -1,8 +1,7 @@
 local formatter = require'formatter'
 
 formatter.setup {
-    logging = true,
-    log_level = vim.log.levels.WARN,
+    logging = false,
     filetype = {
         c = {
             require'formatter.filetypes.c'.clangformat,
