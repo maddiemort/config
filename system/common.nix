@@ -65,10 +65,12 @@
         jujutsu
         openssh
         ripgrep
-        rustup
         rust-analyzer
+        rustup
         sd
         tailscale
+        typst
+        typstyle
         unison-ucm
         yubikey-manager
         yubikey-personalization

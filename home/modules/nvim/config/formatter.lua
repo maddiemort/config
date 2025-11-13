@@ -21,7 +21,9 @@ formatter.setup {
         typst = {
             function()
                 return {
-                    exe = "typstfmt",
+                    exe = "typstyle",
+                    args = { "--line-width", "100", "--wrap-text" },
+                    stdin = true,
                 }
             end,
         },

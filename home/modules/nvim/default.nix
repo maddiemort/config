@@ -85,10 +85,13 @@ in {
         (luaPluginInline nvim-colorizer-lua "require'colorizer'.setup {}")
       ];
 
-      extraPackages = with pkgs; [
-        glow
-        typstfmt # For typst formatting in formatter.lua
-      ];
+      extraPackages =
+        (with pkgs; [
+          glow
+        ])
+        ++ (with pkgsUnstable; [
+          typstyle # For typst formatting in formatter.lua
+        ]);
 
       extraConfig = ''
         " =============
@@ -443,9 +446,9 @@ in {
         " -----
 
         augroup typst | au!
-            au BufRead,BufNewFile *.typ setlocal fo+=a
-            au BufRead,BufNewFile *.typ setlocal fo-=c
-            au BufRead,BufNewFile *.typ setlocal textwidth=80
+            " au BufRead,BufNewFile *.typ setlocal fo+=a
+            " au BufRead,BufNewFile *.typ setlocal fo-=c
+            au BufRead,BufNewFile *.typ setlocal textwidth=100
         augroup END
 
         " ==================

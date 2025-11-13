@@ -14,7 +14,6 @@
       ++ (with pkgsUnstable; [
         catgirl
         tectonic
-        typst
       ]);
 
     variables = {

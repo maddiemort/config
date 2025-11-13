@@ -16,7 +16,6 @@
         catgirl
         ffmpeg
         tectonic
-        typst
         yt-dlp
       ]);
 
