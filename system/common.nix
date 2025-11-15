@@ -68,6 +68,7 @@
         rust-analyzer
         sd
         tailscale
+        unison-ucm
         yubikey-manager
         yubikey-personalization
       ]);
