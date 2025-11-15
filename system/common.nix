@@ -56,6 +56,7 @@
         bat
         btop
         direnv
+        exercism
         eza
         fd
         git
