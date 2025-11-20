@@ -140,7 +140,7 @@
         COMPLETE=fish ${pkgsUnstable.jujutsu}/bin/jj | source
 
         function fish_greeting
-          ${pkgs.fastfetch}/bin/fastfetch
+          # ${pkgs.fastfetch}/bin/fastfetch
         end
 
         function git
