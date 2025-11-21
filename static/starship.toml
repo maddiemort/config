@@ -64,8 +64,8 @@ separate(" ",
     x.name().substr(0, 19) ++ "…")
   ).join(" "),
   commit_id.shortest(6),
-  if(conflict, "conflict"),
-  if(divergent, "divergent"),
+  if(conflict, label("conflict", "conflict")),
+  if(divergent, label("divergent", "divergent")),
   if(hidden, "hidden"),
 )"""
 
