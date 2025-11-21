@@ -99,7 +99,7 @@ symbol = " "
 symbol = " "
 
 [rust]
-symbol = " "
+symbol = "  "
 
 [status]
 symbol = "×"
