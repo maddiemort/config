@@ -76,12 +76,12 @@ in {
         (luaPlugin git-blame-nvim ./config/git-blame.lua)
         (luaPlugin indent-blankline-nvim ./config/indent-blankline.lua)
         (luaPlugin lualine-nvim ./config/lualine.lua)
+        (luaPlugin nvim-highlight-colors ./config/highlight-colors.lua)
         (luaPlugin rust-vim ./config/rust.lua)
         (luaPlugin snacks-nvim ./config/snacks.lua)
         (luaPlugin telescope-nvim ./config/telescope.lua)
         (luaPlugin vim-gitgutter ./config/gitgutter.lua)
         (luaPlugin vim-rooter ./config/rooter.lua)
-        (luaPluginInline nvim-colorizer-lua "require'colorizer'.setup {}")
       ];
 
       extraPackages =
