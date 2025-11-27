@@ -244,7 +244,7 @@ vim.lsp.config('rust_analyzer', {
             -- buffers to force them to redraw. Otherwise, inlay hints won't be shown until an edit
             -- is made or the buffer is scrolled.
             if result.quiescent and not _ran_once[ctx.client_id] then
-                for _, bufnr in ipairs(vim.lsp.get_buffers_by_client_id(ctx.client_id)) do
+                for bufnr, _ in ipairs(vim.lsp.get_client_by_id(ctx.client_id).attached_buffers) do
                     if vim.lsp.inlay_hint.is_enabled { bufnr = bufnr } then
                         vim.lsp.inlay_hint.enable(false, { bufnr = bufnr })
                         vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
