@@ -28,6 +28,7 @@
   homebrew = {
     casks = [
       "ableton-live-standard"
+      "adobe-acrobat-reader"
       "calibre"
       "chromium"
       "discord"
