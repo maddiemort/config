@@ -59,28 +59,6 @@
       })
 
       (final: prev: {
-        # Switches to the version from this PR, which adds support for
-        # displaying jujutsu repo details:
-        #
-        # https://github.com/starship/starship/pull/6089
-        starship = prev.starship.overrideAttrs (old: rec {
-          src = final.fetchFromGitHub {
-            owner = "idursun";
-            repo = "starship";
-            rev = "7226aaedf2dd0dd34a7373859d25da45c7cd3eaa";
-            hash = "sha256-m0eA4Kv5RikMcnYqRlGnyHV1bQS3kDgHhGYGqTvbZBE=";
-          };
-
-          cargoDeps = final.rustPlatform.fetchCargoVendor {
-            inherit src;
-            hash = "sha256-Cbps27WYpwTPZBMmzW9ex4RJM4utk7ck0opTZoftSl0=";
-          };
-
-          doCheck = false;
-        });
-      })
-
-      (final: prev: {
         key-menu-nvim = final.callPackage ./pkgs/key-menu-nvim.nix {};
         tla-nvim = final.callPackage ./pkgs/tla-nvim.nix {};
       })

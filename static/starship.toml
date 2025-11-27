@@ -1,4 +1,14 @@
 add_newline = true
+format = """
+$username\
+$hostname\
+$localip\
+$shlvl\
+$singularity\
+$kubernetes\
+$directory\
+${custom.jujutsu}\
+$all"""
 
 [aws]
 symbol = "  "
@@ -62,22 +72,6 @@ symbol = "  "
 [java]
 symbol = "  "
 
-[jujutsu]
-symbol = "[@](green)"
-template = """
-separate(" ",
-  change_id.shortest(6),
-  bookmarks.map(|x| if(
-    x.name().substr(0, 20).starts_with(x.name()),
-    x.name().substr(0, 20),
-    x.name().substr(0, 19) ++ "…")
-  ).join(" "),
-  commit_id.shortest(6),
-  if(conflict, label("conflict", "conflict")),
-  if(divergent, label("divergent", "divergent")),
-  if(hidden, "hidden"),
-)"""
-
 [julia]
 symbol = "  "
 
@@ -121,3 +115,36 @@ disabled = true
 [sudo]
 symbol = "⚝  "
 disabled = false
+
+[custom.jujutsu]
+symbol = "[@](green)"
+format = '$symbol( $output) '
+detect_folders = ['.jj']
+when = "jj workspace root --ignore-working-copy --quiet"
+command = """
+jj \
+  log \
+  -r@ \
+  -n1 \
+  --ignore-working-copy \
+  --no-graph \
+  --no-pager \
+  --color always \
+  -T 'separate(" ",
+    if(divergent,
+      label("divergent", change_id.shortest(7) ++ "??"),
+      change_id.shortest(7),
+    ),
+    if(false, bookmarks.map(|x| if(
+      x.name().substr(0, 20).starts_with(x.name()),
+      x.name().substr(0, 20),
+      x.name().substr(0, 19) ++ "…")
+    ).join(" ")),
+    commit_id.shortest(7),
+    if(conflict, label("conflict", "conflict")),
+    if(immutable, label("warning", "immutable")),
+    if(hidden, "hidden"),
+    if(!mine, "by " ++ author.name()),
+    if(author.name() != committer.name() && committer.email() != "noreply@github.com", "via " ++ committer.name()),
+  )'
+"""
