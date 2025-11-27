@@ -1,4 +1,9 @@
 require'telescope'.setup {
+    pickers = {
+        find_files = {
+            hidden = true,
+        },
+    },
     extensions = {
         file_browser = {
             mappings = {
@@ -19,7 +24,24 @@ vim.keymap.set('n', '<leader>t', '<cmd>Telescope<cr>', { desc = 'Telescope' })
 vim.keymap.set('n', '<C-p>', '<cmd>Telescope find_files<cr>', { desc = 'Files' })
 vim.keymap.set('n', '<leader>b', '<cmd>Telescope buffers<cr>', { desc = 'Buffers' })
 vim.keymap.set('n', '<C-/>', '<cmd>Telescope live_grep<cr>', { desc = 'Live Grep' })
-vim.keymap.set('n', '<leader>f', '<cmd>Telescope file_browser hidden=true<cr>', { desc = 'File Browser' })
+vim.keymap.set('n', '<leader>f', '<cmd>Telescope file_browser<cr>', { desc = 'File Browser' })
+vim.keymap.set(
+    'n',
+    '<leader>c',
+    function()
+        require'telescope.builtin'.find_files {
+            find_command = {
+                'bash',
+                '-c',
+                'jj resolve --list | awk \'{print$1}\'',
+            },
+            prompt_title = 'Conflicted Files',
+        }
+    end,
+    {
+        desc = 'Conflicted Files',
+    }
+)
 
 vim.keymap.set('n', 'ghg', '<cmd>Telescope git_status<cr>', { desc = 'Git Status' })
 vim.keymap.set('n', 'ghf', '<cmd>Telescope git_commits<cr>', { desc = 'Git History' })
