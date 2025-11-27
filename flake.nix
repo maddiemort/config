@@ -59,17 +59,6 @@
       })
 
       (final: prev: {
-        yt-dlp = prev.yt-dlp.overrideAttrs (_: {
-          version = "fix-youtube-translation";
-
-          src = final.fetchFromGitHub {
-            owner = "kclauhk";
-            repo = "yt-dlp";
-            rev = "fix/youtube-translation";
-            hash = "sha256-mDOgmGu+4VrJfPEn+29TKQov9HEGE8G2LkPxM5cfIGM=";
-          };
-        });
-
         telescope-spell-errors = final.vimUtils.buildVimPlugin {
           pname = "telescope-spell-errors";
           version = "2025-11-28";
