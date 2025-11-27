@@ -49,13 +49,19 @@ symbol = "  "
 symbol = "  "
 
 [git_branch]
-disabled = true
+disabled = false
+style = 'purple'
+format = 'on [[$symbol](bold $style)$branch(:$remote_branch)]($style) '
+only_attached = true
 
 [git_commit]
-disabled = true
+disabled = false
+style = 'purple'
+format = 'on [[](bold $style) $hash$tag]($style) '
+only_detached = true
 
 [git_state]
-disabled = true
+disabled = false
 
 [git_status]
 disabled = true
