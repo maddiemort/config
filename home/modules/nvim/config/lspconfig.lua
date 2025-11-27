@@ -328,16 +328,18 @@ vim.lsp.config('pylsp', {
 vim.lsp.enable('pylsp')
 
 local python_group = vim.api.nvim_create_augroup('python', {})
-vim.api.nvim_create_autocmd('BufWritePre', {
+vim.api.nvim_create_autocmd('FileType', {
     group = python_group,
-    pattern = '*.py',
-    callback = function() vim.lsp.buf.format({ async = false }) end,
-})
-vim.api.nvim_create_autocmd({ 'BufNewFile', 'BufRead' }, {
-    group = python_group,
-    pattern = '*.py',
-    callback = function()
+    pattern = 'python',
+    callback = function(args)
         vim.opt_local.textwidth = 79
+
+        local python_buffer_group = vim.api.nvim_create_augroup('python_buf_' .. tostring(args.buf), {})
+        vim.api.nvim_create_autocmd('BufWritePre', {
+            group = python_buffer_group,
+            buffer = args.buf,
+            callback = function() vim.lsp.buf.format({ async = false }) end,
+        })
     end,
 })
 

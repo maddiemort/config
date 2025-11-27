@@ -20,6 +20,8 @@
           with pyPkgs; [
             beancount
             fava
+            python-lsp-black
+            python-lsp-server
           ]))
       ]);
 

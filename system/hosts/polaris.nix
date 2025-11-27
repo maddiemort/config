@@ -26,6 +26,8 @@
             beangulp
             beanquery
             fava
+            python-lsp-black
+            python-lsp-server
           ]))
       ]);
 
