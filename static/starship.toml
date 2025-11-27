@@ -89,8 +89,8 @@ disabled = true
 symbol = " "
 
 [nix_shell]
-format = 'in [$symbol $state( \($name\))]($style) '
-symbol = " "
+format = 'in [$symbol($name )]($style)'
+symbol = "  "
 
 [nodejs]
 symbol = " "
