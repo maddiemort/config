@@ -6,11 +6,6 @@ require'telescope'.setup {
     },
     extensions = {
         file_browser = {
-            mappings = {
-                ["i"] = {
-                    ["<C-w>"] = function() vim.cmd('normal vbd') end,
-                },
-            },
             hidden = true,
             respect_gitignore = false,
         },
