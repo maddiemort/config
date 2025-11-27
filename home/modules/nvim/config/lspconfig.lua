@@ -362,6 +362,9 @@ vim.api.nvim_create_autocmd('BufWritePre', {
 
 vim.lsp.config('tinymist', {
     settings = {
+        completion = {
+            postfix = false,
+        },
         typstExtraArgs = {
             "--features",
             "html",

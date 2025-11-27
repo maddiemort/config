@@ -10,7 +10,8 @@ end
 cmp.setup {
     snippet = {
         expand = function(args)
-            luasnip.lsp_expand(args.body)
+            -- luasnip.lsp_expand(args.body)
+            vim.snippet.expand(args.body)
         end,
     },
     mapping = {
