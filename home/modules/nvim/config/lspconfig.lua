@@ -147,23 +147,24 @@ vim.lsp.config('rust_analyzer', {
     settings = {
         ['rust-analyzer'] = {
             assist = {
-                importEnforceGranularity = true,
-                importPrefix = "crate",
+                preferSelf = true,
             },
             cargo = {
                 -- allFeatures = true,
-                extraEnv = {
-                    ["CARGO_PROFILE_RUST_ANALYZER_INHERITS"] = "dev",
-                },
-            },
-            -- checkOnSave = {
-            --     command = "clippy",
-            -- },
-            check = {
                 extraArgs = {
                     "--profile",
                     "rust-analyzer",
                 },
+                extraEnv = {
+                    ["CARGO_PROFILE_RUST_ANALYZER_INHERITS"] = "dev",
+                },
+            },
+            check = {
+                command = "clippy",
+                -- extraArgs = {
+                --     "--profile",
+                --     "rust-analyzer",
+                -- },
             },
             completion = {
                 postfix = {
@@ -175,16 +176,20 @@ vim.lsp.config('rust_analyzer', {
                     "unresolved-proc-macro",
                 },
             },
+            gotoImplementations = {
+                filterAdjacentDerives = true,
+            },
             hover = {
                 links = {
                     -- It's ugly when rust-analyzer tries to display docs.rs links for links in
                     -- markdown docs.
                     enable = false,
                 },
-                imports = {
-                    prefix = {
-                        "self",
-                    },
+            },
+            imports = {
+                granularity = {
+                    -- Not sure what I want this set to yet
+                    enforce = false,
                 },
             },
             inlayHints = {
@@ -224,6 +229,11 @@ vim.lsp.config('rust_analyzer', {
                     hideClosureInitialization = false,
                     hideClosureParameter = false,
                     hideNamedConstructor = false,
+                },
+            },
+            server = {
+                extraEnv = {
+                    ["CARGO_PROFILE_RUST_ANALYZER_INHERITS"] = "dev",
                 },
             },
         },
