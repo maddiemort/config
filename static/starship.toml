@@ -31,7 +31,7 @@ style = "cyan"
 read_only = " 🔒"
 
 [direnv]
-disabled = false
+disabled = true
 format = '[$symbol($loaded)(/$allowed)]($style) '
 symbol = '◉ '
 allowed_msg = ''
