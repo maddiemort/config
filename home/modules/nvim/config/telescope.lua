@@ -3,6 +3,10 @@ require'telescope'.setup {
         find_files = {
             hidden = true,
         },
+        spell_suggest = {
+            layout_strategy = 'cursor',
+            theme = 'dropdown',
+        },
     },
     extensions = {
         file_browser = {
@@ -13,6 +17,24 @@ require'telescope'.setup {
 }
 
 require'telescope'.load_extension('file_browser')
+require'telescope'.load_extension('spell_errors')
+
+local function set_spell_highlights()
+  vim.cmd('highlight SpellBad guifg=NONE guibg=NONE gui=underdotted guisp=NvimLightRed')
+  vim.cmd('highlight SpellCap guifg=NONE guibg=NONE gui=underdotted guisp=NvimLightYellow')
+  vim.cmd('highlight SpellLocal guifg=NONE guibg=NONE gui=underdotted guisp=NvimLightGreen')
+  vim.cmd('highlight SpellRare guifg=NONE guibg=NONE gui=underdotted guisp=NvimLightCyan')
+end
+
+local spell_group = vim.api.nvim_create_augroup('spell_highlight', {})
+vim.api.nvim_create_autocmd('ColorScheme', {
+    group = spell_group,
+    pattern = '*',
+    callback = set_spell_highlights,
+})
+
+-- This has to be run after the spell_errors extension is loaded
+set_spell_highlights()
 
 -- Map shortcuts for a few telescope pickers
 vim.keymap.set('n', '<leader>t', '<cmd>Telescope<cr>', { desc = 'Telescope' })
@@ -35,6 +57,26 @@ vim.keymap.set(
     end,
     {
         desc = 'Conflicted Files',
+    }
+)
+vim.keymap.set(
+    'n',
+    '<leader>S',
+    function()
+        require'telescope'.extensions.spell_errors.spell_errors()
+    end,
+    {
+        desc = 'Spelling Errors',
+    }
+)
+vim.keymap.set(
+    'n',
+    '<leader>s',
+    function()
+        require'telescope.builtin'.spell_suggest()
+    end,
+    {
+        desc = 'Spelling Suggestions',
     }
 )
 

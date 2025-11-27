@@ -128,8 +128,8 @@ vim.keymap.set('n', '<leader>w', '<cmd>Telescope diagnostics bufnr=0 severity_li
 vim.keymap.set('n', '<leader>D', '<cmd>Telescope diagnostics<cr>', { desc = 'Workspace Diagnostics' })
 vim.keymap.set('n', '<leader>E', '<cmd>Telescope diagnostics severity_limit=1<cr>', { desc = 'Document Errors' })
 vim.keymap.set('n', '<leader>W', '<cmd>Telescope diagnostics severity_limit=2<cr>', { desc = 'Document Warnings/Errors' })
-vim.keymap.set('n', '<leader>s', '<cmd>Telescope lsp_document_symbols<cr>', { desc = 'Document Symbols' })
-vim.keymap.set('n', '<leader>S', '<cmd>Telescope lsp_workspace_symbols<cr>', { desc = 'Workspace Symbols' })
+vim.keymap.set('n', '<leader>y', '<cmd>Telescope lsp_document_symbols<cr>', { desc = 'Document Symbols' })
+vim.keymap.set('n', '<leader>Y', '<cmd>Telescope lsp_workspace_symbols<cr>', { desc = 'Workspace Symbols' })
 
 vim.lsp.config("*", {
     root_markers = { ".git", ".jj", },

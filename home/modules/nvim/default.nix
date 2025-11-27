@@ -49,40 +49,44 @@ in {
       inherit (cfg) enable;
       package = pkgsUnstable.neovim-unwrapped;
 
-      plugins = with pkgsUnstable.vimPlugins; [
-        haskell-vim
-        kotlin-vim
-        nvim-treesitter.withAllGrammars
-        plenary-nvim
-        swift-vim
-        telescope-file-browser-nvim
-        telescope-fzf-native-nvim
-        typst-vim
-        vim-glsl
-        vim-graphql
-        vim-helm
-        vim-javascript
-        vim-jsonnet
-        vim-jsx-pretty
-        vim-mustache-handlebars
-        vim-nix
-        vim-numbertoggle
-        vim-toml
-        vim-unison
-        vimtex
+      plugins =
+        (with pkgs; [
+          telescope-spell-errors
+        ])
+        ++ (with pkgsUnstable.vimPlugins; [
+          haskell-vim
+          kotlin-vim
+          nvim-treesitter.withAllGrammars
+          plenary-nvim
+          swift-vim
+          telescope-file-browser-nvim
+          telescope-fzf-native-nvim
+          typst-vim
+          vim-glsl
+          vim-graphql
+          vim-helm
+          vim-javascript
+          vim-jsonnet
+          vim-jsx-pretty
+          vim-mustache-handlebars
+          vim-nix
+          vim-numbertoggle
+          vim-toml
+          vim-unison
+          vimtex
 
-        (luaPlugin catppuccin-vim ./config/catppuccin.lua)
-        (luaPlugin formatter-nvim ./config/formatter.lua)
-        (luaPlugin git-blame-nvim ./config/git-blame.lua)
-        (luaPlugin indent-blankline-nvim ./config/indent-blankline.lua)
-        (luaPlugin lualine-nvim ./config/lualine.lua)
-        (luaPlugin nvim-highlight-colors ./config/highlight-colors.lua)
-        (luaPlugin rust-vim ./config/rust.lua)
-        (luaPlugin snacks-nvim ./config/snacks.lua)
-        (luaPlugin telescope-nvim ./config/telescope.lua)
-        (luaPlugin vim-gitgutter ./config/gitgutter.lua)
-        (luaPlugin vim-rooter ./config/rooter.lua)
-      ];
+          (luaPlugin catppuccin-vim ./config/catppuccin.lua)
+          (luaPlugin formatter-nvim ./config/formatter.lua)
+          (luaPlugin git-blame-nvim ./config/git-blame.lua)
+          (luaPlugin indent-blankline-nvim ./config/indent-blankline.lua)
+          (luaPlugin lualine-nvim ./config/lualine.lua)
+          (luaPlugin nvim-highlight-colors ./config/highlight-colors.lua)
+          (luaPlugin rust-vim ./config/rust.lua)
+          (luaPlugin snacks-nvim ./config/snacks.lua)
+          (luaPlugin telescope-nvim ./config/telescope.lua)
+          (luaPlugin vim-gitgutter ./config/gitgutter.lua)
+          (luaPlugin vim-rooter ./config/rooter.lua)
+        ]);
 
       extraPackages =
         (with pkgs; [
@@ -445,9 +449,29 @@ in {
         " -----
 
         augroup typst | au!
-            " au BufRead,BufNewFile *.typ setlocal fo+=a
-            " au BufRead,BufNewFile *.typ setlocal fo-=c
-            au BufRead,BufNewFile *.typ setlocal textwidth=100
+            au BufRead,BufNewFile *.typ setlocal textwidth=100 spell spelllang=en_gb spellcapcheck=
+
+            function! g:FindGlob(pattern, path)
+              let fullpattern = a:path . "/" . a:pattern
+              if strlen(glob(fullpattern))
+                return fullpattern
+              else
+                let parts = split(a:path, "/")
+                if len(parts)
+                  let newpath = "/" . join(parts[0:-2], "/")
+                  return FindGlob(a:pattern, newpath)
+                else
+                  return v:null
+                endif
+              endif
+            endfunction
+
+            let b:spellfile = FindGlob('.vimspell.utf-8.add', expand('%:p:h'))
+            if b:spellfile isnot v:null && filereadable(b:spellfile)
+                let &l:spellfile = b:spellfile . ',' . stdpath('data') . '/site/spell/en.utf-8.add'
+            else
+                setlocal spellfile=
+            endif
         augroup END
 
         " ==================

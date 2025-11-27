@@ -69,6 +69,18 @@
             hash = "sha256-mDOgmGu+4VrJfPEn+29TKQov9HEGE8G2LkPxM5cfIGM=";
           };
         });
+
+        telescope-spell-errors = final.vimUtils.buildVimPlugin {
+          pname = "telescope-spell-errors";
+          version = "2025-11-28";
+          src = final.fetchFromGitHub {
+            owner = "matkrin";
+            repo = "telescope-spell-errors.nvim";
+            rev = "1567a8bf0998fe65ef6cb8c40f62a0eec0b7d774";
+            hash = "sha256-AlgMr9sGDYJMCFsUPiRJz1mWr87eqF+qrpTMIGGHXoY=";
+          };
+          meta.homepage = "https://github.com/matkrin/telescope-spell-errors.nvim";
+        };
       })
 
       (final: prev: {
