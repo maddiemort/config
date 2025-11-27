@@ -1,19 +1,3 @@
-local notify = require'notify'
-
-notify.setup {
-    max_width = 50,
-    max_height = 8,
-    icons = {
-        ERROR = "●", -- U+25CF BLACK CIRCLE
-        WARN = "◎", -- U+25CE BULLSEYE
-        INFO = "◍", -- U+25CD CIRCLE WITH VERTICAL FILL
-        DEBUG = "○", -- U+25CB WHITE CIRCLE
-        TRACE = "◌", -- U+25CC DOTTED CIRCLE
-    },
-}
-
-vim.notify = notify
-
 local signs = {
     [vim.diagnostic.severity.ERROR] = "●", -- U+25CF BLACK CIRCLE
     [vim.diagnostic.severity.WARN] = "◎", -- U+25CE BULLSEYE
@@ -73,17 +57,26 @@ vim.diagnostic.config {
 -- I don't think anything is actually using this anymore
 vim.fn.sign_define("LspInlayHint", { text = "» ", texthl = "LspInlayHint", numhl = "LspInlayHint" })
 
--- vim.lsp.handlers['window/showMessage'] = function(_, result, ctx)
---     local client = vim.lsp.get_client_by_id(ctx.client_id)
---     local lvl = ({ 'ERROR', 'WARN', 'INFO', 'DEBUG' })[result.type]
---     notify(result.message, lvl, {
---         title = 'LSP | ' .. client.name,
---         -- timeout = 10000,
---         keep = function()
---             return lvl == 'ERROR' or lvl == 'WARN'
---         end,
---     })
--- end
+vim.lsp.handlers['window/showMessage'] = function(_, result, ctx)
+    local lvl = ({
+        vim.log.levels.ERROR,
+        vim.log.levels.WARN,
+        vim.log.levels.INFO,
+        vim.log.levels.DEBUG,
+    })[result.type]
+
+    local client = vim.lsp.get_client_by_id(ctx.client_id)
+    local title
+    if client ~= nil then
+        title = 'LSP | ' .. client.name
+    else
+        title = 'LSP'
+    end
+
+    vim.notify(result.message, lvl, {
+        title = title,
+    })
+end
 
 -- vim.lsp.handlers["textDocument/hover"] = function(_, result, ctx, config)
 --     config = config or {}
