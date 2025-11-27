@@ -113,7 +113,7 @@ vim.keymap.set('n', '<leader>a', vim.lsp.buf.code_action, { desc = 'Code Actions
 
 vim.api.nvim_create_autocmd('LspAttach', {
     callback = function(ev)
-        vim.keymap.del('n', 'K', { buffer = ev.buf })
+        -- vim.keymap.del('n', 'K', { buffer = ev.buf })
     end,
 })
 

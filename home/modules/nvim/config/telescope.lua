@@ -5,6 +5,11 @@ require'telescope'.setup {
         },
         spell_suggest = {
             layout_strategy = 'cursor',
+            -- layout_config = {
+            --     height = 10,
+            --     preview_cutoff = 40,
+            --     width = 40,
+            -- },
             theme = 'dropdown',
         },
     },
