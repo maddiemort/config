@@ -23,6 +23,9 @@ read_only = " 🔒"
 [docker_context]
 symbol = " "
 
+[dotnet]
+disabled = true
+
 [elixir]
 symbol = " "
 
