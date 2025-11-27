@@ -1,7 +1,7 @@
 add_newline = true
 
 [aws]
-symbol = " "
+symbol = "  "
 
 [character]
 # success_symbol = "[❯](bold purple)"
@@ -14,7 +14,7 @@ charging_symbol = ""
 discharging_symbol = ""
 
 [conda]
-symbol = " "
+symbol = "  "
 
 [directory]
 style = "cyan"
@@ -27,16 +27,16 @@ symbol = '◉ '
 allowed_msg = ''
 
 [docker_context]
-symbol = " "
+symbol = "  "
 
 [dotnet]
 disabled = true
 
 [elixir]
-symbol = " "
+symbol = "  "
 
 [elm]
-symbol = " "
+symbol = "  "
 
 [git_branch]
 disabled = true
@@ -51,16 +51,16 @@ disabled = true
 disabled = true
 
 [golang]
-symbol = " "
+symbol = "  "
 
 [haskell]
-symbol = " "
+symbol = "  "
 
 [hg_branch]
-symbol = " "
+symbol = "  "
 
 [java]
-symbol = " "
+symbol = "  "
 
 [jujutsu]
 symbol = "[@](green)"
@@ -79,7 +79,7 @@ separate(" ",
 )"""
 
 [julia]
-symbol = " "
+symbol = "  "
 
 [memory_usage]
 symbol = " "
@@ -93,19 +93,19 @@ format = 'in [$symbol($name )]($style)'
 symbol = "  "
 
 [nodejs]
-symbol = " "
+symbol = "  "
 
 [package]
-symbol = " "
+symbol = "📦 "
 
 [php]
-symbol = " "
+symbol = "  "
 
 [python]
-symbol = " "
+symbol = "  "
 
 [ruby]
-symbol = " "
+symbol = "  "
 
 [rust]
 symbol = "  "
@@ -119,5 +119,5 @@ signal_symbol = "⋕"
 disabled = true
 
 [sudo]
-symbol = "⚝ "
+symbol = "⚝  "
 disabled = false
