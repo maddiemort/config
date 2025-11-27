@@ -20,6 +20,12 @@ symbol = " "
 style = "cyan"
 read_only = " 🔒"
 
+[direnv]
+disabled = false
+format = '[$symbol($loaded)(/$allowed)]($style) '
+symbol = '◉ '
+allowed_msg = ''
+
 [docker_context]
 symbol = " "
 
