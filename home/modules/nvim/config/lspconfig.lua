@@ -360,6 +360,15 @@ vim.api.nvim_create_autocmd('BufWritePre', {
     callback = function() vim.lsp.buf.format({ async = false }) end,
 })
 
+vim.lsp.config('tinymist', {
+    settings = {
+        typstExtraArgs = {
+            "--features",
+            "html",
+        },
+        systemFonts = true,
+    },
+})
 vim.lsp.enable('tinymist')
 
 vim.lsp.config('lua_ls', {
