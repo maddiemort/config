@@ -487,6 +487,7 @@
         advance = ["bookmark", "move", "--from", "closest_bookmark(@)", "--to", "move_closest_target()"]
 
         [ui]
+        default-command = "log"
         diff-editor = ":builtin"
         diff.format = "git"
         movement.edit = true
