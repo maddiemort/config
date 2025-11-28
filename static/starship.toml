@@ -81,6 +81,9 @@ symbol = "  "
 [julia]
 symbol = "  "
 
+[kubernetes]
+disabled = false
+
 [memory_usage]
 symbol = " "
 disabled = true
