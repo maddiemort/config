@@ -55,7 +55,7 @@ format = 'on [[$symbol](bold $style)$branch(:$remote_branch)]($style) '
 only_attached = true
 
 [git_commit]
-disabled = false
+disabled = true
 style = 'purple'
 format = 'on [[](bold $style) $hash$tag]($style) '
 only_detached = true
@@ -149,7 +149,7 @@ jj \
       x.name().substr(0, 20),
       x.name().substr(0, 19) ++ "…")
     ).join(" ")),
-    commit_id.shortest(7),
+    if(false, commit_id.shortest(7)),
     if(conflict, label("conflict", "conflict")),
     if(immutable, label("warning", "immutable")),
     if(hidden, "hidden"),
