@@ -17,7 +17,7 @@
     sessionVariables = {
       CLICOLOR = 1;
       LANG = "en_GB.UTF-8";
-      LESS = "R";
+      LESS = "-cR";
       # EDITOR = "hx";
     };
 
