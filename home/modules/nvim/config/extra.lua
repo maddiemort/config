@@ -80,3 +80,54 @@ vim.keymap.set('n', ']e', function() vim.diagnostic.jump({ count = 1, severity =
 vim.keymap.set('n', '[e', function() vim.diagnostic.jump({ count = -1, severity = vim.diagnostic.severity.ERROR }) end, { desc = 'Previous Error' })
 vim.keymap.set('n', ']w', function() vim.diagnostic.jump({ count = 1, severity = { min = vim.diagnostic.severity.WARN } }) end, { desc = 'Next Warning/Error' })
 vim.keymap.set('n', '[w', function() vim.diagnostic.jump({ count = -1, severity = { min = vim.diagnostic.severity.WARN } }) end, { desc = 'Previous Warning/Error' })
+
+-- =================
+-- LANGUAGE SETTINGS
+-- =================
+
+-- -----
+-- Typst
+-- -----
+
+local typst_group = vim.api.nvim_create_augroup('typst', {})
+vim.api.nvim_create_autocmd({'BufRead', 'BufNewFile'}, {
+    group = typst_group,
+    pattern = '*.typ',
+    callback = function()
+        vim.bo.textwidth = 100
+
+        vim.o.spell = true
+        vim.bo.spelllang = "en_gb"
+        vim.bo.spellcapcheck = ""
+
+        local stop = nil
+        if vim.startswith(vim.fn.getcwd(), vim.env.HOME) then
+            stop = vim.env.HOME
+        end
+
+        local found_files = vim.fs.find(
+            ".vimspell.utf-8.add",
+            {
+                upward = true,
+                limit = math.huge,
+                type = "file",
+                stop = stop,
+            }
+        )
+
+        local spellfile = ""
+        for i, found_file in ipairs(found_files) do
+            if i ~= 1 then
+                spellfile = spellfile .. ","
+            end
+            spellfile = spellfile .. found_file
+        end
+
+        if #found_files ~= 0 then
+            spellfile = spellfile .. ","
+        end
+        spellfile = spellfile .. vim.fn.stdpath('data') .. "/site/spell/en.utf-8.add"
+
+        vim.bo.spellfile = spellfile
+    end,
+})

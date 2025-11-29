@@ -342,36 +342,6 @@ elseif ( OS == 'Linux' )
     " Linux Specific Settings
 endif
 
-" -----
-" Typst
-" -----
-
-augroup typst | au!
-    au BufRead,BufNewFile *.typ setlocal textwidth=100 spell spelllang=en_gb spellcapcheck=
-
-    function! g:FindGlob(pattern, path)
-      let fullpattern = a:path . "/" . a:pattern
-      if strlen(glob(fullpattern))
-        return fullpattern
-      else
-        let parts = split(a:path, "/")
-        if len(parts)
-          let newpath = "/" . join(parts[0:-2], "/")
-          return FindGlob(a:pattern, newpath)
-        else
-          return v:null
-        endif
-      endif
-    endfunction
-
-    let b:spellfile = FindGlob('.vimspell.utf-8.add', expand('%:p:h'))
-    if b:spellfile isnot v:null && filereadable(b:spellfile)
-        let &l:spellfile = b:spellfile . ',' . stdpath('data') . '/site/spell/en.utf-8.add'
-    else
-        setlocal spellfile=
-    endif
-augroup END
-
 " ==================
 " KEYBOARD SHORTCUTS
 " ==================
