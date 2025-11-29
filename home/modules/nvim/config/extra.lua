@@ -2,9 +2,6 @@
 -- KEYBOARD SHORTCUTS
 -- ==================
 
--- Quick-save with <leader>w
--- vim.keymap.set('n', '<leader>w', '<cmd>w<cr>', { desc = 'Write' })
-
 -- Suspend nvim
 vim.keymap.set('n', '<leader>z', '<cmd>sus<cr>', { desc = 'Suspend' })
 
