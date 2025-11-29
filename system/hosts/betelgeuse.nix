@@ -52,6 +52,7 @@
       "steam"
       "stolendata-mpv"
       "teamspeak-client"
+      "thorium"
       "transmission"
       "whatsapp"
       "zulip"
