@@ -73,7 +73,7 @@ vim.keymap.set('n', '<C-L>', '<C-W><C-L>', { desc = 'Move to Split Right' })
 -- Run make from the current directory
 vim.keymap.set('n', 'M', '<cmd>make<cr>', { desc = 'Run `make`' })
 
--- Go to next/previous diagnostic
+-- Go to next/previous diagnostic, error or warning
 vim.keymap.set('n', ']d', function() vim.diagnostic.jump({ count = 1 }) end, { desc = 'Next Diagnostic' })
 vim.keymap.set('n', '[d', function() vim.diagnostic.jump({ count = -1 }) end, { desc = 'Previous Diagnostic' })
 vim.keymap.set('n', ']e', function() vim.diagnostic.jump({ count = 1, severity = vim.diagnostic.severity.ERROR }) end, { desc = 'Next Error' })
