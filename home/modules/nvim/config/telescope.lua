@@ -13,11 +13,17 @@ require'telescope'.setup {
             hidden = true,
             respect_gitignore = false,
         },
+        ["ui-select"] = {
+            require("telescope.themes").get_dropdown {
+                layout_strategy = 'cursor',
+            },
+        },
     }
 }
 
 require'telescope'.load_extension('file_browser')
 require'telescope'.load_extension('spell_errors')
+require'telescope'.load_extension('ui-select')
 
 local function set_spell_highlights()
   vim.cmd('highlight SpellBad guifg=NONE guibg=NONE gui=underdotted guisp=NvimLightRed')

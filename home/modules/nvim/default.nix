@@ -65,6 +65,7 @@ in {
           swift-vim
           telescope-file-browser-nvim
           telescope-fzf-native-nvim
+          telescope-ui-select-nvim
           typst-vim
           vim-glsl
           vim-graphql
