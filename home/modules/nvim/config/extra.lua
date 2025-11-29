@@ -81,6 +81,38 @@ vim.keymap.set('n', '[e', function() vim.diagnostic.jump({ count = -1, severity 
 vim.keymap.set('n', ']w', function() vim.diagnostic.jump({ count = 1, severity = { min = vim.diagnostic.severity.WARN } }) end, { desc = 'Next Warning/Error' })
 vim.keymap.set('n', '[w', function() vim.diagnostic.jump({ count = -1, severity = { min = vim.diagnostic.severity.WARN } }) end, { desc = 'Previous Warning/Error' })
 
+local spellbinds = {
+    { bind = "<leader>mg", command = "zg", prompt = "Mark spelled correctly in:", desc = "Mark Word as Spelled Correctly" },
+    { bind = "<leader>ug", command = "zug", prompt = "Undo mark spelled correctly in:", desc = "Undo Mark Word as Spelled Correctly" },
+    { bind = "<leader>mw", command = "zw", prompt = "Mark spelled wrong in:", desc = "Mark Word as Spelled Wrong" },
+    { bind = "<leader>uw", command = "zuw", prompt = "Undo mark spelled wrong in:", desc = "Undo Mark Word as Spelled Wrong" },
+}
+for _, spellbind in ipairs(spellbinds) do
+    vim.keymap.set(
+        {'n', 'v'},
+        spellbind.bind,
+        function()
+            if not vim.o.spell or string.len(vim.bo.spellfile) == 0 then
+                return
+            end
+
+            local spellfiles = {}
+            for spellfile in string.gmatch(vim.bo.spellfile, '([^,]+)') do
+                spellfiles[#spellfiles + 1] = spellfile
+            end
+
+            vim.ui.select(spellfiles, {
+                prompt = spellbind.prompt,
+            }, function(_, index)
+                if index ~= nil then
+                    vim.cmd.normal { index .. spellbind.command }
+                end
+            end)
+        end,
+        { desc = spellbind.desc }
+    )
+end
+
 -- =================
 -- LANGUAGE SETTINGS
 -- =================
