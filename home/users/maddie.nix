@@ -507,7 +507,32 @@
       "wezterm/wezterm.lua".text = ''
         local wezterm = require 'wezterm';
 
-        local mykeys = {
+        local config = wezterm.config_builder()
+
+        config.color_scheme = "Catppuccin Macchiato"
+        config.font = wezterm.font {
+          family = "Iosevka Custom",
+          weight = "Light",
+        }
+        config.font_size = 16.0
+        config.warn_about_missing_glyphs = false
+
+        config.enable_scroll_bar = true
+        config.scrollback_lines = 100000
+
+        config.audible_bell = "Disabled"
+        config.exit_behavior = "Close"
+        -- config.check_for_updates = false
+
+        config.window_decorations = "RESIZE"
+        config.native_macos_fullscreen_mode = false
+        config.send_composed_key_when_left_alt_is_pressed = true
+        config.send_composed_key_when_right_alt_is_pressed = false
+
+        -- The leader key (Ctrl-Space) must be pressed before any bindings with the LEADER modifier
+        config.leader = { key = "Space", mods = "CTRL", timeout_milliseconds = 1000 }
+        config.disable_default_key_bindings = true
+        config.keys = {
           -- Reload the config file
           { key = "r", mods = "LEADER", action = "ReloadConfiguration" },
 
@@ -554,29 +579,62 @@
 
         -- Insert bindings to select each tab
         for i = 1, 9 do
-          table.insert(mykeys, {
+          table.insert(config.keys, {
             key = tostring(i),
             mods = "LEADER",
             action = wezterm.action { ActivateTab = i - 1 },
           })
         end
 
-        table.insert(mykeys, {
+        table.insert(config.keys, {
           key = "0",
           mods = "LEADER",
           action = wezterm.action { ActivateTab = 9 },
         })
 
-        wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_width)
-          local pane = tab.active_pane
-          local cwd = string.match(pane.current_working_dir, "/([^/]+)/$")
-          if cwd ~= nil then
-            return {
-              {Text=" " .. (tab.tab_index + 1) .. ": " .. tab.active_pane.title .. " | " .. cwd .. " "},
-            }
+        -- This function returns the suggested title for a tab.
+        -- It prefers the title that was set via `tab:set_title()`
+        -- or `wezterm cli set-tab-title`, but falls back to the
+        -- title of the active pane in that tab.
+        function tab_title(tab_info)
+          local title = tab_info.tab_title
+          -- if the tab title is explicitly set, take that
+          if title and #title > 0 then
+            return title
           end
-          return tab.active_pane.title
-        end)
+          -- Otherwise, use the title from the active pane
+          -- in that tab
+          return tab_info.active_pane.title
+        end
+
+        -- Equivalent to POSIX basename(3)
+        -- Given "/foo/bar" returns "bar"
+        -- Given "c:\\foo\\bar" returns "bar"
+        function basename(s)
+          return string.gsub(s, '(.*[/\\])(.*)', '%2')
+        end
+
+        -- wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_width)
+        --   local pane = tab.active_pane
+        --   local title = tab.tab_index + 1
+
+        --   local cwd = pane.current_working_dir.file_path
+        --   local cmd = pane.foreground_process_name
+
+        --   if cwd ~= nil and cmd ~= "" then
+        --     title = title .. ": " .. basename(cwd) .. " | " .. basename(cmd)
+        --   else if cwd ~= nil then
+        --     title = title .. ": " .. basename(cwd)
+        --   else if cmd ~= "" then
+        --     title = title .. ": " .. basename(cmd)
+        --   end
+
+        --   if pane.has_unseen_output then
+        --     title = title .. " *"
+        --   end
+
+        --   return title
+        -- end)
 
         wezterm.on('gui-attached', function(domain)
           -- maximize all displayed windows on startup
@@ -588,40 +646,7 @@
           end
         end)
 
-        return {
-          color_scheme = "Catppuccin Macchiato",
-          font = wezterm.font("Iosevka Custom", { weight = "Light" }),
-          enable_scroll_bar = true,
-
-          audible_bell = "Disabled",
-
-          scrollback_lines = 100000,
-
-          exit_behavior = "Close",
-
-          -- The leader key (Ctrl-Space) must be pressed before any bindings with the LEADER modifier
-          leader = { key = "Space", mods = "CTRL", timeout_milliseconds = 1000 },
-
-          disable_default_key_bindings = true,
-          keys = mykeys,
-
-          warn_about_missing_glyphs = false,
-
-          check_for_updates = false,
-
-          -- unix_domains = {
-          --   {
-          --     name = "talitha",
-          --     proxy_command = { "ssh", "-T", "-A", "talitha", "wezterm", "cli", "proxy" },
-          --   },
-          -- },
-
-          font_size = 16.0,
-          window_decorations = "RESIZE",
-          native_macos_fullscreen_mode = false,
-          send_composed_key_when_left_alt_is_pressed = true,
-          send_composed_key_when_right_alt_is_pressed = false,
-        }
+        return config
       '';
     };
   };
