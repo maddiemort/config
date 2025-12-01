@@ -63,6 +63,7 @@
       "cool-retro-term"
       "docker-desktop"
       "firefox@developer-edition"
+      "flutter"
       # "insomnia"
       "jetbrains-toolbox"
       "loom"
