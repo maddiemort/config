@@ -3,6 +3,7 @@
   lib,
   pkgs,
   pkgsUnstable,
+  inputs,
   ...
 }: {
   environment = {
@@ -136,6 +137,9 @@
     gc.automatic = true;
 
     nixPath = [
+      "nixpkgs=${inputs.nixpkgs}"
+      "unstable=${inputs.nixpkgs-unstable}"
+
       # TODO: This entry should be added automatically via FUP's
       # `nix.linkInputs` and `nix.generateNixPathFromInputs` options, but
       # currently that doesn't work because nix-darwin doesn't export packages,
@@ -149,6 +153,11 @@
       # NOTE: FUP isn't being used in this flake anymore......
       "darwin=/etc/nix/inputs/darwin"
     ];
+
+    registry = {
+      nixpkgs.flake = inputs.nixpkgs;
+      unstable.flake = inputs.nixpkgs-unstable;
+    };
 
     optimise.automatic = true;
 

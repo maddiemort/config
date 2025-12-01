@@ -123,6 +123,7 @@
         ];
         specialArgs = {
           inherit pkgsUnstable;
+          inherit inputs;
         };
       };
 
