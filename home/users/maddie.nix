@@ -541,11 +541,16 @@
 
           -- Create and close tabs
           { key = "c", mods = "LEADER", action = wezterm.action { SpawnCommandInNewTab = { domain = "CurrentPaneDomain", cwd = "~" } } },
+          { key = "c", mods = "LEADER|SHIFT", action = wezterm.action.ShowLauncher },
           { key = "k", mods = "LEADER", action = wezterm.action { CloseCurrentTab = { confirm = true } } },
 
           -- Select next and previous tabs
           { key = "n", mods = "LEADER", action = wezterm.action { ActivateTabRelative = 1 } },
           { key = "p", mods = "LEADER", action = wezterm.action { ActivateTabRelative = -1 } },
+
+          -- Move tabs
+          { key = "LeftArrow", mods = "SUPER|SHIFT", action = wezterm.action.MoveTabRelative(-1) },
+          { key = "RightArrow", mods = "SUPER|SHIFT", action = wezterm.action.MoveTabRelative(1) },
 
           -- Create horizontal or vertical splits (close by sending EOF with Ctrl-D)
           { key = "|", mods = "LEADER", action = wezterm.action { SplitHorizontal = { domain = "CurrentPaneDomain" } } },
