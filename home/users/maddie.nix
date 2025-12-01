@@ -14,10 +14,11 @@
       "$HOME/.cargo/bin"
     ];
 
-    sessionVariables = {
+    sessionVariables = rec {
       CLICOLOR = 1;
       LANG = "en_GB.UTF-8";
       LESS = "-cR";
+      BAT_PAGER = "less ${LESS}";
       # EDITOR = "hx";
     };
 
