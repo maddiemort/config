@@ -508,6 +508,7 @@
         [aliases]
         move-closest = ["bookmark", "move", "--from", "closest_bookmark(@)"]
         advance = ["bookmark", "move", "--from", "closest_bookmark(@)", "--to", "move_closest_target()"]
+        merge = ["new", "heads(::@ ~ (empty() & description(exact:''')))"]
 
         [ui]
         default-command = "log"
