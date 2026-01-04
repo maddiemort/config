@@ -95,6 +95,19 @@
     mkUnstableOverlays = system:
       [
         inputs.neovim-nightly-overlay.overlays.default
+
+        (final: prev: {
+          # Attempt to fix folding in beancount files on first load. See comment in
+          # `home/modules/nvim/config/extra.lua`.
+          telescope-nvim = final.vimPlugins.telescope-nvim.overrideAttrs {
+            src = final.fetchFromGitHub {
+              owner = "nvim-telescope";
+              repo = "telescope.nvim";
+              rev = "bea6665a8f14f31e11a3093a3b4a92be313bf4be";
+              hash = "sha256-YQdVPfWtbvoPScq27r+KRyvM0v6XzuRgzEEIn1qWFWg=";
+            };
+          };
+        })
       ]
       ++ mkOverlays system;
 

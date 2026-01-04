@@ -60,6 +60,9 @@ in {
 
           (luaPlugin vimPlugins.nvim-treesitter.withAllGrammars ./config/treesitter.lua)
         ])
+        ++ (with pkgsUnstable; [
+          (luaPlugin telescope-nvim ./config/telescope.lua)
+        ])
         ++ (with pkgsUnstable.vimPlugins; [
           haskell-vim
           kotlin-vim
@@ -91,7 +94,6 @@ in {
           (luaPlugin nvim-highlight-colors ./config/highlight-colors.lua)
           (luaPlugin rust-vim ./config/rust.lua)
           (luaPlugin snacks-nvim ./config/snacks.lua)
-          (luaPlugin telescope-nvim ./config/telescope.lua)
           (luaPlugin vim-gitgutter ./config/gitgutter.lua)
           (luaPlugin vim-rooter ./config/rooter.lua)
         ]);
