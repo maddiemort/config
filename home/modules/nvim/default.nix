@@ -60,7 +60,6 @@ in {
         ++ (with pkgsUnstable.vimPlugins; [
           haskell-vim
           kotlin-vim
-          nvim-treesitter.withAllGrammars
           plenary-nvim
           swift-vim
           telescope-file-browser-nvim
@@ -86,6 +85,7 @@ in {
           (luaPlugin indent-blankline-nvim ./config/indent-blankline.lua)
           (luaPlugin lualine-nvim ./config/lualine.lua)
           (luaPlugin nvim-highlight-colors ./config/highlight-colors.lua)
+          (luaPlugin nvim-treesitter.withAllGrammars ./config/treesitter.lua)
           (luaPlugin rust-vim ./config/rust.lua)
           (luaPlugin snacks-nvim ./config/snacks.lua)
           (luaPlugin telescope-nvim ./config/telescope.lua)
