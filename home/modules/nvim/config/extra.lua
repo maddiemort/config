@@ -125,7 +125,7 @@ vim.api.nvim_create_autocmd({'BufRead', 'BufNewFile'}, {
     callback = function()
         vim.bo.textwidth = 100
 
-        vim.o.spell = true
+        vim.opt_local.spell = true
         vim.bo.spelllang = "en_gb"
         vim.bo.spellcapcheck = ""
 
