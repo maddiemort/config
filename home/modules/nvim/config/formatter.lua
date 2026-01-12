@@ -45,13 +45,11 @@ vim.api.nvim_create_autocmd('BufWritePost', {
     end,
 })
 
-local id = vim.api.nvim_create_augroup('commentstring-fix', {})
-vim.api.nvim_create_autocmd({ 'BufNewFile', 'BufRead' }, {
-    group = id,
-    callback = function()
-        if vim.bo.commentstring == '//%s' then
-            vim.bo.commentstring = '// %s'
+vim.api.nvim_create_autocmd('FileType', {
+    group = vim.api.nvim_create_augroup('commentstring-fix', {}),
+    callback = function(ctx)
+        if vim.bo[ctx.buf].commentstring == '//%s' then
+            vim.bo[ctx.buf].commentstring = '// %s'
         end
     end,
 })
-
