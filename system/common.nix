@@ -48,6 +48,7 @@
         imagemagick
         jq
         python3
+        samply
         tokei
         unzip
         wget
