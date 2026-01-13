@@ -13,6 +13,7 @@
       ])
       ++ (with pkgsUnstable; [
         catgirl
+        jujutsu
         tectonic
       ]);
 

@@ -1,6 +1,5 @@
 {
   config,
-  lib,
   pkgs,
   pkgsUnstable,
   ...
@@ -43,6 +42,7 @@
         colima
         docker
         docker-buildx
+        jujutsu-0-28-2-mailmap
         kubectl
       ]);
 

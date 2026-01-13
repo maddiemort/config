@@ -138,7 +138,7 @@
         export TERM=wezterm
         set -g fish_key_bindings fish_vi_key_bindings
 
-        COMPLETE=fish ${pkgsUnstable.jujutsu}/bin/jj | source
+        COMPLETE=fish jj | source
 
         function fish_greeting
           # ${pkgs.fastfetch}/bin/fastfetch
@@ -489,7 +489,6 @@
         [ui]
         default-command = "log"
         diff-editor = ":builtin"
-        diff.format = "git"
         movement.edit = true
         show-cryptographic-signatures = false
 

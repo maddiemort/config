@@ -64,7 +64,6 @@
         git
         gnupg
         hl-log-viewer
-        jujutsu
         openssh
         ripgrep
         rust-analyzer

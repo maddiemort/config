@@ -25,14 +25,6 @@
     key = "~/.ssh/id_ed25519_jj_ditto_com.pub"
   '';
 
-  xdg.configFile."jj/conf.d/30-ditto.toml".text = ''
-    [[--scope]]
-    --when.repositories = ["~/src/github.com/getditto"]
-
-    [--scope.user]
-    email = "maddie@ditto.com"
-  '';
-
   custom = {
     auth = {
       publicKeys = [

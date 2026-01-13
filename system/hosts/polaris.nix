@@ -15,6 +15,7 @@
       ++ (with pkgsUnstable; [
         catgirl
         ffmpeg
+        jujutsu
         tectonic
         yt-dlp
       ]);

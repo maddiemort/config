@@ -1,6 +1,5 @@
 {
   config,
-  lib,
   pkgs,
   pkgsUnstable,
   ...
@@ -40,6 +39,7 @@
       ])
       ++ (with pkgsUnstable; [
         cachix
+        jujutsu-0-28-2-mailmap
       ]);
 
     systemPath = [

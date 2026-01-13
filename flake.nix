@@ -45,17 +45,17 @@
     inherit (flake-utils.lib.system) aarch64-darwin x86_64-darwin;
     inherit (inputs.home-manager.lib) homeManagerConfiguration;
     inherit (nix-darwin.lib) darwinSystem;
-    inherit (nixpkgs.lib) optional;
 
     supportedSystems = [aarch64-darwin x86_64-darwin];
 
     mkOverlays = system: [
       inputs.agenix.overlays.default
-      inputs.jj.overlays.default
       inputs.unison-lang.overlay
 
       (_: _: {
         inherit (inputs.home-manager.packages.${system}) home-manager;
+
+        jujutsu-0-28-2-mailmap = inputs.jj.packages.${system}.jujutsu;
       })
 
       (final: prev: {
@@ -130,7 +130,7 @@
     mkHome = {
       system,
       username,
-      override ? null,
+      overrides ? [],
     }: let
       pkgs = stableFor system;
       pkgsUnstable = unstableFor system;
@@ -143,7 +143,7 @@
             ./home/modules
             ./home/users/${username}.nix
           ]
-          ++ optional (override != null) ./home/overrides/${override}.nix;
+          ++ map (override: ./home/overrides/${override}.nix) overrides;
         extraSpecialArgs = {
           inherit pkgsUnstable;
         };
@@ -172,27 +172,27 @@
           maddie-betelgeuse = mkHome {
             inherit system;
             username = "maddie";
-            override = "betelgeuse";
+            overrides = ["betelgeuse" "non-work"];
           };
           maddie-nashira = mkHome {
             inherit system;
             username = "maddie";
-            override = "nashira";
+            overrides = ["nashira" "work"];
           };
           maddie-natasha = mkHome {
             inherit system;
             username = "maddie";
-            override = "natasha";
+            overrides = ["natasha" "work"];
           };
           maddie-polaris = mkHome {
             inherit system;
             username = "maddie";
-            override = "polaris";
+            overrides = ["polaris" "non-work"];
           };
           maddie-rigel = mkHome {
             inherit system;
             username = "maddie";
-            override = "rigel";
+            overrides = ["rigel"];
           };
         };
       };
