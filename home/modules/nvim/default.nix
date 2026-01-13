@@ -56,6 +56,8 @@ in {
       plugins =
         (with pkgs; [
           telescope-spell-errors
+
+          (luaPlugin vimPlugins.nvim-treesitter.withAllGrammars ./config/treesitter.lua)
         ])
         ++ (with pkgsUnstable.vimPlugins; [
           haskell-vim
@@ -85,7 +87,6 @@ in {
           (luaPlugin indent-blankline-nvim ./config/indent-blankline.lua)
           (luaPlugin lualine-nvim ./config/lualine.lua)
           (luaPlugin nvim-highlight-colors ./config/highlight-colors.lua)
-          (luaPlugin nvim-treesitter.withAllGrammars ./config/treesitter.lua)
           (luaPlugin rust-vim ./config/rust.lua)
           (luaPlugin snacks-nvim ./config/snacks.lua)
           (luaPlugin telescope-nvim ./config/telescope.lua)
