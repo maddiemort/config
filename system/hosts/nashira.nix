@@ -44,6 +44,8 @@
         docker-buildx
         jujutsu
         kubectl
+        k3d
+        stern
       ]);
 
     systemPath = [
