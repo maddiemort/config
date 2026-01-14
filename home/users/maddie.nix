@@ -479,6 +479,9 @@
         backends.ssh.allowed-signers = "~/.ssh/allowed_signers"
         behavior = "own"
 
+        [templates]
+        git_push_bookmark = '"maddiemort/push-" ++ change_id.short()'
+
         [template-aliases]
         'format_short_signature(signature)' = ''''
         if(signature.email().domain().ends_with("users.noreply.github.com"),

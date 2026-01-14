@@ -23,6 +23,9 @@
   xdg.configFile."jj/conf.d/20-nashira.toml".text = ''
     [signing]
     key = "~/.ssh/id_ed25519_jj_ditto_com.pub"
+
+    [ui]
+    diff.format = "git"
   '';
 
   custom = {

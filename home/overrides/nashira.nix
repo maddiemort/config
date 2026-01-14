@@ -26,10 +26,28 @@
     file.".ssh/id_ed25519_sk_maddie_wtf.pub".source = ../../keys/maddie-wtf.pub;
   };
 
-  xdg.configFile."jj/conf.d/20-nashira.toml".text = ''
-    [signing]
-    key = "~/.ssh/id_ed25519_jj_ditto_com.pub"
-  '';
+  xdg.configFile = {
+    "jj/conf.d/20-nashira.toml".text = ''
+      [signing]
+      key = "~/.ssh/id_ed25519_jj_ditto_com.pub"
+
+      [ui]
+      diff-formatter = ":git"
+      pager = "less"
+
+      [[--scope]]
+      --when.repositories = ["~/src/github.com/maddiemort"]
+
+      [--scope.remotes.origin]
+      auto-track-bookmarks = "*"
+
+      [[--scope]]
+      --when.repositories = ["~/src/github.com/getditto"]
+
+      [--scope.remotes.origin]
+      auto-track-bookmarks = "mm/*"
+    '';
+  };
 
   custom = {
     auth = {

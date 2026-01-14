@@ -42,7 +42,7 @@
         colima
         docker
         docker-buildx
-        jujutsu-0-28-2-mailmap
+        jujutsu
         kubectl
       ]);
 
