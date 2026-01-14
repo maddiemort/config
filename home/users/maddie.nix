@@ -601,6 +601,9 @@
             action = wezterm.action.PasteFrom "Clipboard"
           },
 
+          -- Search
+          { key = "/", mods = "LEADER", action = wezterm.action.Search { Regex = "" } },
+
           -- Zoom in and out
           { key = "-", mods = "CTRL", action = "DecreaseFontSize" },
           { key = "+", mods = "CTRL", action = "IncreaseFontSize" },
