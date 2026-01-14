@@ -434,6 +434,29 @@
 
   xdg = {
     configFile = {
+      "bottom/bottom.toml".source = (pkgs.formats.toml {}).generate "bottom.toml" {
+        disk = {
+          mount_filter = {
+            # Whether to ignore any matches. Defaults to true.
+            is_list_ignored = true;
+
+            # A list of filters to try and match.
+            list = [
+              "/System/Volumes/\\w+"
+              "/Library/Developer/CoreSimulator/Volumes/[^/]+"
+              "/Library/Developer/CoreSimulator/Cryptex/Images/.*"
+            ];
+
+            # Whether to use regex. Defaults to false.
+            regex = true;
+            # Whether to be case-sensitive. Defaults to false.
+            case_sensitive = true;
+            # Whether to be require matching the whole word. Defaults to false.
+            whole_word = true;
+          };
+        };
+      };
+
       "git/ignore".source = ../../static/gitignore;
 
       # By default, jj wants to look in ~/Library/Application Support for this file on macOS, so in

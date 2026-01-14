@@ -57,6 +57,7 @@
       ++ (with pkgsUnstable; [
         bat
         btop
+        bottom
         direnv
         exercism
         eza
