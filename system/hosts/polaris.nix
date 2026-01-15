@@ -16,7 +16,7 @@
       ++ (with pkgsUnstable; [
         catgirl
         ffmpeg
-        jujutsu
+        jujutsu-0-37-0-mailmap
         tectonic
         yt-dlp
 

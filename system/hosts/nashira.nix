@@ -42,7 +42,7 @@
         colima
         docker
         docker-buildx
-        jujutsu
+        jujutsu-0-37-0-mailmap
         k3d
         kubectl
         python313

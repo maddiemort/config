@@ -39,7 +39,7 @@
       ])
       ++ (with pkgsUnstable; [
         cachix
-        jujutsu-0-28-2-mailmap
+        jujutsu-0-37-0-mailmap
         python313
       ]);
 
