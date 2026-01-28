@@ -21,7 +21,7 @@ require'telescope'.setup {
     extensions = {
         file_browser = {
             hidden = true,
-            respect_gitignore = false,
+            respect_gitignore = true,
         },
         ["ui-select"] = {
             require("telescope.themes").get_dropdown {
