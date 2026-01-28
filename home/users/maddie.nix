@@ -628,6 +628,39 @@
           action = wezterm.action { ActivateTab = 9 },
         })
 
+        config.mouse_bindings = {
+          {
+            event = { Up = { streak = 1, button = "Left" } },
+            mods = 'NONE',
+            action = wezterm.action.OpenLinkAtMouseCursor,
+          },
+          {
+            event = { Up = { streak = 2, button = "Left" } },
+            mods = 'NONE',
+            action = wezterm.action.Nop,
+          },
+          {
+            event = { Up = { streak = 3, button = "Left" } },
+            mods = 'NONE',
+            action = wezterm.action.Nop,
+          },
+          {
+            event = { Up = { streak = 1, button = "Left" } },
+            mods = 'SHIFT',
+            action = wezterm.action.OpenLinkAtMouseCursor,
+          },
+          {
+            event = { Up = { streak = 1, button = "Left" } },
+            mods = 'SHIFT|ALT',
+            action = wezterm.action.OpenLinkAtMouseCursor,
+          },
+          {
+            event = { Up = { streak = 1, button = "Left" } },
+            mods = 'ALT',
+            action = wezterm.action.Nop,
+          },
+        }
+
         -- This function returns the suggested title for a tab.
         -- It prefers the title that was set via `tab:set_title()`
         -- or `wezterm cli set-tab-title`, but falls back to the
