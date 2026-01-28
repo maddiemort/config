@@ -73,6 +73,7 @@
       "notion"
       "obs"
       # "slack" # installed automatically by Pixel
+      "stats"
       "tla+-toolbox"
       "visual-studio-code"
       "zed@preview"
