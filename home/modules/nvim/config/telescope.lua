@@ -3,6 +3,11 @@ require'telescope'.setup {
         find_files = {
             hidden = true,
         },
+        live_grep = {
+            additional_args = {
+                '--hidden',
+            },
+        },
         spell_suggest = {
             layout_strategy = 'cursor',
             -- layout_config = {
