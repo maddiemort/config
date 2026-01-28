@@ -47,6 +47,12 @@
         kubectl
         python313
         stern
+
+        (python313.withPackages (pyPkgs:
+          with pyPkgs; [
+            python-lsp-black
+            python-lsp-server
+          ]))
       ]);
 
     systemPath = [
