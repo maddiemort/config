@@ -47,7 +47,6 @@
         hyperfine
         imagemagick
         jq
-        python3
         samply
         tokei
         unzip

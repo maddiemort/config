@@ -4,6 +4,15 @@ formatter.setup {
     logging = true,
     log_level = vim.log.levels.WARN,
     filetype = {
+        beancount = {
+            function()
+                return {
+                    exe = "bean-format",
+                    args = { "-i" },
+                    stdin = false,
+                }
+            end,
+        },
         c = {
             require'formatter.filetypes.c'.clangformat,
         },

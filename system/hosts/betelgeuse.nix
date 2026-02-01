@@ -15,6 +15,12 @@
         catgirl
         jujutsu
         tectonic
+
+        (python313.withPackages (pyPkgs:
+          with pyPkgs; [
+            beancount
+            fava
+          ]))
       ]);
 
     variables = {

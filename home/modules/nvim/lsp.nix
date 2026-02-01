@@ -48,6 +48,7 @@ in {
 
       extraPackages = with pkgsUnstable; [
         alejandra
+        beancount-language-server
         lua-language-server
         nil # NIx Language server
         nixpkgs-fmt # For nil to format stuff

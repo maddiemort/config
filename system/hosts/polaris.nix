@@ -1,4 +1,5 @@
 {
+  config,
   pkgs,
   pkgsUnstable,
   ...
@@ -18,10 +19,26 @@
         jujutsu
         tectonic
         yt-dlp
+
+        (python313.withPackages (pyPkgs:
+          with pyPkgs; [
+            beancount
+            beangulp
+            beanquery
+            fava
+          ]))
       ]);
 
     variables = {
       JRE8 = "${pkgs.jre8}";
+    };
+  };
+
+  launchd.user.agents = {
+    fava = {
+      path = [config.environment.systemPath];
+      command = "fava $HOME/Documents/Financial/Accounts/accounts.beancount";
+      serviceConfig.KeepAlive = true;
     };
   };
 

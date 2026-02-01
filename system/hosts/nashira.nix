@@ -43,8 +43,9 @@
         docker
         docker-buildx
         jujutsu
-        kubectl
         k3d
+        kubectl
+        python313
         stern
       ]);
 

@@ -1,3 +1,16 @@
+-- ================
+-- EDITOR BEHAVIOUR
+-- ================
+
+-- -------
+-- Folding
+-- -------
+
+vim.o.foldopen = "block,insert,jump,mark,percent,quickfix,search,tag,undo"
+vim.o.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+vim.o.foldmethod = "expr"
+vim.o.foldlevel = 99
+
 -- ==================
 -- KEYBOARD SHORTCUTS
 -- ==================
@@ -158,5 +171,34 @@ vim.api.nvim_create_autocmd({'BufRead', 'BufNewFile'}, {
         spellfile = spellfile .. vim.fn.stdpath('data') .. "/site/spell/en.utf-8.add"
 
         vim.bo.spellfile = spellfile
+    end,
+})
+
+-- ---------
+-- Beancount
+-- ---------
+
+local beancount_group = vim.api.nvim_create_augroup('beancount', {})
+vim.api.nvim_create_autocmd('FileType', {
+    group = beancount_group,
+    pattern = 'beancount',
+    callback = function()
+        vim.treesitter.start()
+        vim.opt_local.foldlevel = 0
+        vim.opt_local.commentstring = "; %s"
+        vim.defer_fn(
+            function()
+                -- Fix for folding sometimes not activating. Maybe, but only maybe, related to:
+                --
+                -- - https://github.com/nvim-telescope/telescope.nvim/issues/559
+                -- - https://github.com/nvim-telescope/telescope.nvim/issues/699
+                -- - https://github.com/nvim-treesitter/nvim-treesitter/issues/1337
+                -- - https://github.com/nvim-telescope/telescope.nvim/pull/3602
+                --
+                -- Weirdly, this has to be inside a vim.defer_fn() call, but a 1 ms delay is enough.
+                vim.wo[0][0].foldmethod = "expr"
+            end,
+            1
+        )
     end,
 })

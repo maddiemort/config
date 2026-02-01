@@ -411,3 +411,13 @@ vim.lsp.enable('ts_ls')
 
 vim.lsp.enable('unison')
 
+vim.lsp.config('beancount', {
+    init_options = {
+        journal_file = "/Users/maddie/Documents/Financial/Accounts/accounts.beancount",
+        bean_check = {
+            method = "system",
+            bean_check_cmd = "bean-check",
+        },
+    },
+})
+vim.lsp.enable('beancount')

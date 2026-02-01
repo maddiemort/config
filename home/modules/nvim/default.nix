@@ -56,6 +56,7 @@ in {
       plugins =
         (with pkgs; [
           telescope-spell-errors
+          vim-beancount
 
           (luaPlugin vimPlugins.nvim-treesitter.withAllGrammars ./config/treesitter.lua)
         ])
@@ -68,6 +69,7 @@ in {
           telescope-fzf-native-nvim
           telescope-ui-select-nvim
           typst-vim
+          vim-beancount
           vim-glsl
           vim-graphql
           vim-helm

@@ -70,6 +70,18 @@
           };
           meta.homepage = "https://github.com/matkrin/telescope-spell-errors.nvim";
         };
+
+        vim-beancount = final.vimUtils.buildVimPlugin {
+          pname = "vim-beancount";
+          version = "dd2f56a";
+          src = final.fetchFromGitHub {
+            owner = "nathangrigg";
+            repo = "vim-beancount";
+            rev = "dd2f56a122b698454af582cbe7eae471dbdc48f8";
+            hash = "sha256-cZsmFCzF4X9sw0S3V/RR6HCX2H6ksoEY/DIL8PjAjAM=";
+          };
+          meta.homepage = "https://github.com/nathangrigg/vim-beancount/";
+        };
       })
 
       (final: prev: {
