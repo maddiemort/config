@@ -8,8 +8,9 @@ $singularity\
 $kubernetes\
 $directory\
 ${custom.jujutsu}\
-${custom.jujutsu-closest-bookmarks}\
 $all"""
+
+# ${custom.jujutsu-closest-bookmarks}\
 
 [aws]
 symbol = "  "
@@ -159,18 +160,18 @@ jj \
   )'
 """
 
-[custom.jujutsu-closest-bookmarks]
-symbol = "[](green)"
-format = '($symbol $output )'
-detect_folders = ['.jj']
-when = "jj workspace root --ignore-working-copy --quiet"
-command = """
-jj \
-  log \
-  -r 'closest_bookmark(@)' \
-  --ignore-working-copy \
-  --no-graph \
-  --no-pager \
-  --color always \
-  -T 'bookmarks.join(" ") ++ " "'
-"""
+# [custom.jujutsu-closest-bookmarks]
+# symbol = "[](green)"
+# format = '($symbol $output )'
+# detect_folders = ['.jj']
+# when = "jj workspace root --ignore-working-copy --quiet"
+# command = """
+# jj \
+#   log \
+#   -r 'closest_bookmark(@)' \
+#   --ignore-working-copy \
+#   --no-graph \
+#   --no-pager \
+#   --color always \
+#   -T 'bookmarks.join(" ") ++ " "'
+# """
