@@ -96,7 +96,12 @@
 
     direnv = {
       enable = true;
-      nix-direnv.enable = true;
+      package = pkgsUnstable.direnv;
+
+      nix-direnv = {
+        enable = true;
+        package = pkgsUnstable.nix-direnv;
+      };
 
       stdlib = ''
         # stolen from @i077; store .direnv in cache instead of project dir
