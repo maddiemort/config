@@ -8,7 +8,6 @@
       (with pkgs; [
         jdk17
         pandoc
-        postgresql_15
       ])
       ++ (with pkgsUnstable; [
         catgirl
