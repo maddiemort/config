@@ -58,41 +58,9 @@ in {
       inherit (cfg) enable;
       # lfs.enable = true;
 
-      userName = cfg.user.name;
-      userEmail = cfg.user.email;
+      settings = {
+        inherit (cfg) user;
 
-      aliases = {
-        hist = "log --graph --pretty=format:'%C(magenta)%h%Creset - %G?%C(red)%d%Creset %s %C(dim green)(%cr) %C(cyan)<%aN>%Creset' --abbrev-commit";
-        conflicted = "diff --name-only --diff-filter=U";
-        unstage = "reset HEAD --";
-        nuke = "checkout --";
-        forcepush = "push --force-with-lease";
-
-        ignore = "!gi() { curl -sL https://www.toptal.com/developers/gitignore/api/$@ ;}; gi";
-
-        a = "add";
-        ap = "add -p";
-        bd = "branch -d";
-        br = "branch";
-        ci = "commit";
-        cia = "commit --amend";
-        cim = "commit -m";
-        co = "checkout";
-        cob = "checkout -b";
-        di = "diff";
-        dic = "diff --cached";
-        f = "fetch --all --prune";
-        pf = "push --force-with-lease";
-        pu = "push -u";
-        puo = "push -u origin";
-        r = "rebase";
-        ri = "rebase -i";
-        rio = "rebase -i --onto";
-        ro = "rebase --onto";
-        st = "status";
-      };
-
-      extraConfig = {
         pull.rebase = true;
         pager.branch = false;
         rerere.enabled = true;
@@ -101,17 +69,45 @@ in {
 
         merge.conflictStyle = "zdiff3";
 
-        # Set the SSH key to sign with.
-        user.signingKey = cfg.user.key;
-
-        # Turn on commit signing. This isn't actually going to use GPG, because we're about to set it
-        # to use SSH instead.
+        # Turn on commit signing. This isn't actually going to use GPG, because we're about to set
+        # it to use SSH instead.
         commit.gpgSign = true;
 
         gpg = {
           # Set commit signing to use SSH instead of GPG.
           format = "ssh";
           ssh.allowedSignersFile = "~/.ssh/allowed_signers";
+        };
+
+        alias = {
+          hist = "log --graph --pretty=format:'%C(magenta)%h%Creset - %G?%C(red)%d%Creset %s %C(dim green)(%cr) %C(cyan)<%aN>%Creset' --abbrev-commit";
+          conflicted = "diff --name-only --diff-filter=U";
+          unstage = "reset HEAD --";
+          nuke = "checkout --";
+          forcepush = "push --force-with-lease";
+
+          ignore = "!gi() { curl -sL https://www.toptal.com/developers/gitignore/api/$@ ;}; gi";
+
+          a = "add";
+          ap = "add -p";
+          bd = "branch -d";
+          br = "branch";
+          ci = "commit";
+          cia = "commit --amend";
+          cim = "commit -m";
+          co = "checkout";
+          cob = "checkout -b";
+          di = "diff";
+          dic = "diff --cached";
+          f = "fetch --all --prune";
+          pf = "push --force-with-lease";
+          pu = "push -u";
+          puo = "push -u origin";
+          r = "rebase";
+          ri = "rebase -i";
+          rio = "rebase -i --onto";
+          ro = "rebase --onto";
+          st = "status";
         };
       };
 

@@ -63,38 +63,57 @@ in {
   };
 
   config = {
-    programs.ssh.enable = true;
     home.file.".ssh/allowed_signers".text = concatMapStrings (key: "${key.email} ${key.key}") cfg.allowedSigners;
 
-    programs.ssh.matchBlocks = mkMerge [
-      (builtins.listToAttrs (
-        map
-        ({
-          path,
-          host,
-        }: {
-          name = host;
-          value = {
-            identityFile = path;
+    programs.ssh = {
+      enable = true;
+      enableDefaultConfig = false;
+
+      matchBlocks = mkMerge [
+        (builtins.listToAttrs (
+          map
+          ({
+            path,
+            host,
+          }: {
+            name = host;
+            value = {
+              identityFile = path;
+            };
+          })
+          cfg.publicKeys
+        ))
+
+        (mkIf isDarwin {
+          "*" = {
+            identitiesOnly = true;
+            serverAliveInterval = 15;
+
+            extraOptions = {
+              PreferredAuthentications = "publickey";
+            };
           };
         })
-        cfg.publicKeys
-      ))
 
-      (mkIf isDarwin {
-        "*" = {
-          identitiesOnly = true;
-          serverAliveInterval = 15;
-
-          extraOptions = {
-            PreferredAuthentications = "publickey";
+        {
+          "*" = {
+            forwardAgent = false;
+            addKeysToAgent = "no";
+            compression = false;
+            serverAliveInterval = lib.mkDefault 0;
+            serverAliveCountMax = 3;
+            hashKnownHosts = false;
+            userKnownHostsFile = "~/.ssh/known_hosts";
+            controlMaster = "no";
+            controlPath = "~/.ssh/master-%r@%n:%p";
+            controlPersist = "no";
           };
-        };
-      })
-    ];
+        }
+      ];
 
-    programs.ssh.extraConfig = ''
-      SetEnv TERM=xterm-256color
-    '';
+      extraConfig = ''
+        SetEnv TERM=xterm-256color
+      '';
+    };
   };
 }

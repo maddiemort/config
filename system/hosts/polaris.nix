@@ -11,7 +11,6 @@
         jdk21
         pandoc
         postgresql_15
-        python39Packages.pygments
       ])
       ++ (with pkgsUnstable; [
         catgirl
@@ -26,6 +25,7 @@
             beangulp
             beanquery
             fava
+            pygments
             python-lsp-black
             python-lsp-server
           ]))

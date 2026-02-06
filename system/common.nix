@@ -7,14 +7,8 @@
   ...
 }: {
   environment = {
-    extraInit = let
-      starship-toml =
-        pkgs.writeText
-        "starship.toml"
-        (lib.fileContents ../static/starship.toml);
-    in ''
+    extraInit = ''
       export SSH_AUTH_SOCK="/tmp/ssh-agent.sock"
-      export STARSHIP_CONFIG=${starship-toml}
       export JJ_CONFIG="$HOME/.config/jj:$HOME/.config/jj/conf.d"
     '';
 
@@ -186,6 +180,20 @@
     };
   };
 
+  networking = {
+    applicationFirewall = {
+      enable = true;
+
+      # Enable stealth mode (drops incoming requests via ICMP such as ping requests).
+      enableStealthMode = true;
+
+      blockAllIncoming = true;
+
+      # Allow any downloaded app that's been signed to accept incoming requests.
+      allowSignedApp = true;
+    };
+  };
+
   programs = {
     fish = {
       enable = true;
@@ -264,18 +272,6 @@
         AutomaticallyInstallMacOSUpdates = false;
       };
 
-      # Firewall settings.
-      alf = {
-        # Enable the firewall.
-        globalstate = 1;
-
-        # Allow any downloaded app that's been signed to accept incoming requests.
-        allowdownloadsignedenabled = 1;
-
-        # Enable stealth mode (drops incoming requests via ICMP such as ping requests).
-        stealthenabled = 1;
-      };
-
       dock = {
         # Auto-hide the dock.
         autohide = true;
@@ -318,6 +314,8 @@
 
     keyboard.enableKeyMapping = true;
     keyboard.remapCapsLockToControl = true;
+
+    primaryUser = "maddie";
   };
 
   # TODO: Figure out if there's a way to default this rather than setting it for
