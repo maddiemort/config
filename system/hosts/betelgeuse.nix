@@ -38,7 +38,6 @@
       "chromium"
       "discord"
       "firefox"
-      "gnucash"
       "handbrake-app"
       "jetbrains-toolbox"
       "lagrange"
