@@ -114,8 +114,11 @@
     ];
 
     global.brewfile = true;
-    # onActivation.autoUpdate = true;
-    # onActivation.upgrade = true;
+    onActivation = {
+      # autoUpdate = true;
+      cleanup = "zap";
+      # upgrade = true;
+    };
   };
 
   launchd.user.agents = {
