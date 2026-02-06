@@ -7,5 +7,6 @@
     ./nvim
     ./shell
     ./wezterm.nix
+    ./zed.nix
   ];
 }

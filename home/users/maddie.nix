@@ -92,6 +92,7 @@
 
     shell.enable = true;
     wezterm.enable = true;
+    zed.enable = true;
   };
 
   programs = {

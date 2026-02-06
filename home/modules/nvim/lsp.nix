@@ -7,11 +7,6 @@
   cfg = config.custom.nvim.lsp;
   parent = config.custom.nvim;
 
-  luaPluginInline = plugin: config: {
-    inherit plugin config;
-    type = "lua";
-  };
-
   luaPlugin = plugin: configPath: {
     inherit plugin;
     type = "lua";
@@ -50,7 +45,7 @@ in {
         alejandra
         beancount-language-server
         lua-language-server
-        nil # NIx Language server
+        nil # Nix Language server
         nixpkgs-fmt # For nil to format stuff
         nodePackages.bash-language-server # Bash language server
         nodePackages.prettier
