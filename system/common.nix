@@ -102,6 +102,7 @@
       "obsidian"
       "scroll-reverser"
       "spotify"
+      "spotmenu"
       "thunderbird"
       "wezterm@nightly"
     ];
