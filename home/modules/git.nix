@@ -119,5 +119,7 @@ in {
         })
         cfg.includes;
     };
+
+    xdg.configFile."git/ignore".source = ../../static/gitignore;
   };
 }

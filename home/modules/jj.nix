@@ -1,0 +1,87 @@
+{
+  config,
+  lib,
+  ...
+}: let
+  cfg = config.custom.jj;
+
+  inherit (lib) mkIf;
+in {
+  options.custom.jj = with lib; {
+    enable = mkEnableOption "custom Jujutsu configuration";
+  };
+
+  config = mkIf cfg.enable {
+    xdg.configFile = {
+      "jj/conf.d/10-config.toml".text = ''
+        [colors]
+        "diff token" = { underline = false }
+
+        [fix.tools.rustfmt]
+        command = ["rustfmt", "--emit", "stdout"]
+        patterns = ["glob:'**/*.rs'"]
+
+        [git]
+        subprocess = true
+        fetch = ["glob:*"]
+
+        [signing]
+        backend = "ssh"
+        backends.ssh.allowed-signers = "~/.ssh/allowed_signers"
+        behavior = "own"
+
+        [templates]
+        git_push_bookmark = '"maddiemort/push-" ++ change_id.short()'
+
+        [template-aliases]
+        'format_short_signature(signature)' = ''''
+        if(signature.email().domain().ends_with("users.noreply.github.com"),
+          signature.name() ++ ' (GitHub)',
+          signature.email(),
+        )
+        ''''
+        'format_timestamp(timestamp)' = ''''
+        if(timestamp.before("1 week ago"),
+          timestamp.ago() ++ timestamp.format(" (%Y-%m-%d at %H:%M)"),
+          timestamp.ago()
+        )
+        ''''
+
+        'tracked_bookmark_name' = ''''
+          if(remote, label("bookmark", name ++ "@" ++ remote) ++ "\n", "")
+        ''''
+
+        'untracked_bookmark_name' = ''''
+          if(tracked, "", if(remote, label("bookmark", name ++ "@" ++ remote) ++ "\n", ""))
+        ''''
+
+        [revset-aliases]
+        "closest_bookmark(to)" = "heads(::to & bookmarks())"
+        "move_closest_target()" = "heads(closest_bookmark(@)..@ ~ empty() ~ description(exact:'''))"
+        "stranded()" = "mine() ~ ::remote_bookmarks() ~ ((empty() ~ merges()) & description(exact:'''))"
+        "my_bookmarks()" = "mine() & bookmarks() | tracked_remote_bookmarks()"
+
+        [aliases]
+        move-closest = ["bookmark", "move", "--from", "closest_bookmark(@)"]
+        advance = ["bookmark", "move", "--from", "closest_bookmark(@)", "--to", "move_closest_target()"]
+        merge = ["new", "heads(::@ ~ (empty() & description(exact:''')))"]
+
+        [ui]
+        default-command = "log"
+        diff-editor = ":builtin"
+        movement.edit = true
+        show-cryptographic-signatures = false
+
+        [user]
+        name = "Madeleine Mortensen"
+        email = "me@maddie.wtf"
+
+        [[--scope]]
+        --when.commands = ["status"]
+
+        [--scope.ui]
+        paginate = "never"
+      '';
+    };
+  };
+}
