@@ -142,21 +142,25 @@ jj \
   --no-pager \
   --color always \
   -T 'separate(" ",
-    if(divergent,
-      label("divergent", change_id.shortest(7) ++ "??"),
-      change_id.shortest(7),
+    label(
+      "working_copy mutable change_id",
+      format_short_change_id_with_change_offset(self)
+        ++ if(self.contained_in("::bookmarks() ~ ::remote_bookmarks()"), "*"),
     ),
-    if(false, bookmarks.map(|x| if(
-      x.name().substr(0, 20).starts_with(x.name()),
-      x.name().substr(0, 20),
-      x.name().substr(0, 19) ++ "…")
-    ).join(" ")),
-    if(false, commit_id.shortest(7)),
     if(conflict, label("conflict", "conflict")),
     if(immutable, label("warning", "immutable")),
-    if(hidden, "hidden"),
-    if(!mine, "by " ++ author.name()),
-    if(author.name() != committer.name() && committer.email() != "noreply@github.com", "via " ++ committer.name()),
+    bookmarks,
+    tags,
+    if(
+      !(author.email() == config("user.email").as_string()
+        || author.name().replace("​", "") == config("user.name").as_string()),
+      "by " ++ author.name(),
+    ),
+    if(
+      !(author.name() == committer.name()
+        || (committer.name() == "GitHub" && committer.email() == "noreply@github.com")),
+      "via " ++ committer.name(),
+    ),
   )'
 """
 
