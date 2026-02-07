@@ -50,6 +50,16 @@
     supportedSystems = [aarch64-darwin x86_64-darwin];
 
     mkOverlays = system: [
+      (final: prev: {
+        inherit
+          (prev.lixPackageSets.stable)
+          nixpkgs-review
+          nix-eval-jobs
+          nix-fast-build
+          colmena
+          ;
+      })
+
       inputs.agenix.overlays.default
       inputs.unison-lang.overlay
 

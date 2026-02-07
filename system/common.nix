@@ -151,6 +151,8 @@
       "darwin=/etc/nix/inputs/darwin"
     ];
 
+    package = pkgs.lixPackageSets.stable.lix;
+
     registry = {
       nixpkgs.flake = inputs.nixpkgs;
       unstable.flake = inputs.nixpkgs-unstable;
