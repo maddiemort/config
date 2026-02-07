@@ -49,7 +49,7 @@
       "ableton-live-standard"
       "adobe-acrobat-reader"
       "calibre"
-      "chromium"
+      "ungoogled-chromium"
       "discord"
       "firefox"
       "handbrake-app"
