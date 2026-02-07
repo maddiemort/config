@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgsUnstable,
   ...
 }: let
   cfg = config.custom.wezterm;
@@ -12,10 +13,23 @@ in {
   };
 
   config = mkIf cfg.enable {
-    xdg.configFile = {
-      "wezterm/wezterm.lua".text = ''
-        local wezterm = require 'wezterm';
+    home = {
+      sessionSearchVariables = {
+        TERMINFO_DIRS = [
+          "${pkgsUnstable.wezterm.terminfo}/share/terminfo"
+        ];
+      };
 
+      sessionVariables = {
+        TERM = "wezterm";
+      };
+    };
+
+    programs.wezterm = {
+      enable = true;
+      package = pkgsUnstable.wezterm;
+
+      extraConfig = ''
         local config = wezterm.config_builder()
 
         config.color_scheme = "Catppuccin Macchiato"

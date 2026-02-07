@@ -13,7 +13,6 @@ in {
       enable = true;
 
       interactiveShellInit = ''
-        export TERM=wezterm
         set -g fish_key_bindings fish_vi_key_bindings
 
         COMPLETE=fish jj | source

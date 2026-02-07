@@ -1,11 +1,56 @@
 {
   config,
   pkgs,
+  pkgsUnstable,
   ...
 }: {
   home = {
     username = "maddie";
     homeDirectory = "/Users/maddie";
+
+    packages =
+      (with pkgs; [
+        asciiquarium-transparent
+        catgirl
+        convco
+        dig
+        erdtree
+        fzf
+        gh
+        ghostscript
+        glow
+        go
+        gopls
+        hl-log-viewer
+        hyperfine
+        imagemagick
+        iosevka-custom
+        lora
+        monodraw
+        pandoc
+        samply
+        scroll-reverser
+        tectonic
+        tokei
+      ])
+      ++ (with pkgsUnstable; [
+        cargo-expand
+        cargo-generate
+        cargo-modules
+        cargo-nextest
+        cargo-update
+        exercism
+        ice-bar
+        jujutsu-0-40-0-mailmap
+        # rust-analyzer
+        rustup
+        tailscale
+        thunderbird
+        typst
+        typstyle
+        yubikey-manager
+        yubikey-personalization
+      ]);
 
     stateVersion = "22.11";
 

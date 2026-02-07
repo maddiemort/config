@@ -150,6 +150,7 @@
         modules = [
           inputs.agenix.darwinModules.age
           inputs.yknotify-rs.darwinModules.default
+          ./system/modules
           ./system/common.nix
           ./system/hosts/${hostname}.nix
         ];

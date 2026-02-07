@@ -1,228 +1,73 @@
 {
-  config,
-  lib,
   pkgs,
   pkgsUnstable,
-  inputs,
   ...
 }: {
+  custom = {
+    fish.enable = true;
+    homebrew.enable = true;
+    lix.enable = true;
+    ssh-agent.enable = true;
+  };
+
   environment = {
-    extraInit = ''
-      export SSH_AUTH_SOCK="/tmp/ssh-agent.sock"
-    '';
-
-    pathsToLink = [
-      "/Applications"
-    ];
-
-    shells = with pkgs; [
-      fish
-    ];
-
     systemPackages =
       (with pkgs; [
-        asciiquarium-transparent
-        cargo-expand
-        cargo-generate
-        cargo-modules
-        cargo-nextest
-        cargo-update
-        convco
+        bat
         curl
-        dig
-        erdtree
-        fzf
-        gh
-        ghostscript
-        glow
-        go
-        gopls
-        hyperfine
-        imagemagick
+        eza
+        fd
+        git
+        gnupg
         jq
-        samply
-        tokei
+        obsidian
+        openssh
+        ripgrep
+        sd
         unzip
         wget
         zip
       ])
       ++ (with pkgsUnstable; [
-        bat
-        btop
         bottom
-        direnv
-        exercism
-        eza
-        fd
-        git
-        gnupg
-        hl-log-viewer
-        openssh
-        ripgrep
-        rust-analyzer
-        rustup
-        sd
-        tailscale
-        typst
-        typstyle
-        unison-ucm
-        yubikey-manager
-        yubikey-personalization
+        spotify
       ]);
-
-    systemPath = [
-      "/opt/homebrew/bin"
-    ];
 
     variables = {
       CURL_CA_BUNDLE = "/etc/ssl/certs/ca-certificates.crt";
-
-      TERMINFO_DIRS = [
-        "${pkgsUnstable.wezterm.terminfo}/share/terminfo"
-      ];
     };
   };
 
-  fonts.packages = with pkgs; [
-    iosevka-custom
-    lora
+  homebrew.casks = [
+    "alt-tab"
+    "linear-linear"
+    "linearmouse"
+    "logi-options+"
+    "spotmenu"
   ];
-
-  homebrew = {
-    enable = true;
-
-    casks = [
-      "1password"
-      "alt-tab"
-      "jordanbaird-ice"
-      "linear-linear"
-      "linearmouse"
-      "logi-options+"
-      "monodraw"
-      "obsidian"
-      "scroll-reverser"
-      "spotify"
-      "spotmenu"
-      "thunderbird"
-      "wezterm@nightly"
-    ];
-
-    global.brewfile = true;
-    onActivation = {
-      # autoUpdate = true;
-      cleanup = "uninstall";
-      # upgrade = true;
-    };
-  };
-
-  launchd.user.agents = {
-    ssh-agent = {
-      path = [config.environment.systemPath];
-      command = "${pkgs.openssh}/bin/ssh-agent -D -a /tmp/ssh-agent.sock";
-      serviceConfig.KeepAlive = true;
-    };
-  };
-
-  nix = {
-    extraOptions = ''
-      min-free = 536870912
-      keep-outputs = true
-      keep-derivations = true
-      fallback = true
-    '';
-
-    gc.automatic = true;
-
-    nixPath = [
-      "nixpkgs=${inputs.nixpkgs}"
-      "unstable=${inputs.nixpkgs-unstable}"
-
-      # TODO: This entry should be added automatically via FUP's
-      # `nix.linkInputs` and `nix.generateNixPathFromInputs` options, but
-      # currently that doesn't work because nix-darwin doesn't export packages,
-      # which FUP expects.
-      #
-      # This entry should be removed once the upstream issues are fixed.
-      #
-      # https://github.com/LnL7/nix-darwin/issues/277
-      # https://github.com/gytis-ivaskevicius/flake-utils-plus/issues/107
-      #
-      # NOTE: FUP isn't being used in this flake anymore......
-      "darwin=/etc/nix/inputs/darwin"
-    ];
-
-    package = pkgs.lixPackageSets.stable.lix;
-
-    registry = {
-      nixpkgs.flake = inputs.nixpkgs;
-      unstable.flake = inputs.nixpkgs-unstable;
-    };
-
-    optimise.automatic = true;
-
-    settings = {
-      auto-optimise-store = true;
-
-      extra-experimental-features = "nix-command flakes";
-
-      substituters = [
-        "https://cache.nixos.org/"
-        "https://nix-community.cachix.org"
-      ];
-
-      trusted-public-keys = [
-        "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-      ];
-
-      trusted-users = [
-        "root"
-        "@wheel"
-
-        # Administrative users on Darwin are part of the @admin group.
-        "@admin"
-      ];
-    };
-  };
 
   networking = {
     applicationFirewall = {
       enable = true;
-
-      # Enable stealth mode (drops incoming requests via ICMP such as ping requests).
       enableStealthMode = true;
-
       blockAllIncoming = true;
-
-      # Allow any downloaded app that's been signed to accept incoming requests.
       allowSignedApp = true;
     };
   };
 
   programs = {
-    fish = {
+    _1password = {
       enable = true;
-
-      loginShellInit = let
-        # Fix for incorrect order of items in $PATH, from:
-        # https://github.com/LnL7/nix-darwin/issues/122#issuecomment-1659465635
-        #
-        # This naive quoting is good enough in this case. There shouldn't be any
-        # double quotes in the input string, and it needs to be double quoted in case
-        # it contains a space (which is unlikely!)
-        dquote = str: "\"" + str + "\"";
-
-        makeBinPathList = map (path: path + "/bin");
-      in ''
-        fish_add_path --move --prepend --path ${lib.concatMapStringsSep " " dquote (makeBinPathList config.environment.profiles)}
-        set fish_user_paths $fish_user_paths
-      '';
+      package = pkgsUnstable._1password-cli;
     };
 
-    zsh.interactiveShellInit = ''
-      source /Applications/WezTerm.app/Contents/Resources/wezterm.sh
-      export TERM=wezterm
-    '';
+    _1password-gui = {
+      enable = true;
+      package = pkgsUnstable._1password-gui;
+    };
   };
+
+  security.pam.services.sudo_local.touchIdAuth = true;
 
   system = {
     defaults = {
@@ -252,8 +97,4 @@
 
     primaryUser = "maddie";
   };
-
-  # TODO: Figure out if there's a way to default this rather than setting it for
-  # individual users.
-  users.users.maddie.shell = pkgs.fish;
 }
