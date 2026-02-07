@@ -14,8 +14,7 @@ in {
       settings = {
         add_newline = true;
 
-        format = "$username$hostname$localip$shlvl$singularity$kubernetes$directory\${custom.jujutsu}$all";
-        # \${custom.jujutsu-closest-bookmarks}
+        format = "$username$hostname$localip$shlvl$singularity$kubernetes$directory\${custom.jujutsu}\${custom.jujutsu-closest-bookmarks}$all";
 
         aws.symbol = "  ";
         conda.symbol = "  ";
@@ -138,22 +137,22 @@ in {
             '';
           };
 
-          # jujutsu-closest-bookmarks = {
-          #   symbol = "[](green)";
-          #   format = "($symbol $output )";
-          #   detect_folders = [".jj"];
-          #   when = "jj workspace root --ignore-working-copy --quiet";
-          #   command = ''
-          #     jj \
-          #       log \
-          #       -r 'closest_bookmark(@)' \
-          #       --ignore-working-copy \
-          #       --no-graph \
-          #       --no-pager \
-          #       --color always \
-          #       -T 'bookmarks.join(" ") ++ " "'
-          #   '';
-          # };
+          jujutsu-closest-bookmarks = {
+            symbol = "[](green)";
+            format = "($symbol $output )";
+            detect_folders = [".jj"];
+            when = "jj workspace root --ignore-working-copy --quiet";
+            command = ''
+              jj \
+                log \
+                -r 'closest_bookmark(@)' \
+                --ignore-working-copy \
+                --no-graph \
+                --no-pager \
+                --color always \
+                -T 'bookmarks.join(" ") ++ " "'
+            '';
+          };
         };
       };
     };
