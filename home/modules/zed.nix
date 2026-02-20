@@ -83,6 +83,7 @@ in {
         buffer_line_height = "standard";
         terminal.font_family = "Iosevka Custom";
         terminal.font_size = 16.0;
+        terminal.line_height = "standard";
 
         # Editing
         vim_mode = true;
