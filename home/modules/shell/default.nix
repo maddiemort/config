@@ -58,7 +58,6 @@ in {
       };
 
       jqp.enable = true;
-      pay-respects.enable = true;
 
       zoxide = {
         enable = true;
