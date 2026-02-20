@@ -142,6 +142,9 @@ vim.lsp.config('rust_analyzer', {
             assist = {
                 preferSelf = true,
             },
+            cachePriming = {
+                enable = false,
+            },
             cargo = {
                 -- allFeatures = true,
                 extraArgs = {
