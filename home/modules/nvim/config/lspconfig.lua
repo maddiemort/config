@@ -169,6 +169,7 @@ vim.lsp.config('rust_analyzer', {
             },
             diagnostics = {
                 disabled = {
+                    "inactive-code",
                     "unresolved-proc-macro",
                 },
             },
