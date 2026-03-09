@@ -189,13 +189,13 @@ in {
 
         # Select jj bookmarks to track/untrack
         track-bookmarks = ''
-          jj bookmark list --all-remotes --quiet -T untracked_bookmark_name |\
-            fzf --multi --preview='jj log --color=always -r \'::{}\' --limit $(math "floor($LINES / 2)")' |\
+          jj bookmark list --all-remotes --quiet -T untracked_bookmark_name --sort committer-date- |\
+            fzf --no-sort --multi --preview='jj log --color=always -r \'::{}\' --limit $(math "floor($LINES / 2)")' |\
             xargs -r jj bookmark track
         '';
         untrack-bookmarks = ''
-          jj bookmark list --tracked --quiet -T tracked_bookmark_name |\
-            fzf --multi --preview='jj log --color=always -r \'::{}\' --limit $(math "floor($LINES / 2)")' |\
+          jj bookmark list --tracked --quiet -T tracked_bookmark_name --sort committer-date- |\
+            fzf --no-sort --multi --preview='jj log --color=always -r \'::{}\' --limit $(math "floor($LINES / 2)")' |\
             xargs -r jj bookmark untrack
         '';
       };
