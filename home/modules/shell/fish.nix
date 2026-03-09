@@ -186,18 +186,6 @@ in {
 
         # Select git branches to delete
         delete-branches = "git branch | rg -v '\*' | cut -c 3- | fzf --multi --preview='git hist {}' | xargs -r git branch --delete --force";
-
-        # Select jj bookmarks to track/untrack
-        track-bookmarks = ''
-          jj bookmark list --all-remotes --quiet -T untracked_bookmark_name --sort committer-date- |\
-            fzf --no-sort --multi --preview='jj log --color=always -r \'::{}\' --limit $(math "floor($LINES / 2)")' |\
-            xargs -r jj bookmark track
-        '';
-        untrack-bookmarks = ''
-          jj bookmark list --tracked --quiet -T tracked_bookmark_name --sort committer-date- |\
-            fzf --no-sort --multi --preview='jj log --color=always -r \'::{}\' --limit $(math "floor($LINES / 2)")' |\
-            xargs -r jj bookmark untrack
-        '';
       };
     };
   };
