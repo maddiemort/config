@@ -47,7 +47,7 @@ in {
         enable = true;
         enableFishIntegration = true;
 
-        defaultCommand = "${pkgsUnstable.fd}/bin/fd -H --type f";
+        defaultCommand = "${pkgsUnstable.fd}/bin/fd -H --type f -E '**/.git/*' -E '**/.jj/*'";
         defaultOptions = ["--height 50%" "--border"];
         fileWidgetCommand = "${defaultCommand}";
         fileWidgetOptions = [

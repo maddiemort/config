@@ -1,12 +1,28 @@
-require'telescope'.setup {
+local telescope = require'telescope'
+local telescopeBuiltin = require("telescope.builtin")
+local telescopeConfig = require("telescope.config")
+local telescopeThemes = require("telescope.themes")
+
+-- Clone the default Telescope configuration
+local vimgrep_arguments = { unpack(telescopeConfig.values.vimgrep_arguments) }
+
+-- I want to search in hidden/dot files
+table.insert(vimgrep_arguments, "--hidden")
+-- I don't want to search in the `.git` directory
+table.insert(vimgrep_arguments, "--glob")
+table.insert(vimgrep_arguments, "!**/.git/*")
+-- Or in the `.jj` directory
+table.insert(vimgrep_arguments, "--glob")
+table.insert(vimgrep_arguments, "!**/.jj/*")
+
+telescope.setup {
+    defaults = {
+		vimgrep_arguments = vimgrep_arguments,
+    },
     pickers = {
         find_files = {
-            hidden = true,
-        },
-        live_grep = {
-            additional_args = {
-                '--hidden',
-            },
+            -- `hidden = true` will still show the inside of `.git/` and `.jj/` as they're not `.gitignore`d
+            find_command = { "rg", "--files", "--hidden", "--glob", "!**/.git/*", "--glob", "!**/.jj/*" },
         },
         spell_suggest = {
             layout_strategy = 'cursor',
@@ -24,16 +40,16 @@ require'telescope'.setup {
             respect_gitignore = true,
         },
         ["ui-select"] = {
-            require("telescope.themes").get_dropdown {
+            telescopeThemes.get_dropdown {
                 layout_strategy = 'cursor',
             },
         },
     }
 }
 
-require'telescope'.load_extension('file_browser')
-require'telescope'.load_extension('spell_errors')
-require'telescope'.load_extension('ui-select')
+telescope.load_extension('file_browser')
+telescope.load_extension('spell_errors')
+telescope.load_extension('ui-select')
 
 local function set_spell_highlights()
   vim.cmd('highlight SpellBad guifg=NONE guibg=NONE gui=underdotted guisp=NvimLightRed')
@@ -62,7 +78,7 @@ vim.keymap.set(
     'n',
     '<leader>c',
     function()
-        require'telescope.builtin'.find_files {
+        telescopeBuiltin.find_files {
             find_command = {
                 'bash',
                 '-c',
@@ -79,7 +95,7 @@ vim.keymap.set(
     'n',
     '<leader>S',
     function()
-        require'telescope'.extensions.spell_errors.spell_errors()
+        telescope.extensions.spell_errors.spell_errors()
     end,
     {
         desc = 'Spelling Errors',
@@ -89,7 +105,7 @@ vim.keymap.set(
     'n',
     '<leader>s',
     function()
-        require'telescope.builtin'.spell_suggest()
+        telescopeBuiltin.spell_suggest()
     end,
     {
         desc = 'Spelling Suggestions',
