@@ -56,14 +56,15 @@ in {
         ''''
 
         [revset-aliases]
-        "closest_bookmark(to)" = "heads(::to & bookmarks())"
-        "move_closest_target()" = "heads(closest_bookmark(@)..@ ~ empty() ~ description(exact:'''))"
+        "closest_local_bookmark(to)" = "heads(::to & bookmarks())"
+        "closest_bookmark(to)" = "heads(::to & (bookmarks() | untracked_remote_bookmarks()))"
+        "move_closest_target()" = "heads(closest_local_bookmark(@)..@ ~ empty() ~ description(exact:'''))"
         "stranded()" = "mine() ~ ::remote_bookmarks() ~ ((empty() ~ merges()) & description(exact:'''))"
         "my_bookmarks()" = "mine() & bookmarks() | tracked_remote_bookmarks()"
 
         [aliases]
-        move-closest = ["bookmark", "move", "--from", "closest_bookmark(@)"]
-        advance = ["bookmark", "move", "--from", "closest_bookmark(@)", "--to", "move_closest_target()"]
+        move-closest = ["bookmark", "move", "--from", "closest_local_bookmark(@)"]
+        advance = ["move-closest", "--to", "move_closest_target()"]
         merge = ["new", "heads(::@ ~ (empty() & description(exact:''')))"]
         track-bookmarks = ["util", "exec", "--", "bash", "-c", """
         set -euo pipefail
