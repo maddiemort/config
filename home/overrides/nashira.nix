@@ -31,9 +31,6 @@
       [signing]
       key = "~/.ssh/id_ed25519_jj_ditto_com.pub"
 
-      [ui]
-      pager = "less"
-
       [[--scope]]
       --when.repositories = ["~/src/github.com/maddiemort"]
 
