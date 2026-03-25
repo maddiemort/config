@@ -48,11 +48,11 @@ in {
         ''''
 
         'tracked_bookmark_name' = ''''
-          if(remote, label("bookmark", name ++ "@" ++ remote) ++ "\n", "")
+          if(remote, label("bookmark", name) ++ "\n", "")
         ''''
 
         'untracked_bookmark_name' = ''''
-          if(tracked, "", if(remote, label("bookmark", name ++ "@" ++ remote) ++ "\n", ""))
+          if(tracked, "", if(remote, label("bookmark", name) ++ "\n", ""))
         ''''
 
         [revset-aliases]
