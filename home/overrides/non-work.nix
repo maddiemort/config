@@ -1,7 +1,6 @@
 {...}: {
   xdg.configFile."jj/conf.d/30-non-work.toml".text = ''
     [ui]
-    diff-formatter = ":git"
     pager = "less"
 
     [[--scope]]

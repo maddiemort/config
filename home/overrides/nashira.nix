@@ -32,7 +32,6 @@
       key = "~/.ssh/id_ed25519_jj_ditto_com.pub"
 
       [ui]
-      diff-formatter = ":git"
       pager = "less"
 
       [[--scope]]
