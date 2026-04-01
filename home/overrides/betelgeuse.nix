@@ -31,7 +31,7 @@
             beancount
             fava
             pygments
-            pymobiledevice3
+            # pymobiledevice3
             python-lsp-black
             python-lsp-server
           ]))
