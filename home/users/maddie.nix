@@ -31,6 +31,7 @@
         samply
         tectonic
         tokei
+        uv
       ])
       ++ (with pkgsUnstable; [
         cargo-expand
@@ -50,12 +51,14 @@
         typstyle
         yubikey-manager
         yubikey-personalization
+        zmk-studio
       ]);
 
     stateVersion = "22.11";
 
     sessionPath = [
       "$HOME/.cargo/bin"
+      "$HOME/.local/bin"
     ];
 
     sessionVariables = rec {
