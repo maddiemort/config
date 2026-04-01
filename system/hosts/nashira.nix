@@ -47,7 +47,7 @@
         kubectl
         stern
 
-        (python315.withPackages (pyPkgs:
+        (python314.withPackages (pyPkgs:
           with pyPkgs; [
             python-lsp-black
             python-lsp-server

@@ -26,7 +26,7 @@
         prismlauncher
         thorium-reader
 
-        (python315.withPackages (pyPkgs:
+        (python314.withPackages (pyPkgs:
           with pyPkgs; [
             beancount
             fava

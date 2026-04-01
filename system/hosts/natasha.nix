@@ -40,7 +40,7 @@
       ++ (with pkgsUnstable; [
         cachix
         jujutsu-0-40-0-mailmap
-        python315
+        python314
       ]);
 
     systemPath = [
