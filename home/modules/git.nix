@@ -25,7 +25,7 @@ in {
             example = "name@example.com";
           };
 
-          key = mkOption {
+          signingKey = mkOption {
             description = "Path to an SSH key to use to sign commits";
             type = str;
           };
