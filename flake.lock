@@ -555,16 +555,16 @@
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1768490671,
-        "narHash": "sha256-UGJGNT8Bcr6q4sKtuK//f2F26h7b1JXuyVzTD6Gau4g=",
+        "lastModified": 1775122016,
+        "narHash": "sha256-pAPNN7PEpVBAj7RwMEDgHFXRY9jBZehhHcN/jNZPCpQ=",
         "owner": "maddiemort",
         "repo": "jj",
-        "rev": "c465513caae482cc4e5cddb698874b0ff241fc40",
+        "rev": "5e1b703a36cefbdb2011675ff34977a1a646c150",
         "type": "github"
       },
       "original": {
         "owner": "maddiemort",
-        "ref": "mailmap-0.38-dev",
+        "ref": "v0.40.0-mailmap",
         "repo": "jj",
         "type": "github"
       }

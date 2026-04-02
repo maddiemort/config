@@ -20,7 +20,7 @@
     agenix.inputs.darwin.follows = "nixpkgs";
     agenix.inputs.home-manager.follows = "home-manager";
 
-    jj.url = "github:maddiemort/jj/mailmap-0.38-dev";
+    jj.url = "github:maddiemort/jj/v0.40.0-mailmap";
     jj.inputs.nixpkgs.follows = "nixpkgs-unstable";
     jj.inputs.flake-utils.follows = "flake-utils";
 
@@ -119,7 +119,7 @@
         })
 
         (_: _: {
-          jujutsu-0-37-0-mailmap = inputs.jj.packages.${system}.jujutsu;
+          jujutsu-0-40-0-mailmap = inputs.jj.packages.${system}.jujutsu;
         })
       ]
       ++ mkOverlays system;

@@ -11,7 +11,7 @@
       ])
       ++ (with pkgsUnstable; [
         catgirl
-        jujutsu-0-37-0-mailmap
+        jujutsu-0-40-0-mailmap
         tectonic
 
         (python313.withPackages (pyPkgs:
