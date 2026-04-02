@@ -86,6 +86,9 @@ in {
         movement.edit = true
         show-cryptographic-signatures = false
 
+        [remotes.origin]
+        auto-track-created-bookmarks = "*"
+
         [user]
         name = "Madeleine Mortensen"
         email = "me@maddie.wtf"

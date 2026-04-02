@@ -32,12 +32,6 @@
       key = "~/.ssh/id_ed25519_jj_ditto_com.pub"
 
       [[--scope]]
-      --when.repositories = ["~/src/github.com/maddiemort"]
-
-      [--scope.remotes.origin]
-      auto-track-bookmarks = "*"
-
-      [[--scope]]
       --when.repositories = ["~/src/github.com/getditto"]
 
       [--scope.remotes.origin]
