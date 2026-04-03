@@ -43,12 +43,12 @@ in {
 
       extraPackages = with pkgsUnstable; [
         alejandra
+        bash-language-server # Bash language server
         beancount-language-server
         lua-language-server
         nil # Nix Language server
         nixpkgs-fmt # For nil to format stuff
-        nodePackages.bash-language-server # Bash language server
-        nodePackages.prettier
+        prettier
         shellcheck # For Bash
         texlab # TeX language server
         tinymist # Typst language server

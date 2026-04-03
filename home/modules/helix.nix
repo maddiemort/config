@@ -105,21 +105,18 @@ in {
         ];
       };
 
-      extraPackages =
-        (with pkgs; [
-          lua-language-server
-          marksman
-          nil
-          nixpkgs-fmt
-          shellcheck
-          taplo
-          tinymist
-          yaml-language-server
-        ])
-        ++ (with pkgs.nodePackages; [
-          bash-language-server
-          vscode-json-languageserver
-        ]);
+      extraPackages = with pkgs; [
+        bash-language-server
+        lua-language-server
+        marksman
+        nil
+        nixpkgs-fmt
+        shellcheck
+        taplo
+        tinymist
+        vscode-json-languageserver
+        yaml-language-server
+      ];
     };
   };
 }
