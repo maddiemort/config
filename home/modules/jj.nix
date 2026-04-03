@@ -129,6 +129,7 @@ in {
         ]
         diff-editor = ":builtin"
         movement.edit = true
+        pager = "less"
         show-cryptographic-signatures = false
 
         [remotes.origin]
