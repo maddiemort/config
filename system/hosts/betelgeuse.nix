@@ -25,6 +25,7 @@
     "steam"
     "teamspeak-client"
     "transmission"
+    "vivid-app"
     "whatsapp"
     "zulip"
   ];
