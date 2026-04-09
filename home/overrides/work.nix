@@ -3,10 +3,13 @@
     [[--scope]]
     --when.repositories = ["~/src/github.com/getditto"]
 
-    [--scope.user]
-    email = "maddie@ditto.com"
+    [--scope.remotes.origin]
+    auto-track-bookmarks = "mm/*"
 
     [--scope.templates]
     git_push_bookmark = '"mm/push-" ++ change_id.short()'
+
+    [--scope.user]
+    email = "maddie@ditto.com"
   '';
 }

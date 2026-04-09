@@ -30,12 +30,6 @@
     "jj/conf.d/20-nashira.toml".text = ''
       [signing]
       key = "~/.ssh/id_ed25519_jj_ditto_com.pub"
-
-      [[--scope]]
-      --when.repositories = ["~/src/github.com/getditto"]
-
-      [--scope.remotes.origin]
-      auto-track-bookmarks = "mm/*"
     '';
   };
 
