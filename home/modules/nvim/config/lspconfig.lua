@@ -231,7 +231,7 @@ vim.lsp.config('rust_analyzer', {
                     useParameterNames = false,
                 },
                 maxLength = 25,
-                parameterHints = { enable = true },
+                parameterHints = { enable = false },
                 rangeExclusiveHints = { enable = false },
                 renderColons = true,
                 typeHints = {
