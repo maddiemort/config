@@ -121,7 +121,11 @@ in {
         """, ""]
 
         [ui]
-        default-command = "log"
+        default-command = [
+          "log",
+          "-r",
+          "reachable(closest_bookmarked_ancestor(@), mutable() | mutable()- | closest_bookmarked_ancestor(@)::current_bookmark(@))",
+        ]
         diff-editor = ":builtin"
         movement.edit = true
         show-cryptographic-signatures = false
