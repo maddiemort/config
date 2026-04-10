@@ -105,6 +105,8 @@ in {
         [aliases]
         advance = ["bookmark", "advance"]
         merge = ["new", "heads(::@ ~ (empty() & description(exact:''')))"]
+        tip = ["new", "current_bookmark(@)"]
+
         track-bookmarks = ["util", "exec", "--", "bash", "-c", """
         set -euo pipefail
         jj bookmark list --all-remotes --quiet -T untracked_bookmark_name --sort committer-date- |\\
