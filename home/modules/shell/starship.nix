@@ -14,7 +14,7 @@ in {
       settings = {
         add_newline = true;
 
-        format = "$username$hostname$localip$shlvl$singularity$kubernetes$directory\${custom.jujutsu}\${custom.jujutsu-closest-bookmarks}$all";
+        format = "$username$hostname$localip$shlvl$singularity$kubernetes$directory\${custom.jujutsu}\${custom.jujutsu-current-bookmark}\${custom.jujutsu-ahead-bookmark}\${custom.jujutsu-behind-bookmark}$all";
 
         aws.symbol = "  ";
         conda.symbol = "  ";
@@ -105,14 +105,13 @@ in {
             detect_folders = [".jj"];
             when = "jj workspace root --ignore-working-copy --quiet";
             command = ''
-              jj \
-                log \
-                -r@ \
-                -n1 \
+              jj log \
                 --ignore-working-copy \
                 --no-graph \
                 --no-pager \
                 --color always \
+                -n1 \
+                -r@ \
                 -T 'separate(" ",
                   label(
                     "working_copy mutable change_id",
@@ -121,7 +120,7 @@ in {
                   ),
                   if(conflict, label("conflict", "conflict")),
                   if(immutable, label("warning", "immutable")),
-                  bookmarks,
+                  if(false, bookmarks),
                   tags,
                   if(
                     !(author.email() == config("user.email").as_string()
@@ -137,20 +136,45 @@ in {
             '';
           };
 
-          jujutsu-closest-bookmarks = {
+          jujutsu-current-bookmark = {
             symbol = "[](green)";
             format = "($symbol $output )";
             detect_folders = [".jj"];
             when = "jj workspace root --ignore-working-copy --quiet";
             command = ''
-              jj \
-                log \
-                -r 'closest_bookmark(@)' \
+              jj log \
                 --ignore-working-copy \
                 --no-graph \
                 --no-pager \
                 --color always \
+                -r 'current_bookmark(@)' \
                 -T 'bookmarks.join(" ") ++ " "'
+            '';
+          };
+
+          jujutsu-behind-bookmark = {
+            format = "[(-$output )](purple)";
+            detect_folders = [".jj"];
+            when = "jj workspace root --ignore-working-copy --quiet";
+            command = ''
+              jj log \
+                --ignore-working-copy \
+                -r '@..current_bookmark(@)' \
+                --count |\
+                sed 's/^0$//'
+            '';
+          };
+
+          jujutsu-ahead-bookmark = {
+            format = "[(+$output )](purple)";
+            detect_folders = [".jj"];
+            when = "jj workspace root --ignore-working-copy --quiet";
+            command = ''
+              jj log \
+                --ignore-working-copy \
+                -r 'current_bookmark(@)..@ ~ (@ & empty() & description(""))' \
+                --count |\
+                sed 's/^0$//'
             '';
           };
         };

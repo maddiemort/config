@@ -57,12 +57,48 @@ in {
 
         [revsets]
         "bookmark-advance-from" = "closest_local_bookmark(@)"
-        "bookmark-advance-to" = "move_closest_target()"
+        "bookmark-advance-to" = "move_closest_target(@)"
 
         [revset-aliases]
-        "closest_local_bookmark(to)" = "heads(::to & bookmarks())"
-        "closest_bookmark(to)" = "heads(::to & (bookmarks() | untracked_remote_bookmarks()))"
-        "move_closest_target()" = "heads(closest_local_bookmark(@)..@ ~ empty() ~ description(exact:'''))"
+        # Revisions that are ancestors of bookmarks.
+        "bookmarked()" = "::(bookmarks() | untracked_remote_bookmarks())"
+
+        # The closest ancestor of `x` that is an ancestor of any bookmark.
+        "closest_bookmarked_ancestor(x)" = "heads(::x & bookmarked())"
+
+        # The "current bookmark", as I'm defining it, which is the nearest bookmark found pointing
+        # to any of the descendants of our closest bookmarked ancestor. We'll start by trying to
+        # find local bookmarks in that set, but if we don't find any, look for tracked remote
+        # bookmarks and then untracked remote bookmarks (we might have checked out the remote
+        # bookmark for a PR without tracking it, for example).
+        "current_bookmark(x)" = ''''
+          roots(
+            coalesce(
+              closest_bookmarked_ancestor(x):: & bookmarks(),
+              closest_bookmarked_ancestor(x):: & tracked_remote_bookmarks(),
+              closest_bookmarked_ancestor(x):: & untracked_remote_bookmarks(),
+            )
+          )
+        ''''
+
+        # Unlike `closest_bookmarked_ancestor()`, this is the first *bookmark* we find in `x`'s
+        # ancestors, not just the first *bookmarked* revision.
+        "closest_local_bookmark(x)" = "heads(::x & bookmarks())"
+
+        # The closest revision along the path of nonempty and described revisions between the
+        # closest local bookmark to `x` and `x` itself.
+        "move_closest_target(x)" = ''''
+          exactly(
+            heads(
+              reachable(
+                closest_local_bookmark(x),
+                closest_local_bookmark(x)::x ~ empty() ~ description("")
+              )
+            ),
+            1
+          )
+        ''''
+
         "stranded()" = "mine() ~ ::remote_bookmarks() ~ ((empty() ~ merges()) & description(exact:'''))"
         "my_bookmarks()" = "mine() & bookmarks() | tracked_remote_bookmarks()"
 
