@@ -52,7 +52,7 @@ in {
         ''''
 
         'untracked_bookmark_name' = ''''
-          if(tracked, "", if(remote, label("bookmark", name) ++ "\n", ""))
+          if(tracked, "", if(remote, label("bookmark", name ++ "@" ++ remote) ++ "\n", ""))
         ''''
 
         [revsets]
