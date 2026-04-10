@@ -108,16 +108,17 @@ in {
         tip = ["new", "current_bookmark(@)"]
 
         track-bookmarks = ["util", "exec", "--", "bash", "-c", """
-        set -euo pipefail
-        jj bookmark list --all-remotes --quiet -T untracked_bookmark_name --sort committer-date- |\\
-          fzf --no-sort --multi --preview='jj log --color=always -r ::{} --limit $(math "floor($LINES / 2)")' |\\
-          xargs -r jj bookmark track
+          set -euo pipefail
+          jj bookmark list --all-remotes --quiet -T untracked_bookmark_name --sort committer-date- |\\
+            fzf --no-sort --multi --preview='jj log --color=always -r ::{} --limit $(math "floor($LINES / 2)")' |\\
+            xargs -r jj bookmark track
         """, ""]
+
         untrack-bookmarks = ["util", "exec", "--", "bash", "-c", """
-        set -euo pipefail
-        jj bookmark list --tracked --quiet -T tracked_bookmark_name --sort committer-date- |\\
-          fzf --no-sort --multi --preview='jj log --color=always -r ::{} --limit $(math "floor($LINES / 2)")' |\\
-          xargs -r jj bookmark untrack
+          set -euo pipefail
+          jj bookmark list --tracked --quiet -T tracked_bookmark_name --sort committer-date- |\\
+            fzf --no-sort --multi --preview='jj log --color=always -r ::{} --limit $(math "floor($LINES / 2)")' |\\
+            xargs -r jj bookmark untrack
         """, ""]
 
         [ui]
