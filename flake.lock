@@ -569,6 +569,23 @@
         "type": "github"
       }
     },
+    "jj-blame-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1775998996,
+        "narHash": "sha256-RPaA1E6UTLmephddX6helv0RW5wD4rkwwbUp3nXTIvs=",
+        "owner": "maddiemort",
+        "repo": "jj-blame.nvim",
+        "rev": "c07b3c676dc008632c65f52567ba9ee2c74f6f1c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "maddiemort",
+        "ref": "main",
+        "repo": "jj-blame.nvim",
+        "type": "github"
+      }
+    },
     "lowdown-src": {
       "flake": false,
       "locked": {
@@ -909,6 +926,7 @@
         "flake-utils": "flake-utils",
         "home-manager": "home-manager",
         "jj": "jj",
+        "jj-blame-nvim": "jj-blame-nvim",
         "neovim-nightly-overlay": "neovim-nightly-overlay",
         "nix-darwin": "nix-darwin",
         "nixpkgs": "nixpkgs",

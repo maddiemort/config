@@ -6,13 +6,7 @@ local function blame_components()
     local components = {}
 
     if not jj_blame.is_blame_text_available() then
-        return components
-    end
-
-    -- Annoyingly, jjblame returns true for is_blame_text_available() when in
-    -- an empty buffer.
-    if vim.bo.filetype == '' then
-        return components
+        return nil
     end
 
     local blame = jj_blame.get_current_blame_text()
@@ -21,12 +15,6 @@ local function blame_components()
     end
 
     return components
-end
-
-local function blame_component(idx)
-    local components = blame_components()
-    local component = components[idx]
-    return component
 end
 
 require'lualine'.setup {
@@ -62,29 +50,21 @@ require'lualine'.setup {
                     hint = '⚙ ',
                 },
             },
-            -- {
-            --     blame_components,
-            --     cond = jj_blame.is_blame_text_available,
-            -- }
             {
-                function() return blame_component(1) end,
-                cond = function() return blame_component(1) ~= nil end,
-                -- color = { fg = '#7c828c' },
+                function() return blame_components()[1] end,
+                cond = function() return blame_components() ~= nil end,
             },
             {
-                function() return blame_component(2) end,
-                cond = function() return blame_component(2) ~= nil end,
-                -- color = { fg = '#7c828c' },
+                function() return blame_components()[2] end,
+                cond = function() return blame_components() ~= nil end,
             },
             {
-                function() return blame_component(3) end,
-                cond = function() return blame_component(3) ~= nil end,
-                -- color = { fg = '#7c828c' },
+                function() return blame_components()[3] end,
+                cond = function() return blame_components() ~= nil end,
             },
             {
-                function() return blame_component(4) end,
-                cond = function() return blame_component(4) ~= nil end,
-                -- color = { fg = '#7c828c' },
+                function() return blame_components()[4] end,
+                cond = function() return blame_components() ~= nil end,
             },
         },
         lualine_x = {

@@ -27,6 +27,9 @@
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay/master";
     neovim-nightly-overlay.inputs.nixpkgs.follows = "nixpkgs-unstable";
 
+    jj-blame-nvim.url = "github:maddiemort/jj-blame.nvim/main";
+    jj-blame-nvim.flake = false;
+
     yknotify-rs.url = "github:reo101/yknotify-rs/master";
     yknotify-rs.inputs.nixpkgs.follows = "nixpkgs-unstable";
 
@@ -117,15 +120,10 @@
             };
           };
 
-          jj-blame-nvim = final.vimUtils.buildVimPlugin rec {
+          jj-blame-nvim = final.vimUtils.buildVimPlugin {
             pname = "jj-blame.nvim";
-            version = "d6d6f74f2ea9";
-            src = final.fetchFromGitHub {
-              owner = "maddiemort";
-              repo = pname;
-              rev = version;
-              hash = "sha256-bdJE9CAs+xyVKZ07cs5/j/aILvDrNMMa+OFCbBPPGbI=";
-            };
+            version = "main";
+            src = inputs.jj-blame-nvim;
             meta.homepage = "https://github.com/maddiemort/jj-blame.nvim/";
             meta.hydraPlatforms = [];
           };
