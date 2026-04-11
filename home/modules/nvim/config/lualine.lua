@@ -1,21 +1,21 @@
 vim.opt.showmode = false
 
-local git_blame = require'gitblame'
+local jj_blame = require'jjblame'
 
-function blame_components()
+local function blame_components()
     local components = {}
 
-    if not git_blame.is_blame_text_available() then
+    if not jj_blame.is_blame_text_available() then
         return components
     end
 
-    -- Annoyingly, gitblame returns true for is_blame_text_available() when in
+    -- Annoyingly, jjblame returns true for is_blame_text_available() when in
     -- an empty buffer.
     if vim.bo.filetype == '' then
         return components
     end
 
-    local blame = git_blame.get_current_blame_text()
+    local blame = jj_blame.get_current_blame_text()
     for str in string.gmatch(blame, "([^•]+)") do
         table.insert(components, (string.gsub(str, "^%s*(.-)%s*$", "%1")))
     end
@@ -23,7 +23,7 @@ function blame_components()
     return components
 end
 
-function blame_component(idx)
+local function blame_component(idx)
     local components = blame_components()
     local component = components[idx]
     return component
@@ -64,7 +64,7 @@ require'lualine'.setup {
             },
             -- {
             --     blame_components,
-            --     cond = git_blame.is_blame_text_available,
+            --     cond = jj_blame.is_blame_text_available,
             -- }
             {
                 function() return blame_component(1) end,

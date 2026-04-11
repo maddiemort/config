@@ -62,6 +62,7 @@ in {
         ])
         ++ (with pkgsUnstable; [
           (luaPlugin telescope-nvim ./config/telescope.lua)
+          (luaPlugin jj-blame-nvim ./config/jj-blame.lua)
         ])
         ++ (with pkgsUnstable.vimPlugins; [
           haskell-vim
@@ -88,7 +89,6 @@ in {
 
           (luaPlugin catppuccin-vim ./config/catppuccin.lua)
           (luaPlugin formatter-nvim ./config/formatter.lua)
-          (luaPlugin git-blame-nvim ./config/git-blame.lua)
           (luaPlugin indent-blankline-nvim ./config/indent-blankline.lua)
           (luaPlugin lualine-nvim ./config/lualine.lua)
           # (luaPlugin nvim-highlight-colors ./config/highlight-colors.lua)

@@ -116,6 +116,19 @@
               hash = "sha256-YQdVPfWtbvoPScq27r+KRyvM0v6XzuRgzEEIn1qWFWg=";
             };
           };
+
+          jj-blame-nvim = final.vimUtils.buildVimPlugin rec {
+            pname = "jj-blame.nvim";
+            version = "d6d6f74f2ea9";
+            src = final.fetchFromGitHub {
+              owner = "maddiemort";
+              repo = pname;
+              rev = version;
+              hash = "sha256-bdJE9CAs+xyVKZ07cs5/j/aILvDrNMMa+OFCbBPPGbI=";
+            };
+            meta.homepage = "https://github.com/maddiemort/jj-blame.nvim/";
+            meta.hydraPlatforms = [];
+          };
         })
 
         (_: _: {
