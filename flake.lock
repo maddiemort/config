@@ -572,11 +572,11 @@
     "jj-blame-nvim": {
       "flake": false,
       "locked": {
-        "lastModified": 1775998996,
-        "narHash": "sha256-RPaA1E6UTLmephddX6helv0RW5wD4rkwwbUp3nXTIvs=",
+        "lastModified": 1776005662,
+        "narHash": "sha256-tpk08VaGRPao761AlcMyYVN2l2XUE0YGprJbBoNjyM8=",
         "owner": "maddiemort",
         "repo": "jj-blame.nvim",
-        "rev": "c07b3c676dc008632c65f52567ba9ee2c74f6f1c",
+        "rev": "e460b0e6e54041b1e7291ca0b0c7c0a134a1dfd3",
         "type": "github"
       },
       "original": {

@@ -23,7 +23,14 @@ vim.diagnostic.config {
             [vim.diagnostic.severity.HINT] = "DiagnosticSignHint",
         },
     },
+    virtual_lines = {
+        current_line = true,
+        severity = {
+            min = vim.diagnostic.severity.ERROR,
+        },
+    },
     virtual_text = {
+        current_line = false,
         severity = {
             min = vim.diagnostic.severity.HINT,
         },
@@ -33,14 +40,6 @@ vim.diagnostic.config {
         end,
         source = "if_many",
         spacing = 0,
-
-        -- prefix = function(diagnostic, i, total)
-        --     -- Print a single symbol no matter how many diagnostics there are
-        --     if i == total then
-        --         return '⚕'
-        --     end
-        -- end,
-
         prefix = function(diagnostic, i, total)
             -- Print a single symbol representing the severity of the most severe diagnostic
             if i == total then
