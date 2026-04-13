@@ -51,7 +51,7 @@
 
     git = {
       user = {
-        key = "~/.ssh/id_ed25519_sk_maddie_wtf";
+        signingKey = "~/.ssh/id_ed25519_sk_maddie_wtf";
       };
 
       includes = let
