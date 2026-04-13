@@ -50,16 +50,37 @@ vim.keymap.set(
 )
 
 vim.keymap.set(
-  'n',
-  '<leader>gl',
-  [[<cmd>JJBlameCopyFileURL<cr>]],
-  { desc = 'Copy GitHub Link to Current File and Line Number' }
+    'n',
+    '<leader>gl',
+    function()
+        require'jjblame.jj'.get_remote_url(function(remote)
+            local commit = vim.fn.system("jj log --no-graph --limit 1 -T 'commit_id' -r 'heads(first_ancestors(@) & ::remote_bookmarks())'")
+            require'jjblame.jj'.get_file_url(commit, remote, vim.fn.line("."), nil, function(url)
+                vim.fn.setreg("+", url)
+            end)
+        end)
+    end,
+    { desc = 'Copy GitHub Link to Current File and Line Number' }
 )
 vim.keymap.set(
-  'v',
-  '<leader>gl',
-  [[<cmd>JJBlameCopyFileURL<cr>]],
-  { desc = 'Copy GitHub Link to Current File and Range of Lines' }
+    'v',
+    '<leader>gl',
+    function()
+        require'jjblame.jj'.get_remote_url(function(remote)
+            local commit = vim.fn.system("jj log --no-graph --limit 1 -T 'commit_id' -r 'heads(first_ancestors(@) & ::remote_bookmarks())'")
+            require'jjblame.jj'.get_file_url(commit, remote, vim.fn.line("v"), vim.fn.line("."), function(url)
+                vim.fn.setreg("+", url)
+            end)
+        end)
+    end,
+    { desc = 'Copy GitHub Link to Current File and Range of Lines' }
+)
+
+vim.keymap.set(
+    'n',
+    '<leader>bl',
+    require'jjblame'.copy_commit_url_to_clipboard,
+    { desc = 'Copy Link to Most Recent Commit Modifying Line' }
 )
 
 -- Quick switch between the last two buffers using <leader><leader>
