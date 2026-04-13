@@ -43,6 +43,7 @@
     "linear-linear"
     "linearmouse"
     "logi-options+"
+    "scroll-reverser"
     "spotmenu"
   ];
 

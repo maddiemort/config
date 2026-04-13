@@ -29,7 +29,6 @@
         monodraw
         pandoc
         samply
-        scroll-reverser
         tectonic
         tokei
       ])
