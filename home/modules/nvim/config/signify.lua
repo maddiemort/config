@@ -35,4 +35,4 @@ vim.api.nvim_create_autocmd('ColorScheme', {
 
 -- This might reduce performance (especially as the result of interactions with plugins/LSP), so be
 -- careful
-vim.cmd('set updatetime=500')
+vim.cmd('set updatetime=100')
