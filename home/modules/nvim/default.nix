@@ -78,6 +78,7 @@ in {
           vim-graphql
           vim-helm
           vim-javascript
+          vim-jjdescription
           vim-jsonnet
           vim-jsx-pretty
           vim-mustache-handlebars
