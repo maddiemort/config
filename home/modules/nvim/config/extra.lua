@@ -52,13 +52,13 @@ vim.keymap.set(
 vim.keymap.set(
   'n',
   '<leader>gl',
-  [[<cmd>let base = system("git remote get-url origin | sed -e's|:|/|' -e 's|git@|https://|' -e 's|.git$||'") | let commit = system("git rev-parse HEAD") | let @+ = trim(base) . "/blob/" . trim(commit) . "/" . expand("%") . "#L" . line(".")<cr>]],
+  [[<cmd>JJBlameCopyFileURL<cr>]],
   { desc = 'Copy GitHub Link to Current File and Line Number' }
 )
 vim.keymap.set(
   'v',
   '<leader>gl',
-  [[<cmd>let base = system("git remote get-url origin | sed -e's|:|/|' -e 's|git@|https://|' -e 's|.git$||'") | let commit = system("git rev-parse HEAD") | let @+ = trim(base) . "/blob/" . trim(commit) . "/" . expand("%") . "#L" . line("v") . "-L" . line(".")<cr>]],
+  [[<cmd>JJBlameCopyFileURL<cr>]],
   { desc = 'Copy GitHub Link to Current File and Range of Lines' }
 )
 
