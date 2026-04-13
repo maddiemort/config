@@ -14,6 +14,11 @@ local signs = {
 
 vim.diagnostic.config {
     severity_sort = true,
+    underline = {
+        severity = {
+            min = vim.diagnostic.severity.INFO,
+        },
+    },
     signs = {
         text = signs,
         numhl = {
@@ -23,14 +28,14 @@ vim.diagnostic.config {
             [vim.diagnostic.severity.HINT] = "DiagnosticSignHint",
         },
     },
-    virtual_lines = {
-        current_line = true,
+    float = {
+        scope = "line",
         severity = {
-            min = vim.diagnostic.severity.ERROR,
+            min = vim.diagnostic.severity.HINT,
         },
     },
     virtual_text = {
-        current_line = false,
+        -- current_line = false,
         severity = {
             min = vim.diagnostic.severity.HINT,
         },
@@ -50,6 +55,8 @@ vim.diagnostic.config {
         end,
     },
 }
+
+vim.keymap.set('n', '<leader>i', vim.diagnostic.open_float, { desc = 'Open Diagnostics Floating Window' })
 
 -- parameter hints: "› "
 -- other hints: "» "
