@@ -570,13 +570,20 @@
       }
     },
     "jj-blame-nvim": {
-      "flake": false,
+      "inputs": {
+        "flake-utils": [
+          "flake-utils"
+        ],
+        "nixpkgs": [
+          "nixpkgs-unstable"
+        ]
+      },
       "locked": {
-        "lastModified": 1776009861,
-        "narHash": "sha256-YBLdweL17+yOaSe2FKwXDJStIpSxeU4JvboFmf1/uAY=",
+        "lastModified": 1776066940,
+        "narHash": "sha256-qGSPvBozSA7er0Bi06u1fJllumqhs+o07clTi6fElnA=",
         "owner": "maddiemort",
         "repo": "jj-blame.nvim",
-        "rev": "ece13424e81fe7fa2a10ff10630b5fa27683c0a4",
+        "rev": "d76c92adcacc16173c0c093373c5c476af4942c4",
         "type": "github"
       },
       "original": {

@@ -28,7 +28,8 @@
     neovim-nightly-overlay.inputs.nixpkgs.follows = "nixpkgs-unstable";
 
     jj-blame-nvim.url = "github:maddiemort/jj-blame.nvim/main";
-    jj-blame-nvim.flake = false;
+    jj-blame-nvim.inputs.nixpkgs.follows = "nixpkgs-unstable";
+    jj-blame-nvim.inputs.flake-utils.follows = "flake-utils";
 
     yknotify-rs.url = "github:reo101/yknotify-rs/master";
     yknotify-rs.inputs.nixpkgs.follows = "nixpkgs-unstable";
@@ -68,6 +69,7 @@
 
       (_: _: {
         inherit (inputs.home-manager.packages.${system}) home-manager;
+        inherit (inputs.jj-blame-nvim.packages.${system}) jj-blame-nvim;
       })
 
       (final: prev: {
@@ -118,14 +120,6 @@
               rev = "bea6665a8f14f31e11a3093a3b4a92be313bf4be";
               hash = "sha256-YQdVPfWtbvoPScq27r+KRyvM0v6XzuRgzEEIn1qWFWg=";
             };
-          };
-
-          jj-blame-nvim = final.vimUtils.buildVimPlugin {
-            pname = "jj-blame.nvim";
-            version = "main";
-            src = inputs.jj-blame-nvim;
-            meta.homepage = "https://github.com/maddiemort/jj-blame.nvim/";
-            meta.hydraPlatforms = [];
           };
         })
 
