@@ -63,8 +63,8 @@ in {
         # Revisions that are ancestors of bookmarks.
         "bookmarked()" = "::(bookmarks() | untracked_remote_bookmarks())"
 
-        # The closest ancestor of `x` that is an ancestor of any bookmark.
-        "closest_bookmarked_ancestor(x)" = "heads(::x & bookmarked())"
+        # The closest first-parent ancestor of `x` that is an ancestor of any bookmark.
+        "closest_bookmarked_ancestor(x)" = "heads(first_ancestors(x) & bookmarked())"
 
         # The "current bookmark", as I'm defining it, which is the nearest bookmark found pointing
         # to any of the descendants of our closest bookmarked ancestor. We'll start by trying to
