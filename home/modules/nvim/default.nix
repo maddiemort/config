@@ -61,8 +61,8 @@ in {
           (luaPlugin vimPlugins.nvim-treesitter.withAllGrammars ./config/treesitter.lua)
         ])
         ++ (with pkgsUnstable; [
-          (luaPlugin telescope-nvim ./config/telescope.lua)
           (luaPlugin jj-blame-nvim ./config/jj-blame.lua)
+          (luaPlugin telescope-nvim ./config/telescope.lua)
         ])
         ++ (with pkgsUnstable.vimPlugins; [
           haskell-vim
@@ -87,6 +87,8 @@ in {
           vim-unison
           vimtex
 
+          (luaPlugin vim-signify ./config/signify.lua)
+
           (luaPlugin catppuccin-vim ./config/catppuccin.lua)
           (luaPlugin formatter-nvim ./config/formatter.lua)
           (luaPlugin indent-blankline-nvim ./config/indent-blankline.lua)
@@ -94,7 +96,6 @@ in {
           # (luaPlugin nvim-highlight-colors ./config/highlight-colors.lua)
           (luaPlugin rust-vim ./config/rust.lua)
           (luaPlugin snacks-nvim ./config/snacks.lua)
-          (luaPlugin vim-gitgutter ./config/gitgutter.lua)
           (luaPlugin vim-rooter ./config/rooter.lua)
         ]);
 
