@@ -23,4 +23,4 @@ vim.g.signify_vcs_cmds_diffmode = {
 
 -- This might reduce performance (especially as the result of interactions with plugins/LSP), so be
 -- careful
-vim.cmd('set updatetime=100')
+vim.o.updatetime = 100
