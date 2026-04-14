@@ -90,7 +90,7 @@ in {
 
           (luaPlugin vim-signify ./config/signify.lua)
 
-          (luaPlugin catppuccin-vim ./config/catppuccin.lua)
+          (luaPlugin catppuccin-nvim ./config/catppuccin.lua)
           (luaPlugin formatter-nvim ./config/formatter.lua)
           (luaPlugin indent-blankline-nvim ./config/indent-blankline.lua)
           (luaPlugin lualine-nvim ./config/lualine.lua)

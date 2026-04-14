@@ -174,8 +174,8 @@ augroup END
 " ----------
 
 " Lighten comments and special (doc) comments, make special comments italic
-autocmd ColorScheme * hi Comment guifg=#7c828c gui=NONE
-autocmd ColorScheme * hi SpecialComment guifg=#7c828c gui=italic
+"autocmd ColorScheme * hi Comment guifg=#7c828c gui=NONE
+"autocmd ColorScheme * hi SpecialComment guifg=#7c828c gui=italic
 
 " Display a background on the line with the cursor on it
 set cursorline
