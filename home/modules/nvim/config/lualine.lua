@@ -44,24 +44,66 @@ local function gsplit(text, pattern, plain)
     end
 end
 
-local function blame_components()
-    local components = {}
+---@type string?
+local last_raw_blame = nil
 
+---@type boolean
+local blame_has_refreshed = true
+
+---@type string[]
+local blame_components = {}
+
+local function refresh_blame_components()
     if not require'jjblame'.is_blame_text_available() then
-        return nil
+        last_raw_blame = nil
+        blame_components = {}
+        blame_has_refreshed = true
+        return
     end
 
-    local blame = require'jjblame'.get_current_blame_text()
-    blame = string.gsub(blame, '⬥ ', '')
+    local raw_blame = require'jjblame'.get_current_blame_text()
+    if not last_raw_blame or raw_blame ~= last_raw_blame then
+        last_raw_blame = raw_blame
 
-    for str in gsplit(blame, "⬦", true) do
-        table.insert(components, (string.gsub(str, "^%s*(.-)%s*$", "%1")))
+        blame_components = {}
+        local blame = string.gsub(raw_blame, '⬥ ', '')
+
+        for str in gsplit(blame, "⬦", true) do
+            table.insert(blame_components, (string.gsub(str, "^%s*(.-)%s*$", "%1")))
+        end
+
+        blame_has_refreshed = true
     end
-
-    return components
 end
 
-local function current_bookmark()
+---@return string[]
+local function get_blame_components()
+    refresh_blame_components()
+    blame_has_refreshed = false
+    return blame_components
+end
+
+vim.api.nvim_create_autocmd(
+    {
+        'CursorMoved',
+        'CursorMovedI',
+    },
+    {
+        group = vim.api.nvim_create_augroup('refresh-blame-components', {}),
+        callback = function()
+            refresh_blame_components()
+            if blame_has_refreshed then
+                require'lualine'.refresh()
+            end
+        end,
+    }
+)
+
+---@type string?
+local current_bookmark = nil
+
+---@return string
+local function refresh_current_bookmark()
     local result = vim.system(
         {
             'jj',
@@ -84,6 +126,43 @@ local function current_bookmark()
     end
 end
 
+---@return string
+local function get_current_bookmark()
+    if current_bookmark == nil then
+        current_bookmark = refresh_current_bookmark()
+    end
+
+    return current_bookmark
+end
+
+vim.api.nvim_create_autocmd(
+    {
+        'BufRead',
+        'BufNewFile',
+        'SessionLoadPost',
+        'FileChangedShellPost',
+        'FocusGained',
+    },
+    {
+        group = vim.api.nvim_create_augroup('current-bookmark', {}),
+        callback = function()
+            current_bookmark = refresh_current_bookmark()
+            require'lualine'.refresh()
+        end,
+    }
+)
+
+vim.api.nvim_create_autocmd('User',
+    {
+        pattern = 'RooterChDir',
+        group = vim.api.nvim_create_augroup('current-bookmark', {}),
+        callback = function()
+            current_bookmark = refresh_current_bookmark()
+            require'lualine'.refresh()
+        end,
+    }
+)
+
 require'lualine'.setup {
     options = {
         theme = 'catppuccin-nvim',
@@ -96,6 +175,21 @@ require'lualine'.setup {
             right = '',
         },
         globalstatus = true,
+        refresh = {
+            events = {
+                'WinEnter',
+                'BufEnter',
+                'BufWritePost',
+                'SessionLoadPost',
+                'FileChangedShellPost',
+                'VimResized',
+                'Filetype',
+                'CursorMoved',
+                'CursorMovedI',
+                'ModeChanged',
+                'FocusGained',
+            },
+        },
     },
     extensions = {
         'fzf',
@@ -112,20 +206,16 @@ require'lualine'.setup {
         },
         lualine_c = {
             {
-                function() return blame_components()[1] or "" end,
-                cond = function() return blame_components() ~= nil end,
+                function() return get_blame_components()[1] or "" end,
             },
             {
-                function() return blame_components()[2] or "" end,
-                cond = function() return blame_components() ~= nil end,
+                function() return get_blame_components()[2] or "" end,
             },
             {
-                function() return blame_components()[3] or "" end,
-                cond = function() return blame_components() ~= nil end,
+                function() return get_blame_components()[3] or "" end,
             },
             {
-                function() return blame_components()[4] or "" end,
-                cond = function() return blame_components() ~= nil end,
+                function() return get_blame_components()[4] or "" end,
             },
         },
         lualine_x = {
@@ -159,7 +249,7 @@ require'lualine'.setup {
                 },
             },
             {
-                current_bookmark,
+                get_current_bookmark,
                 draw_empty = false,
             }
         },
