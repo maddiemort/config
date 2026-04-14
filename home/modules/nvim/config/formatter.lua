@@ -42,6 +42,15 @@ formatter.setup {
         typescript = { require'formatter.filetypes.typescript'.prettier, },
         typescriptreact = { require'formatter.filetypes.typescriptreact'.prettier, },
         nix = { require'formatter.filetypes.nix'.alejandra },
+        swift = {
+            function()
+                return {
+                    exe = "swift",
+                    args = { "format", "-" },
+                    stdin = true,
+                }
+            end,
+        },
     },
 }
 

@@ -64,6 +64,7 @@ in {
         ++ (with pkgsUnstable; [
           (luaPlugin jj-blame-nvim ./config/jj-blame.lua)
           (luaPlugin telescope-nvim ./config/telescope.lua)
+          (luaPlugin xcodebuild-nvim ./config/xcodebuild.lua)
         ])
         ++ (with pkgsUnstable.vimPlugins; [
           haskell-vim
@@ -96,6 +97,7 @@ in {
           (luaPlugin indent-blankline-nvim ./config/indent-blankline.lua)
           (luaPlugin lualine-nvim ./config/lualine.lua)
           # (luaPlugin nvim-highlight-colors ./config/highlight-colors.lua)
+          (luaPlugin nvim-lint ./config/nvim-lint.lua)
           (luaPlugin rust-vim ./config/rust.lua)
           (luaPlugin snacks-nvim ./config/snacks.lua)
           (luaPlugin vim-rooter ./config/rooter.lua)
@@ -107,6 +109,16 @@ in {
         ])
         ++ (with pkgsUnstable; [
           typstyle # For typst formatting in formatter.lua
+
+          # For xcodebuild.nvim. Also requires:
+          #
+          # - jq (installed in system configuration)
+          # - pymobiledevice3 (installed in host-specific system Python packages)
+          # - ripgrep (installed in system configuration)
+          # - xcode-build-server (installed via Homebrew in system configuration)
+          coreutils
+          xcbeautify
+          xcp
         ]);
     };
   };

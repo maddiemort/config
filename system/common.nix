@@ -38,14 +38,19 @@
     };
   };
 
-  homebrew.casks = [
-    "alt-tab"
-    "linear-linear"
-    "linearmouse"
-    "logi-options+"
-    "scroll-reverser"
-    "spotmenu"
-  ];
+  homebrew = {
+    brews = [
+      "xcode-build-server" # For xcodebuild.nvim
+    ];
+    casks = [
+      "alt-tab"
+      "linear-linear"
+      "linearmouse"
+      "logi-options+"
+      "scroll-reverser"
+      "spotmenu"
+    ];
+  };
 
   networking = {
     applicationFirewall = {

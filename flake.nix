@@ -108,6 +108,25 @@
           };
           meta.homepage = "https://github.com/nathangrigg/vim-beancount/";
         };
+
+        xcodebuild-nvim = final.vimUtils.buildVimPlugin rec {
+          pname = "xcodebuild.nvim";
+          version = "6ee81bc";
+          src = final.fetchFromGitHub {
+            owner = "wojciech-kulik";
+            repo = pname;
+            rev = "6ee81bcf0334eac180111ac7ac2435d421d1508d";
+            hash = "sha256-e1/QTC3XJvib+LVdMJnaPXgq4HJ9JlczHrdTD0/poF0=";
+          };
+          dependencies = with prev.vimPlugins; [
+            fzf-lua
+            nui-nvim
+            plenary-nvim
+            snacks-nvim
+            telescope-nvim
+          ];
+          meta.homepage = "https://github.com/wojciech-kulik/${pname}";
+        };
       })
 
       (final: prev: {

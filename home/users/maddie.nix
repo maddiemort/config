@@ -43,6 +43,7 @@
         jujutsu-0-40-0-mailmap
         # rust-analyzer
         rustup
+        swiftlint
         tailscale
         thunderbird
         typst

@@ -202,3 +202,16 @@ vim.api.nvim_create_autocmd('FileType', {
         )
     end,
 })
+
+-- -----
+-- Swift
+-- -----
+
+local swift_group = vim.api.nvim_create_augroup('swift', {})
+vim.api.nvim_create_autocmd({'BufRead', 'BufNewFile'}, {
+    group = swift_group,
+    pattern = '.swift-format',
+    callback = function()
+        vim.opt_local.filetype = 'json'
+    end,
+})

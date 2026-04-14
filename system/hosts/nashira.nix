@@ -45,10 +45,9 @@
         jujutsu-0-40-0-mailmap
         k3d
         kubectl
-        python313
         stern
 
-        (python313.withPackages (pyPkgs:
+        (python315.withPackages (pyPkgs:
           with pyPkgs; [
             python-lsp-black
             python-lsp-server

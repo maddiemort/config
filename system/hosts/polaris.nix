@@ -19,7 +19,7 @@
         tectonic
         yt-dlp
 
-        (python313.withPackages (pyPkgs:
+        (python315.withPackages (pyPkgs:
           with pyPkgs; [
             beancount
             beangulp
