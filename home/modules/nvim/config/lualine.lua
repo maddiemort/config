@@ -61,6 +61,29 @@ local function blame_components()
     return components
 end
 
+local function current_bookmark()
+    local result = vim.system(
+        {
+            'jj',
+            'log',
+            '--ignore-working-copy',
+            '--no-graph',
+            '--no-pager',
+            '--color=never',
+            '-r',
+            'current_bookmark(@)',
+            '-T',
+            'bookmarks.join(" ")'
+        },
+        { text = true }
+    ):wait()
+    if result.code == 0 and result.stdout then
+        return result.stdout
+    else
+        return ""
+    end
+end
+
 require'lualine'.setup {
     options = {
         theme = 'catppuccin-nvim',
@@ -74,6 +97,9 @@ require'lualine'.setup {
         },
         globalstatus = true,
     },
+    extensions = {
+        'fzf',
+    },
     sections = {
         lualine_a = {
             'mode',
@@ -85,18 +111,8 @@ require'lualine'.setup {
             },
         },
         lualine_c = {
-            'diff',
             {
-                'diagnostics',
-                symbols = {
-                    error = '☣ ',
-                    warn = '☢ ',
-                    info = '❄ ',
-                    hint = '⚙ ',
-                },
-            },
-            {
-                function() return blame_components()[1] end,
+                function() return blame_components()[1] or "" end,
                 cond = function() return blame_components() ~= nil end,
             },
             {
@@ -125,7 +141,27 @@ require'lualine'.setup {
             'filetype',
         },
         lualine_y = {
-            'branch',
+            {
+                'diagnostics',
+                symbols = {
+                    error = '●',
+                    warn = '◎',
+                    info = '○',
+                    hint = '◌',
+                },
+            },
+            {
+                'diff',
+                symbols = {
+                    added = '+',
+                    modified = '~',
+                    removed = '-',
+                },
+            },
+            {
+                current_bookmark,
+                draw_empty = false,
+            }
         },
         lualine_z = {
             'progress',
