@@ -35,16 +35,16 @@ in {
 
         [template-aliases]
         'format_short_signature(signature)' = ''''
-        if(signature.email().domain().ends_with("users.noreply.github.com"),
-          signature.name() ++ ' (GitHub)',
-          signature.email(),
-        )
+          if(signature.email().domain().ends_with("users.noreply.github.com"),
+            signature.name() ++ ' (GitHub)',
+            signature.email(),
+          )
         ''''
         'format_timestamp(timestamp)' = ''''
-        if(timestamp.before("1 week ago"),
-          timestamp.ago() ++ timestamp.format(" (%Y-%m-%d at %H:%M)"),
-          timestamp.ago()
-        )
+          if(timestamp.before("1 week ago"),
+            timestamp.ago() ++ timestamp.format(" (%Y-%m-%d at %H:%M)"),
+            timestamp.ago()
+          )
         ''''
 
         'tracked_bookmark_name' = ''''
@@ -53,6 +53,15 @@ in {
 
         'untracked_bookmark_name' = ''''
           if(tracked, "", if(remote, label("bookmark", name ++ "@" ++ remote) ++ "\n", ""))
+        ''''
+
+        'jjblame_template' = ''''
+          "⬥ " ++ separate(" ⬦ ",
+            commit.author().name().replace("​", ""),
+            commit.committer().timestamp().ago(),
+            commit.change_id().short(7),
+            coalesce(commit.description().first_line(), ""),
+          )
         ''''
 
         [revsets]
