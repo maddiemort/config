@@ -99,7 +99,6 @@
       })
 
       (final: prev: {
-        key-menu-nvim = final.callPackage ./pkgs/key-menu-nvim.nix {};
         tla-nvim = final.callPackage ./pkgs/tla-nvim.nix {};
       })
 
