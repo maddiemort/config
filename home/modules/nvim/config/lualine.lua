@@ -142,33 +142,42 @@ local function get_current_bookmark()
     return current_bookmark[buf]
 end
 
-vim.api.nvim_create_autocmd(
-    {
-        'BufRead',
-        'BufNewFile',
-        'SessionLoadPost',
-        'FileChangedShellPost',
-        'FocusGained',
-    },
-    {
-        group = vim.api.nvim_create_augroup('current-bookmark', {}),
-        callback = function(args)
-            current_bookmark[args.buf] = refresh_current_bookmark()
-            require'lualine'.refresh()
-        end,
-    }
-)
+local refresh_bookmark_augroup = vim.api.nvim_create_augroup('refresh-current-bookmark', {})
+vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
+    group = vim.api.nvim_create_augroup('create-current-bookmark-autocmd', {}),
+    callback = function(args)
+        vim.api.nvim_create_autocmd(
+            {
+                'FileChangedShellPost',
+                'FocusGained',
+                'SessionLoadPost',
+                'ShellCmdPost',
+            },
+            {
+                group = refresh_bookmark_augroup,
+                buffer = args.buf,
+                callback = function()
+                    current_bookmark[args.buf] = refresh_current_bookmark()
+                    require'lualine'.refresh()
+                end,
+            }
+        )
+    end,
+})
 
-vim.api.nvim_create_autocmd('User',
-    {
-        pattern = 'RooterChDir',
-        group = vim.api.nvim_create_augroup('current-bookmark', {}),
-        callback = function(args)
-            current_bookmark[args.buf] = refresh_current_bookmark()
-            require'lualine'.refresh()
-        end,
-    }
-)
+vim.api.nvim_create_autocmd({ 'FocusGained' }, {
+    group = vim.api.nvim_create_augroup('refresh-current-bookmark-focus-gained', {}),
+    callback = function()
+        vim.api.nvim_exec_autocmds({ 'FocusGained' }, { group = refresh_bookmark_augroup })
+    end,
+})
+
+vim.api.nvim_create_autocmd({ 'BufDelete' }, {
+    group = vim.api.nvim_create_augroup('remove-current-bookmark', {}),
+    callback = function(args)
+        current_bookmark[args.buf] = nil
+    end,
+})
 
 require'lualine'.setup {
     options = {
