@@ -44,43 +44,47 @@ local function gsplit(text, pattern, plain)
     end
 end
 
----@type string?
-local last_raw_blame = nil
+---@type table<number, string>
+local last_raw_blame = {}
 
----@type boolean
-local blame_has_refreshed = true
+---@type table<number, boolean>
+local blame_has_refreshed = {}
 
----@type string[]
+---@type table<number, string[]>
 local blame_components = {}
 
-local function refresh_blame_components()
+---@param buf number
+local function refresh_blame_components(buf)
     if not require'jjblame'.is_blame_text_available() then
-        last_raw_blame = nil
-        blame_components = {}
-        blame_has_refreshed = true
+        last_raw_blame[buf] = nil
+        blame_components[buf] = {}
+        blame_has_refreshed[buf] = true
         return
     end
 
     local raw_blame = require'jjblame'.get_current_blame_text()
-    if not last_raw_blame or raw_blame ~= last_raw_blame then
-        last_raw_blame = raw_blame
+    if not last_raw_blame[buf] or raw_blame ~= last_raw_blame[buf] then
+        last_raw_blame[buf] = raw_blame
 
-        blame_components = {}
+        blame_components[buf] = {}
         local blame = string.gsub(raw_blame, '⬥ ', '')
 
         for str in gsplit(blame, "⬦", true) do
-            table.insert(blame_components, (string.gsub(str, "^%s*(.-)%s*$", "%1")))
+            table.insert(blame_components[buf], (string.gsub(str, "^%s*(.-)%s*$", "%1")))
         end
 
-        blame_has_refreshed = true
+        blame_has_refreshed[buf] = true
     end
 end
 
 ---@return string[]
 local function get_blame_components()
-    refresh_blame_components()
-    blame_has_refreshed = false
-    return blame_components
+    local buf = vim.api.nvim_get_current_buf()
+
+    refresh_blame_components(buf)
+    blame_has_refreshed[buf] = false
+
+    return blame_components[buf]
 end
 
 vim.api.nvim_create_autocmd(
@@ -91,16 +95,17 @@ vim.api.nvim_create_autocmd(
     {
         group = vim.api.nvim_create_augroup('refresh-blame-components', {}),
         callback = function()
-            refresh_blame_components()
-            if blame_has_refreshed then
+            local buf = vim.api.nvim_get_current_buf()
+            refresh_blame_components(buf)
+            if blame_has_refreshed[buf] ~= false then
                 require'lualine'.refresh()
             end
         end,
     }
 )
 
----@type string?
-local current_bookmark = nil
+---@type table<number, string?>
+local current_bookmark = {}
 
 ---@return string
 local function refresh_current_bookmark()
@@ -128,11 +133,13 @@ end
 
 ---@return string
 local function get_current_bookmark()
-    if current_bookmark == nil then
-        current_bookmark = refresh_current_bookmark()
+    local buf = vim.api.nvim_get_current_buf()
+
+    if current_bookmark[buf] == nil then
+        current_bookmark[buf] = refresh_current_bookmark()
     end
 
-    return current_bookmark
+    return current_bookmark[buf]
 end
 
 vim.api.nvim_create_autocmd(
@@ -145,8 +152,8 @@ vim.api.nvim_create_autocmd(
     },
     {
         group = vim.api.nvim_create_augroup('current-bookmark', {}),
-        callback = function()
-            current_bookmark = refresh_current_bookmark()
+        callback = function(args)
+            current_bookmark[args.buf] = refresh_current_bookmark()
             require'lualine'.refresh()
         end,
     }
@@ -156,8 +163,8 @@ vim.api.nvim_create_autocmd('User',
     {
         pattern = 'RooterChDir',
         group = vim.api.nvim_create_augroup('current-bookmark', {}),
-        callback = function()
-            current_bookmark = refresh_current_bookmark()
+        callback = function(args)
+            current_bookmark[args.buf] = refresh_current_bookmark()
             require'lualine'.refresh()
         end,
     }
