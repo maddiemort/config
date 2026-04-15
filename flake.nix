@@ -73,6 +73,18 @@
       })
 
       (final: prev: {
+        help-vsplit-nvim = final.vimUtils.buildVimPlugin rec {
+          pname = "help-vsplit.nvim";
+          version = "1268670";
+          src = final.fetchFromGitHub {
+            owner = "anuvyklack";
+            repo = pname;
+            rev = "1268670db1bde2276fbfbadb9b12ec0c984ef229";
+            hash = "sha256-X4PF1L06ShhzlsT8HiMCxXLc9hK0gNwzIwYIYwWwwto=";
+          };
+          meta.homepage = "https://github.com/anuvyklack/${pname}";
+        };
+
         telescope-spell-errors = final.vimUtils.buildVimPlugin {
           pname = "telescope-spell-errors";
           version = "2025-11-28";

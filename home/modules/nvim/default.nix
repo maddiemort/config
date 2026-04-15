@@ -58,6 +58,7 @@ in {
           telescope-spell-errors
           vim-beancount
 
+          (luaPlugin help-vsplit-nvim ./config/help-vsplit.lua)
           (luaPlugin vimPlugins.nvim-treesitter.withAllGrammars ./config/treesitter.lua)
         ])
         ++ (with pkgsUnstable; [
