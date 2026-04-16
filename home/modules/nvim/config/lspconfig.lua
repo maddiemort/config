@@ -5,13 +5,6 @@ local signs = {
     [vim.diagnostic.severity.HINT] = "◌", -- U+25CC DOTTED CIRCLE
 }
 
--- local signs = {
---     [vim.diagnostic.severity.ERROR] = "☣",
---     [vim.diagnostic.severity.WARN] = "☢",
---     [vim.diagnostic.severity.INFO] = "❄",
---     [vim.diagnostic.severity.HINT] = "⚙",
--- }
-
 vim.diagnostic.config {
     severity_sort = true,
     underline = {
@@ -56,8 +49,6 @@ vim.diagnostic.config {
     },
 }
 
-vim.keymap.set('n', '<leader>i', vim.diagnostic.open_float, { desc = 'Open Diagnostics Floating Window' })
-
 -- parameter hints: "› "
 -- other hints: "» "
 -- I don't think anything is actually using this anymore
@@ -84,22 +75,6 @@ vim.lsp.handlers['window/showMessage'] = function(_, result, ctx)
     })
 end
 
--- vim.lsp.handlers["textDocument/hover"] = function(_, result, ctx, config)
---     config = config or {}
---     config.focus_id = ctx.method
---     if not (result and result.contents) then
---         notify('No information available', 'ERROR')
---         return
---     end
---     local markdown_lines = vim.lsp.util.convert_input_to_markdown_lines(result.contents)
---     markdown_lines = vim.lsp.util.trim_empty_lines(markdown_lines)
---     if vim.tbl_isempty(markdown_lines) then
---         notify('No information available', 'WARN')
---         return
---     end
---     return vim.lsp.util.open_floating_preview(markdown_lines, 'markdown', config)
--- end
-
 local undercurl_group = vim.api.nvim_create_augroup('lsp_undercurl', {})
 vim.api.nvim_create_autocmd('ColorScheme', {
     group = undercurl_group,
@@ -109,17 +84,6 @@ vim.api.nvim_create_autocmd('ColorScheme', {
         vim.cmd('highlight DiagnosticUnderlineInfo gui=undercurl')
         vim.cmd('highlight DiagnosticUnderlineWarn gui=undercurl')
         vim.cmd('highlight DiagnosticUnderlineError gui=undercurl')
-    end,
-})
-
--- Code navigation shortcuts
-vim.keymap.set('n', '<leader>k', vim.lsp.buf.hover, { desc = 'Documentation' })
-vim.keymap.set('n', '<leader>r', vim.lsp.buf.rename, { desc = 'Rename' })
-vim.keymap.set('n', '<leader>a', vim.lsp.buf.code_action, { desc = 'Code Actions' })
-
-vim.api.nvim_create_autocmd('LspAttach', {
-    callback = function(ev)
-        -- vim.keymap.del('n', 'K', { buffer = ev.buf })
     end,
 })
 
@@ -136,19 +100,28 @@ vim.api.nvim_create_autocmd('LspProgress', {
     end,
 })
 
--- Map shortcuts for telescope LSP pickers
-vim.keymap.set('n', 'gd', '<cmd>Telescope lsp_definitions<cr>', { desc = 'Goto Definition' })
-vim.keymap.set('n', 'gi', '<cmd>Telescope lsp_implementations<cr>', { desc = 'Goto Implementations' })
-vim.keymap.set('n', 'gr', '<cmd>Telescope lsp_references<cr>', { desc = 'Goto References' })
-vim.keymap.set('n', 'gy', '<cmd>Telescope lsp_type_definitions<cr>', { desc = 'Goto Type Definition' })
+-- Key mappings (LSP)
+vim.keymap.set('n', '<leader>a', vim.lsp.buf.code_action, { desc = 'Code Actions' })
+vim.keymap.set('n', '<leader>k', vim.lsp.buf.hover, { desc = 'Documentation' })
+vim.keymap.set('n', '<leader>r', vim.lsp.buf.rename, { desc = 'Rename' })
+vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, { desc = 'Go to Declaration' })
+vim.keymap.set('n', 'gd', '<cmd>Telescope lsp_definitions<cr>', { desc = 'Go to Definition' })
+vim.keymap.set('n', 'gi', '<cmd>Telescope lsp_implementations<cr>', { desc = 'Go to Implementations' })
+vim.keymap.set('n', 'gic', '<cmd>Telescope lsp_incoming_calls<cr>', { desc = 'Go to Incoming Calls' })
+vim.keymap.set('n', 'goc', '<cmd>Telescope lsp_outgoing_calls<cr>', { desc = 'Go to Outgoing Calls' })
+vim.keymap.set('n', 'gr', '<cmd>Telescope lsp_references<cr>', { desc = 'Go to References' })
+vim.keymap.set('n', 'gy', '<cmd>Telescope lsp_type_definitions<cr>', { desc = 'Go to Type Definition' })
+vim.keymap.set('n', '<leader>y', '<cmd>Telescope lsp_document_symbols<cr>', { desc = 'Document Symbols' })
+vim.keymap.set('n', '<leader>Y', '<cmd>Telescope lsp_workspace_symbols<cr>', { desc = 'Workspace Symbols' })
+
+-- Key mappings (diagnostics)
+vim.keymap.set('n', '<leader>i', vim.diagnostic.open_float, { desc = 'Open Diagnostics Floating Window' })
 vim.keymap.set('n', '<leader>d', '<cmd>Telescope diagnostics bufnr=0<cr>', { desc = 'Document Diagnostics' })
 vim.keymap.set('n', '<leader>e', '<cmd>Telescope diagnostics bufnr=0 severity_limit=1<cr>', { desc = 'Document Errors' })
 vim.keymap.set('n', '<leader>w', '<cmd>Telescope diagnostics bufnr=0 severity_limit=2<cr>', { desc = 'Document Warnings/Errors' })
 vim.keymap.set('n', '<leader>D', '<cmd>Telescope diagnostics<cr>', { desc = 'Workspace Diagnostics' })
 vim.keymap.set('n', '<leader>E', '<cmd>Telescope diagnostics severity_limit=1<cr>', { desc = 'Document Errors' })
 vim.keymap.set('n', '<leader>W', '<cmd>Telescope diagnostics severity_limit=2<cr>', { desc = 'Document Warnings/Errors' })
-vim.keymap.set('n', '<leader>y', '<cmd>Telescope lsp_document_symbols<cr>', { desc = 'Document Symbols' })
-vim.keymap.set('n', '<leader>Y', '<cmd>Telescope lsp_workspace_symbols<cr>', { desc = 'Workspace Symbols' })
 
 vim.lsp.config("*", {
     root_markers = { ".git", ".jj", },
