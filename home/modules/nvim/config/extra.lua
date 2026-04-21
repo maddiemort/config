@@ -101,9 +101,6 @@ vim.keymap.set('n', '<C-J>', '<C-W><C-J>', { desc = 'Move to Split Below' })
 vim.keymap.set('n', '<C-K>', '<C-W><C-K>', { desc = 'Move to Split Above' })
 vim.keymap.set('n', '<C-L>', '<C-W><C-L>', { desc = 'Move to Split Right' })
 
--- Run make from the current directory
-vim.keymap.set('n', 'M', '<cmd>make<cr>', { desc = 'Run `make`' })
-
 -- Go to next/previous diagnostic, error or warning
 vim.keymap.set('n', ']d', function() vim.diagnostic.jump({ count = 1 }) end, { desc = 'Next Diagnostic' })
 vim.keymap.set('n', '[d', function() vim.diagnostic.jump({ count = -1 }) end, { desc = 'Previous Diagnostic' })

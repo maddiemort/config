@@ -96,6 +96,7 @@ in {
           (luaPlugin formatter-nvim ./config/formatter.lua)
           (luaPlugin indent-blankline-nvim ./config/indent-blankline.lua)
           (luaPlugin lualine-nvim ./config/lualine.lua)
+          (luaPlugin marks-nvim ./config/marks.lua)
           # (luaPlugin nvim-highlight-colors ./config/highlight-colors.lua)
           (luaPlugin nvim-lint ./config/nvim-lint.lua)
           (luaPlugin rust-vim ./config/rust.lua)
