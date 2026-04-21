@@ -156,9 +156,11 @@ vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
             {
                 group = refresh_bookmark_augroup,
                 buffer = args.buf,
-                callback = function()
-                    current_bookmark[args.buf] = refresh_current_bookmark()
-                    require'lualine'.refresh()
+                callback = function(a)
+                    if vim.bo[a.buf].buftype == "" then
+                        current_bookmark[a.buf] = refresh_current_bookmark()
+                        require'lualine'.refresh()
+                    end
                 end,
             }
         )
@@ -267,6 +269,7 @@ require'lualine'.setup {
             {
                 get_current_bookmark,
                 draw_empty = false,
+                cond = function() return vim.bo[0].buftype == "" end,
             }
         },
         lualine_z = {
