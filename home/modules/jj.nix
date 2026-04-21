@@ -101,7 +101,7 @@ in {
             heads(
               reachable(
                 closest_local_bookmark(x),
-                closest_local_bookmark(x)::x ~ empty() ~ description("")
+                closest_local_bookmark(x)::x ~ description("")
               )
             ),
             1
