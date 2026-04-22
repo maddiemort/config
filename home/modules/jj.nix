@@ -58,7 +58,8 @@ in {
         'jjblame_template' = ''''
           "⬥ " ++ separate(" ⬦ ",
             commit.author().name().replace("​", ""),
-            commit.committer().timestamp().ago(),
+            "authored " ++ commit.author().timestamp().ago(),
+            "committed " ++ commit.committer().timestamp().ago(),
             commit.change_id().short(7),
             coalesce(commit.description().first_line(), ""),
           )
