@@ -34,6 +34,7 @@
         uv
       ])
       ++ (with pkgsUnstable; [
+        cargo-binutils
         cargo-expand
         cargo-generate
         cargo-modules

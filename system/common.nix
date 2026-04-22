@@ -47,6 +47,7 @@
       "linear"
       "linearmouse"
       "logi-options+"
+      "qmk-toolbox"
       "scroll-reverser"
       "spotmenu"
     ];
