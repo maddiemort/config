@@ -155,6 +155,14 @@ vim.lsp.config('rust_analyzer', {
                 -- },
             },
             completion = {
+                autoimport = {
+                    exclude = {
+                        { path = "core::borrow::Borrow", type = "methods" },
+                        { path = "core::borrow::BorrowMut", type = "methods" },
+                    },
+                    excludeTraits = {
+                    },
+                },
                 postfix = {
                     enable = false,
                 },
