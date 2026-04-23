@@ -185,6 +185,8 @@ in {
 
         # Select git branches to delete
         delete-branches = "git branch | rg -v '\*' | cut -c 3- | fzf --multi --preview='git hist {}' | xargs -r git branch --delete --force";
+
+        list-ignored = "sort (fd -H --no-require-git | psub) (fd -H --no-require-git --no-ignore-vcs | psub) | uniq -u";
       };
     };
   };
