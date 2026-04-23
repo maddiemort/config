@@ -24,6 +24,7 @@ in {
         [git]
         subprocess = true
         fetch = ["glob:*"]
+        private-commits = "description(exact:'megamerge')"
 
         [signing]
         backend = "ssh"
