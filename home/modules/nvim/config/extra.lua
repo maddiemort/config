@@ -53,11 +53,9 @@ vim.keymap.set(
     'n',
     '<leader>gl',
     function()
-        require'jjblame.jj'.get_remote_url(function(remote)
-            local commit = vim.fn.system("jj log --no-graph --limit 1 -T 'commit_id' -r 'heads(first_ancestors(@) & ::remote_bookmarks())'")
-            require'jjblame.jj'.get_file_url(commit, remote, vim.fn.line("."), nil, function(url)
-                vim.fn.setreg("+", url)
-            end)
+        local commit = vim.fn.system("jj log --no-graph --limit 1 -T 'commit_id' -r 'heads(first_ancestors(@) & ::remote_bookmarks())'")
+        require'jjblame.jj'.get_file_url(vim.fn.expand('%:p'), commit, vim.fn.line("."), nil, function(url)
+            vim.fn.setreg("+", url)
         end)
     end,
     { desc = 'Copy GitHub Link to Current File and Line Number' }
@@ -66,11 +64,9 @@ vim.keymap.set(
     'v',
     '<leader>gl',
     function()
-        require'jjblame.jj'.get_remote_url(function(remote)
-            local commit = vim.fn.system("jj log --no-graph --limit 1 -T 'commit_id' -r 'heads(first_ancestors(@) & ::remote_bookmarks())'")
-            require'jjblame.jj'.get_file_url(commit, remote, vim.fn.line("v"), vim.fn.line("."), function(url)
-                vim.fn.setreg("+", url)
-            end)
+        local commit = vim.fn.system("jj log --no-graph --limit 1 -T 'commit_id' -r 'heads(first_ancestors(@) & ::remote_bookmarks())'")
+        require'jjblame.jj'.get_file_url(vim.fn.expand('%:p'), commit, vim.fn.line("v"), vim.fn.line("."), function(url)
+            vim.fn.setreg("+", url)
         end)
     end,
     { desc = 'Copy GitHub Link to Current File and Range of Lines' }
