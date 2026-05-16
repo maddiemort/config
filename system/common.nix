@@ -44,7 +44,7 @@
     ];
     casks = [
       "alt-tab"
-      "linear-linear"
+      "linear"
       "linearmouse"
       "logi-options+"
       "scroll-reverser"
