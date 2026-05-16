@@ -1,5 +1,7 @@
 {pkgsUnstable, ...}: {
   home.packages = with pkgsUnstable; [
+    pdfpc
+    polylux2pdfpc
     unison-ucm
   ];
 
