@@ -10,7 +10,7 @@ require'catppuccin'.setup {
     custom_highlights = function(colors)
         return {
             Comment = { fg = colors.overlay2, style = { }, },
-            SpecialComment = { fg = colors.overlay2, style = { "italic" }, },
+            SpecialComment = { fg = colors.overlay0, style = { "italic" }, },
             Special = { fg = colors.pink, style = { "italic" } },
         }
     end,
