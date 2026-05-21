@@ -235,9 +235,9 @@ require'lualine'.setup {
             {
                 function() return get_blame_components()[4] or "" end,
             },
-            -- {
-            --     function() return get_blame_components()[5] or "" end,
-            -- },
+            {
+                function() return get_blame_components()[5] or "" end,
+            },
         },
         lualine_x = {
             'encoding',
