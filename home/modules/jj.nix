@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }: let
   cfg = config.custom.jj;
@@ -130,6 +131,11 @@ in {
           jj bookmark list --tracked --quiet -T tracked_bookmark_name --sort committer-date- |\\
             fzf --no-sort --multi --preview='jj log --color=always -r ::{} --limit $(math "floor($LINES / 2)")' |\\
             xargs -r jj bookmark untrack
+        """, ""]
+
+        watch = ["util", "exec", "--", "bash", "-c", """
+          ${pkgs.watchexec}/bin/watchexec -d 350ms --workdir "$(jj workspace root)" -c --watch .jj --no-vcs-ignore -- \\
+            jj --ignore-working-copy --at-op @ --no-pager --limit $(($(tput lines) / 2 - 2))
         """, ""]
 
         [ui]
