@@ -34,8 +34,6 @@
     yknotify-rs.url = "github:reo101/yknotify-rs/master";
     yknotify-rs.inputs.nixpkgs.follows = "nixpkgs-unstable";
 
-    unison-lang.url = "github:ceedubs/unison-nix";
-
     catppuccin.url = "github:catppuccin/nix/release-25.11";
     catppuccin.inputs.nixpkgs.follows = "nixpkgs";
   };
@@ -67,7 +65,6 @@
       })
 
       inputs.agenix.overlays.default
-      inputs.unison-lang.overlay
 
       (_: _: {
         inherit (inputs.home-manager.packages.${system}) home-manager;

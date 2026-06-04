@@ -156,15 +156,6 @@ augroup hs | au!
     au Filetype haskell setlocal shiftwidth=2 softtabstop=2
 augroup END
 
-" ------
-" Unison
-" ------
-
-augroup unison | au!
-    " Set the indentation width to 2 spaces for Unison
-    au Filetype unison setlocal shiftwidth=2 softtabstop=2
-augroup END
-
 " ===============
 " EDITOR SETTINGS
 " ===============

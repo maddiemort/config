@@ -88,7 +88,6 @@ in {
           vim-nix
           vim-numbertoggle
           vim-toml
-          vim-unison
           vimtex
 
           (luaPlugin vim-signify ./config/signify.lua)

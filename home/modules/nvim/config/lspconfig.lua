@@ -407,8 +407,6 @@ vim.lsp.enable('lua_ls')
 
 vim.lsp.enable('ts_ls')
 
-vim.lsp.enable('unison')
-
 vim.lsp.config('beancount', {
     init_options = {
         journal_file = "/Users/maddie/Documents/Financial/Accounts/accounts.beancount",
