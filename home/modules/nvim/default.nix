@@ -59,12 +59,13 @@ in {
           vim-beancount
 
           (luaPlugin help-vsplit-nvim ./config/help-vsplit.lua)
-          (luaPlugin vimPlugins.nvim-treesitter.withAllGrammars ./config/treesitter.lua)
         ])
         ++ (with pkgsUnstable; [
           (luaPlugin jj-blame-nvim ./config/jj-blame.lua)
           (luaPlugin telescope-nvim ./config/telescope.lua)
           (luaPlugin xcodebuild-nvim ./config/xcodebuild.lua)
+
+          (luaPlugin vimPlugins.nvim-treesitter.withAllGrammars ./config/treesitter.lua)
         ])
         ++ (with pkgsUnstable.vimPlugins; [
           haskell-vim
