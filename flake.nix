@@ -35,7 +35,6 @@
     yknotify-rs.inputs.nixpkgs.follows = "nixpkgs-unstable";
 
     unison-lang.url = "github:ceedubs/unison-nix";
-    unison-lang.inputs.nixpkgs.follows = "nixpkgs-unstable";
 
     catppuccin.url = "github:catppuccin/nix/release-25.11";
     catppuccin.inputs.nixpkgs.follows = "nixpkgs";
