@@ -19,6 +19,11 @@ in {
   };
 
   config = mkIf cfg.enable {
+    catppuccin = {
+      atuin.enable = true;
+      fzf.enable = true;
+    };
+
     programs = {
       atuin = {
         enable = true;

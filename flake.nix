@@ -36,6 +36,9 @@
 
     unison-lang.url = "github:ceedubs/unison-nix";
     unison-lang.inputs.nixpkgs.follows = "nixpkgs-unstable";
+
+    catppuccin.url = "github:catppuccin/nix/release-25.11";
+    catppuccin.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = {
@@ -203,6 +206,7 @@
         modules =
           [
             inputs.agenix.homeManagerModules.age
+            inputs.catppuccin.homeModules.catppuccin
             ./home/modules
             ./home/users/${username}.nix
           ]

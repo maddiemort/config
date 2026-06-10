@@ -84,6 +84,16 @@
     '';
   };
 
+  catppuccin = {
+    accent = "lavender";
+    flavor = "macchiato";
+
+    bat.enable = true;
+    bottom.enable = true;
+    btop.enable = true;
+    eza.enable = true;
+  };
+
   custom = {
     auth = {
       allowedSigners = [

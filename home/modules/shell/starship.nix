@@ -8,6 +8,8 @@
   inherit (lib) mkIf;
 in {
   config = mkIf cfg.enable {
+    catppuccin.starship.enable = true;
+
     programs.starship = {
       enable = true;
 

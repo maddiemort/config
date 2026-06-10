@@ -9,6 +9,8 @@
   inherit (lib) mkIf;
 in {
   config = mkIf cfg.enable {
+    catppuccin.fish.enable = true;
+
     programs.fish = {
       enable = true;
 
@@ -68,38 +70,6 @@ in {
 
           command git $argv
         end
-
-        # catppuccin macchiato theme
-        set -l red ed8796 #ed8796
-        set -l green a6da95 #a6da95
-        set -l yellow eed49f #eed49f
-        set -l blue 8aadf4 #8aadf4
-        set -l purple c6a0f6 #c6a0f6
-        set -l cyan 8bd5ca #8bd5ca
-        set -l black 1e2030 #1e2030
-        set -l grey 5b6078 #5b6078
-        set -l white cad3f5 #cad3f5
-        set -g fish_color_normal $white
-        set -g fish_color_command $purple
-        set -g fish_color_keyword $yellow
-        set -g fish_color_quote $green
-        set -g fish_color_redirection $white
-        set -g fish_color_error $red
-        set -g fish_color_param $blue
-        set -g fish_color_comment $grey
-        set -g fish_color_selection --background=$grey
-        set -g fish_color_search_match --background=$grey
-        set -g fish_color_operator $green
-        set -g fish_color_escape $cyan
-        set -g fish_color_autosuggestion $grey
-        set -g fish_color_cancel --background=$grey
-
-        # Completion Pager Colors
-        set -g fish_pager_color_progress $grey
-        set -g fish_pager_color_prefix $cyan
-        set -g fish_pager_color_completion $white
-        set -g fish_pager_color_description $grey
-        set -g fish_pager_color_selected_background --background=$grey
       '';
 
       shellAbbrs = {
