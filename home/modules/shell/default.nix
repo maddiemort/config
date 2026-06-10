@@ -20,6 +20,81 @@ in {
 
   config = mkIf cfg.enable {
     programs = {
+      atuin = {
+        enable = true;
+        package = pkgsUnstable.atuin;
+
+        forceOverwriteSettings = true;
+
+        flags = [
+          "--disable-up-arrow"
+        ];
+
+        settings = {
+          command_chaining = false; # try this
+          dialect = "uk";
+          enter_accept = true;
+          inline_height = 20;
+          invert = false;
+          keymap_mode = "vim-insert";
+          show_help = false;
+          style = "auto";
+
+          search = {
+            filters = [
+              "global"
+              "directory"
+              "session-preload"
+              "session"
+            ];
+          };
+
+          stats = {
+            common_subcommands = [
+              "apt"
+              "cargo"
+              "composer"
+              "dnf"
+              "docker"
+              "git"
+              "go"
+              "ip"
+              "jj"
+              "kubectl"
+              "nix"
+              "nmcli"
+              "npm"
+              "pecl"
+              "pnpm"
+              "podman"
+              "port"
+              "systemctl"
+              "tmux"
+              "yarn"
+
+              "rustup"
+              "home-manager"
+              "darwin-rebuild"
+              "convco"
+              "typst"
+              "brew"
+            ];
+          };
+
+          ui = {
+            columns = [
+              "exit"
+              {
+                type = "command";
+                expand = true;
+              }
+              "time"
+              "directory"
+            ];
+          };
+        };
+      };
+
       clock-rs.enable = true;
 
       direnv = {
