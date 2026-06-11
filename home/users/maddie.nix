@@ -41,7 +41,7 @@
         cargo-update
         exercism
         ice-bar
-        jujutsu-0-40-0-mailmap
+        jujutsu
         # rust-analyzer
         rustup
         swiftlint

@@ -42,7 +42,6 @@
         colima
         docker
         docker-buildx
-        jujutsu-0-40-0-mailmap
         k3d
         kubectl
         stern

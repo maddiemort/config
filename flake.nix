@@ -20,10 +20,6 @@
     agenix.inputs.darwin.follows = "nixpkgs";
     agenix.inputs.home-manager.follows = "home-manager";
 
-    jj.url = "github:maddiemort/jj/v0.40.0-mailmap";
-    jj.inputs.nixpkgs.follows = "nixpkgs-unstable";
-    jj.inputs.flake-utils.follows = "flake-utils";
-
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay/master";
     neovim-nightly-overlay.inputs.nixpkgs.follows = "nixpkgs-unstable";
 
@@ -150,10 +146,6 @@
               hash = "sha256-YQdVPfWtbvoPScq27r+KRyvM0v6XzuRgzEEIn1qWFWg=";
             };
           };
-        })
-
-        (_: _: {
-          jujutsu-0-40-0-mailmap = inputs.jj.packages.${system}.jujutsu;
         })
       ]
       ++ mkOverlays system;
