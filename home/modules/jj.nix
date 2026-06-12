@@ -111,6 +111,21 @@ in {
           )
         ''''
 
+        # Find all revisions that are reachable from a remote bookmark on the provided remote, but
+        # without including any revisions that are on a remote bookmark on another remote.
+        "unique_to_remote(remote)" = ''''
+          reachable(
+            remote_bookmarks(remote=exact:remote),
+            (remote_bookmarks() ~ remote_bookmarks(remote=exact:remote))..
+          )
+        ''''
+
+        # Similar to `unique_to_remote()`, but shows the parents of the revset as well to help
+        # provide context.
+        "remote_overview(remote)" = ''''
+          unique_to_remote(remote) | unique_to_remote(remote)-
+        ''''
+
         "stranded()" = "mine() ~ ::remote_bookmarks() ~ ((empty() ~ merges()) & description(exact:'''))"
         "my_bookmarks()" = "mine() & bookmarks() | tracked_remote_bookmarks()"
 
