@@ -239,11 +239,6 @@
             username = "maddie";
             overrides = ["polaris" "non-work"];
           };
-          maddie-rigel = mkHome {
-            inherit system;
-            username = "maddie";
-            overrides = ["rigel"];
-          };
         };
       };
 
@@ -270,10 +265,6 @@
         polaris = mkDarwin {
           system = aarch64-darwin;
           hostname = "polaris";
-        };
-        rigel = mkDarwin {
-          system = x86_64-darwin;
-          hostname = "rigel";
         };
       };
 
