@@ -17,7 +17,7 @@
 
     agenix.url = "github:ryantm/agenix/main";
     agenix.inputs.nixpkgs.follows = "nixpkgs";
-    agenix.inputs.darwin.follows = "nixpkgs";
+    agenix.inputs.darwin.follows = "nix-darwin";
     agenix.inputs.home-manager.follows = "home-manager";
 
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay/master";

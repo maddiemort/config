@@ -3,7 +3,7 @@
     "agenix": {
       "inputs": {
         "darwin": [
-          "nixpkgs"
+          "nix-darwin"
         ],
         "home-manager": [
           "home-manager"
