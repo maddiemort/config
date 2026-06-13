@@ -19,16 +19,12 @@ let
   #
   # These are not Yubikey SSH keys, because those can't be used with agenix at
   # the moment.
-  maddie-ditto = "age1yubikey1qgeyg6v9kch8g0tu05ms05z40lv250eguy0ujep7em4l2hqvrd3uwtjm47u";
-  maddie-ditto-c = "age1yubikey1q29q3ykjxvwxv6dmtldkxjuc2c0227x5lsknpvmxxk64nhggxc7dqzpnp0l";
   maddie-wtf = "age1yubikey1qdtdsjttgdcsfvu0g5n3vsf50e35ntcgjkjpd4d7hgzez8gk55rguc6tte7";
   maddie-wtf-c = "age1yubikey1q0cqe58rgzxjaky7nj3gzs6a9eujsu35lkchl9njlep80atwd6w4v3nu7pz";
 
   # Keys that should always be able to access every secret, so they can be used
   # to access and re-encrypt secrets.
   general = [
-    maddie-ditto
-    maddie-ditto-c
     maddie-wtf
     maddie-wtf-c
   ];
