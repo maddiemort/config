@@ -54,8 +54,6 @@
         zmk-studio
       ]);
 
-    stateVersion = "22.11";
-
     sessionPath = [
       "$HOME/.cargo/bin"
       "$HOME/.local/bin"

@@ -24,6 +24,8 @@
     file.".ssh/id_ed25519_jj_ditto_com.pub".source = ../../keys/maddie-jj-ditto-com.pub;
     file.".ssh/id_ed25519_sk_maddie_ditto_c.pub".source = ../../keys/maddie-ditto-c.pub;
     file.".ssh/id_ed25519_sk_maddie_wtf_c.pub".source = ../../keys/maddie-wtf-c.pub;
+
+    stateVersion = "22.11";
   };
 
   custom = {

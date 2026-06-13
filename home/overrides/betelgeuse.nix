@@ -40,6 +40,8 @@
     sessionVariables = {
       JRE8 = "${pkgs.jre8}";
     };
+
+    stateVersion = "22.11";
   };
 
   xdg.configFile."jj/conf.d/20-betelgeuse.toml".text = ''

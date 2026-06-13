@@ -12,6 +12,8 @@
   home = {
     file.".ssh/id_ed25519_jj_wtf.pub".source = ../../keys/maddie-jj-wtf.pub;
     file.".ssh/id_ed25519_sk_maddie_wtf.pub".source = ../../keys/maddie-wtf.pub;
+
+    stateVersion = "22.11";
   };
 
   xdg.configFile."jj/conf.d/20-polaris.toml".text = ''
