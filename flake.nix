@@ -229,15 +229,10 @@
             username = "maddie";
             overrides = ["betelgeuse" "non-work"];
           };
-          maddie-nashira = mkHome {
+          maddie-merope = mkHome {
             inherit system;
             username = "maddie";
-            overrides = ["nashira" "work"];
-          };
-          maddie-natasha = mkHome {
-            inherit system;
-            username = "maddie";
-            overrides = ["natasha" "work"];
+            overrides = ["merope" "non-work"];
           };
           maddie-polaris = mkHome {
             inherit system;
@@ -268,13 +263,9 @@
           system = aarch64-darwin;
           hostname = "betelgeuse";
         };
-        nashira = mkDarwin {
+        merope = mkDarwin {
           system = aarch64-darwin;
-          hostname = "nashira";
-        };
-        natasha = mkDarwin {
-          system = aarch64-darwin;
-          hostname = "natasha";
+          hostname = "merope";
         };
         polaris = mkDarwin {
           system = aarch64-darwin;
