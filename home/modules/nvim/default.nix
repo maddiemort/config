@@ -44,7 +44,10 @@ in {
       inherit (cfg) enable;
       package = pkgsUnstable.neovim-unwrapped;
 
-      extraLuaConfig = builtins.readFile ./config/extra.lua;
+      withRuby = true;
+      withPython3 = true;
+
+      initLua = builtins.readFile ./config/extra.lua;
 
       extraConfig =
         ''

@@ -20,7 +20,7 @@ in {
 
       onActivation = {
         # autoUpdate = true;
-        cleanup = "uninstall";
+        cleanup = "none";
         # upgrade = true;
       };
     };

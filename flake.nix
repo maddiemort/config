@@ -6,13 +6,13 @@
   inputs = {
     flake-utils.url = "github:numtide/flake-utils/main";
 
-    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-25.11-darwin";
+    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-26.05-darwin";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
 
-    nix-darwin.url = "github:LnL7/nix-darwin/nix-darwin-25.11";
+    nix-darwin.url = "github:LnL7/nix-darwin/nix-darwin-26.05";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
 
-    home-manager.url = "github:nix-community/home-manager/release-25.11";
+    home-manager.url = "github:nix-community/home-manager/release-26.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     agenix.url = "github:ryantm/agenix/main";
@@ -30,7 +30,7 @@
     yknotify-rs.url = "github:reo101/yknotify-rs/master";
     yknotify-rs.inputs.nixpkgs.follows = "nixpkgs-unstable";
 
-    catppuccin.url = "github:catppuccin/nix/release-25.11";
+    catppuccin.url = "github:catppuccin/nix/release-26.05";
     catppuccin.inputs.nixpkgs.follows = "nixpkgs";
   };
 
@@ -68,6 +68,9 @@
       })
 
       (final: prev: {
+        nodejs = final.nodejs_latest;
+        nodejs-slim = final.nodejs-slim_latest;
+
         help-vsplit-nvim = final.vimUtils.buildVimPlugin rec {
           pname = "help-vsplit.nvim";
           version = "1268670";

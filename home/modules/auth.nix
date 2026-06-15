@@ -69,7 +69,7 @@ in {
       enable = true;
       enableDefaultConfig = false;
 
-      matchBlocks = mkMerge [
+      settings = mkMerge [
         (builtins.listToAttrs (
           map
           ({
@@ -78,7 +78,7 @@ in {
           }: {
             name = host;
             value = {
-              identityFile = path;
+              IdentityFile = path;
             };
           })
           cfg.publicKeys
@@ -86,34 +86,30 @@ in {
 
         (mkIf isDarwin {
           "*" = {
-            identitiesOnly = true;
-            serverAliveInterval = 15;
-
-            extraOptions = {
-              PreferredAuthentications = "publickey";
-            };
+            IdentitiesOnly = true;
+            ServerAliveInterval = 15;
+            PreferredAuthentications = "publickey";
           };
         })
 
         {
           "*" = {
-            forwardAgent = false;
-            addKeysToAgent = "no";
-            compression = false;
-            serverAliveInterval = lib.mkDefault 0;
-            serverAliveCountMax = 3;
-            hashKnownHosts = false;
-            userKnownHostsFile = "~/.ssh/known_hosts";
-            controlMaster = "no";
-            controlPath = "~/.ssh/master-%r@%n:%p";
-            controlPersist = "no";
+            ForwardAgent = false;
+            AddKeysToAgent = "no";
+            Compression = false;
+            ServerAliveInterval = lib.mkDefault 0;
+            ServerAliveCountMax = 3;
+            HashKnownHosts = false;
+            UserKnownHostsFile = "~/.ssh/known_hosts";
+            ControlMaster = "no";
+            ControlPath = "~/.ssh/master-%r@%n:%p";
+            ControlPersist = "no";
+            SetEnv = {
+              TERM = "xterm-256color";
+            };
           };
         }
       ];
-
-      extraConfig = ''
-        SetEnv TERM=xterm-256color
-      '';
     };
   };
 }
