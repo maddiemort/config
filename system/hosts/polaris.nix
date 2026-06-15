@@ -4,6 +4,10 @@
   pkgsUnstable,
   ...
 }: {
+  imports = [
+    ../non-work.nix
+  ];
+
   environment = {
     systemPackages =
       (with pkgs; [
@@ -13,10 +17,7 @@
         postgresql_15
       ])
       ++ (with pkgsUnstable; [
-        catgirl
         ffmpeg
-        tectonic
-        yt-dlp
 
         (python314.withPackages (pyPkgs:
           with pyPkgs; [
@@ -47,20 +48,15 @@
     casks = [
       "ableton-live-standard"
       "adobe-acrobat-reader"
-      "calibre"
       "ungoogled-chromium"
-      "discord"
-      "firefox"
       "handbrake-app"
       "jetbrains-toolbox"
       "jubler"
       "lagrange"
       "mkvtoolnix-app"
-      "mullvad-vpn"
       "obs"
       "prismlauncher"
       "radio-silence"
-      "signal"
       "skim"
       "splice"
       "steam"
@@ -68,8 +64,6 @@
       "subler"
       "teamspeak-client"
       "transmission"
-      "whatsapp"
-      "zulip"
     ];
   };
 

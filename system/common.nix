@@ -21,7 +21,6 @@
         git
         gnupg
         jq
-        obsidian
         openssh
         ripgrep
         sd
@@ -31,7 +30,6 @@
       ])
       ++ (with pkgsUnstable; [
         bottom
-        spotify
       ]);
 
     variables = {
@@ -40,26 +38,16 @@
   };
 
   homebrew = {
-    brews = [
-      "xcode-build-server" # For xcodebuild.nvim
-    ];
     casks = [
-      "alt-tab"
-      "linear"
+      # This really does have to be installed through Homebrew, or 1Password will refuse to
+      # integrate with it.
+      "firefox"
+
       "linearmouse"
-      "logi-options+"
       "scroll-reverser"
       "spotmenu"
+      "yubico-authenticator"
     ];
-  };
-
-  networking = {
-    applicationFirewall = {
-      enable = true;
-      enableStealthMode = true;
-      blockAllIncoming = true;
-      allowSignedApp = true;
-    };
   };
 
   programs = {

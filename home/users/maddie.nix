@@ -37,27 +37,19 @@
         ++ (with pkgs; [
           age-plugin-yubikey
           asciiquarium-transparent
-          catgirl
-          convco
           dig
           erdtree
           fzf
           gh
-          ghostscript
           glow
-          go
-          gopls
           hl-log-viewer
           hyperfine
           imagemagick
           iosevka-custom
           lora
           monodraw
-          pandoc
           samply
-          tectonic
           tokei
-          uv
         ])
         ++ (with pkgsUnstable; [
           cargo-expand
@@ -65,17 +57,11 @@
           cargo-modules
           cargo-nextest
           cargo-update
-          exercism
           ice-bar
-          # rust-analyzer
           swiftlint
-          tailscale
           thunderbird
           typst
           typstyle
-          yubikey-manager
-          yubikey-personalization
-          zmk-studio
         ]);
 
       sessionPath = [
