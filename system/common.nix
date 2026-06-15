@@ -1,4 +1,5 @@
 {
+  lib,
   pkgs,
   pkgsUnstable,
   ...
@@ -101,6 +102,6 @@
     keyboard.enableKeyMapping = true;
     keyboard.remapCapsLockToControl = true;
 
-    primaryUser = "maddie";
+    primaryUser = lib.mkDefault "maddie";
   };
 }

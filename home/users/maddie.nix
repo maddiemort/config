@@ -2,20 +2,38 @@
   config,
   pkgs,
   pkgsUnstable,
+  lib,
   ...
-}: {
+}: let
+  age-with-yubikey = let
+    wrapped = pkgs.age.withPlugins (ps: [ps.age-plugin-yubikey]);
+  in
+    wrapped.overrideAttrs (old: {
+      meta =
+        (old.meta or {})
+        // {
+          mainProgram = "age";
+        };
+    });
+in {
   age = {
+    package = age-with-yubikey;
+
     identityPaths = [
-      "/etc/ssh/ssh_host_ed25519_key"
+      ../../identities/maddie-ikerian.txt
     ];
   };
 
+  launchd.agents.activate-agenix.config.KeepAlive.Crashed = lib.mkForce null;
+
   home = {
-    username = "maddie";
-    homeDirectory = "/Users/maddie";
+    username = lib.mkDefault "maddie";
+    homeDirectory = "/Users/${config.home.username}";
 
     packages =
-      (with pkgs; [
+      [age-with-yubikey]
+      ++ (with pkgs; [
+        age-plugin-yubikey
         asciiquarium-transparent
         catgirl
         convco
@@ -129,6 +147,18 @@
         {
           email = "maddie@ditto.com";
           key = builtins.readFile ../../keys/maddie-jj-ditto-com.pub;
+        }
+        {
+          email = "madeleine.mortensen@ikerian.com";
+          key = builtins.readFile ../../keys/maddie-ikerian.pub;
+        }
+        {
+          email = "madeleine.mortensen@ikerian.com";
+          key = builtins.readFile ../../keys/maddie-ikerian-c.pub;
+        }
+        {
+          email = "madeleine.mortensen@ikerian.com";
+          key = builtins.readFile ../../keys/maddie-jj-ikerian.pub;
         }
 
         # Known signers who are not me

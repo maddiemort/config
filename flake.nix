@@ -232,6 +232,11 @@
             username = "maddie";
             overrides = ["betelgeuse" "non-work"];
           };
+          maddie-EQ-0265 = mkHome {
+            inherit system;
+            username = "maddie";
+            overrides = ["EQ-0265" "work"];
+          };
           maddie-merope = mkHome {
             inherit system;
             username = "maddie";
@@ -260,6 +265,10 @@
         betelgeuse = mkDarwin {
           system = aarch64-darwin;
           hostname = "betelgeuse";
+        };
+        EQ-0265 = mkDarwin {
+          system = aarch64-darwin;
+          hostname = "EQ-0265";
         };
         merope = mkDarwin {
           system = aarch64-darwin;
