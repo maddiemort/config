@@ -32,6 +32,10 @@
 
     catppuccin.url = "github:catppuccin/nix/release-26.05";
     catppuccin.inputs.nixpkgs.follows = "nixpkgs";
+
+    jj-lfs.url = "github:jj-vcs/jj/sbarfurth/push-uulvmqxnpmzk";
+    jj-lfs.inputs.nixpkgs.follows = "nixpkgs-unstable";
+    jj-lfs.inputs.flake-utils.follows = "flake-utils";
   };
 
   outputs = {
@@ -65,6 +69,8 @@
       (_: _: {
         inherit (inputs.home-manager.packages.${system}) home-manager;
         inherit (inputs.jj-blame-nvim.packages.${system}) jj-blame-nvim;
+
+        jujutsu-lfs = inputs.jj-lfs.packages.${system}.jujutsu;
       })
 
       (final: prev: {

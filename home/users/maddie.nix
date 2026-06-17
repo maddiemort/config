@@ -65,7 +65,6 @@ in {
         cargo-update
         exercism
         ice-bar
-        jujutsu
         # rust-analyzer
         rustup
         swiftlint

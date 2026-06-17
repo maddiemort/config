@@ -2,6 +2,7 @@
   home.packages = with pkgs; [
     docker
     docker-credential-helpers
+    jujutsu-lfs
   ];
 
   services = {

@@ -1,5 +1,6 @@
 {pkgsUnstable, ...}: {
   home.packages = with pkgsUnstable; [
+    jujutsu
     pdfpc
     polylux2pdfpc
   ];

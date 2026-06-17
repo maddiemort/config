@@ -56,7 +56,7 @@ in {
   config = mkIf cfg.enable {
     programs.git = {
       inherit (cfg) enable;
-      # lfs.enable = true;
+      lfs.enable = true;
 
       settings = {
         inherit (cfg) user;
