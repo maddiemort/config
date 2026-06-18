@@ -1,5 +1,6 @@
 {pkgs, ...}: {
   home.packages = with pkgs; [
+    devcontainer
     docker
     docker-credential-helpers
     jujutsu-lfs

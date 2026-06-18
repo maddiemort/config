@@ -77,6 +77,11 @@
         nodejs = final.nodejs_latest;
         nodejs-slim = final.nodejs-slim_latest;
 
+        devcontainer = prev.devcontainer.override {
+          nodejs = final.nodejs_24;
+          node-gyp = final.node-gyp.override {nodejs = final.nodejs_24;};
+        };
+
         help-vsplit-nvim = final.vimUtils.buildVimPlugin rec {
           pname = "help-vsplit.nvim";
           version = "1268670";
