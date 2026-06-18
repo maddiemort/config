@@ -138,7 +138,7 @@ vim.lsp.config('rust_analyzer', {
                 enable = false,
             },
             cargo = {
-                -- allFeatures = true,
+                allFeatures = true,
                 extraArgs = {
                     "--profile",
                     "rust-analyzer",
