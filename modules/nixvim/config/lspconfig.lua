@@ -149,10 +149,9 @@ vim.lsp.config('rust_analyzer', {
             },
             check = {
                 command = "clippy",
-                -- extraArgs = {
-                --     "--profile",
-                --     "rust-analyzer",
-                -- },
+                extraEnv = {
+                    ["CARGO_PROFILE_RUST_ANALYZER_INHERITS"] = "dev",
+                },
             },
             completion = {
                 postfix = {
