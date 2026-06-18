@@ -13,7 +13,7 @@
     config = builtins.readFile configPath;
   };
 
-  inherit (lib) mkIf;
+  inherit (lib) mkIf optionals;
 in {
   imports = [
     ./lsp.nix
@@ -111,19 +111,21 @@ in {
         (with pkgs; [
           glow
         ])
-        ++ (with pkgsUnstable; [
-          typstyle # For typst formatting in formatter.lua
-
-          # For xcodebuild.nvim. Also requires:
-          #
-          # - jq (installed in system configuration)
-          # - pymobiledevice3 (installed in host-specific system Python packages)
-          # - ripgrep (installed in system configuration)
-          # - xcode-build-server (installed via Homebrew in system configuration)
-          coreutils
-          xcbeautify
-          xcp
-        ]);
+        ++ (with pkgsUnstable;
+          [
+            typstyle # For typst formatting in formatter.lua
+          ]
+          ++ optionals stdenv.isDarwin [
+            # For xcodebuild.nvim. Also requires:
+            #
+            # - jq (installed in system configuration)
+            # - pymobiledevice3 (installed in host-specific system Python packages)
+            # - ripgrep (installed in system configuration)
+            # - xcode-build-server (installed via Homebrew in system configuration)
+            coreutils
+            xcbeautify
+            xcp
+          ]);
     };
   };
 }
