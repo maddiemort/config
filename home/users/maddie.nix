@@ -67,7 +67,6 @@
           exercism
           ice-bar
           # rust-analyzer
-          rustup
           swiftlint
           tailscale
           thunderbird
