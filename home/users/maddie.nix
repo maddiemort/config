@@ -22,6 +22,7 @@
 
       identityPaths = [
         ../../identities/maddie-ikerian.txt
+        ../../identities/maddie-ikerian-c.txt
       ];
     };
 

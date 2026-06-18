@@ -16,16 +16,12 @@
 
   custom = {
     auth = {
-      publicKeys = [
-        {
-          host = "*";
-          path = "~/.ssh/id_ed25519_sk_maddie_ikerian";
-        }
-        {
-          host = "*";
-          path = "~/.ssh/id_ed25519_sk_maddie_ikerian_c";
-        }
-      ];
+      publicKeys = {
+        "*" = [
+          "~/.ssh/id_ed25519_sk_maddie_ikerian"
+          "~/.ssh/id_ed25519_sk_maddie_ikerian_c"
+        ];
+      };
     };
 
     git = {

@@ -11,26 +11,8 @@
 in {
   options.custom.auth = with lib; {
     publicKeys = mkOption {
-      description = ''
-        A list of the user's SSH public key(s), optionally paired with an SSH
-        host match declaration to use for each key.
-      '';
-      type = types.listOf (types.submodule {
-        options = {
-          path = mkOption {
-            description = "Path to the key";
-            type = types.str;
-          };
-
-          host = mkOption {
-            description = "SSH host match declaration to use for this key.";
-            type = types.str;
-            default = "*";
-            example = "github.com";
-          };
-        };
-      });
-      default = [];
+      type = with types; attrsOf (either str (listOf str));
+      default = {};
     };
 
     allowedSigners = mkOption {
@@ -70,19 +52,13 @@ in {
       enableDefaultConfig = false;
 
       settings = mkMerge [
-        (builtins.listToAttrs (
-          map
-          ({
-            path,
-            host,
-          }: {
-            name = host;
-            value = {
-              IdentityFile = path;
-            };
+        (
+          builtins.mapAttrs
+          (_: keys: {
+            IdentityFile = keys;
           })
           cfg.publicKeys
-        ))
+        )
 
         (mkIf isDarwin {
           "*" = {
