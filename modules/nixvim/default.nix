@@ -36,6 +36,7 @@ in
       let
         files = [
           ./config/help-vsplit.lua
+          ./config/devcontainers.lua
           ./config/jj-blame.lua
           ./config/treesitter.lua
 
@@ -46,6 +47,7 @@ in
           ./config/indent-blankline.lua
           ./config/lualine.lua
           ./config/marks.lua
+          ./config/netman.lua
           # ./config/highlight-colors.lua
           ./config/nvim-lint.lua
           ./config/rust.lua
@@ -96,6 +98,7 @@ in
       ++ (
         with pkgsUnstable;
         [
+          devcontainers-nvim
           jj-blame-nvim
           telescope-nvim
 
@@ -130,6 +133,7 @@ in
           indent-blankline-nvim
           lualine-nvim
           marks-nvim
+          netman-nvim
           # nvim-highlight-colors
           nvim-lint
           rust-vim

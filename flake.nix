@@ -61,6 +61,24 @@
       ];
 
       vimPluginsOverlay = final: prev: {
+        devcontainers-nvim =
+          let
+            pname = "devcontainers.nvim";
+            version = "1d1478fc";
+            owner = "maddiemort";
+          in
+          final.vimUtils.buildVimPlugin rec {
+            inherit pname version;
+            src = final.fetchFromGitHub {
+              inherit owner;
+              repo = pname;
+              rev = version;
+              hash = "sha256-3wYIxGsLS+eCWHzGEerbw4+3vNQDxLzJcCYuM5Jk+/A=";
+            };
+            doCheck = false;
+            meta.homepage = "https://github.com/${owner}/${pname}";
+          };
+
         help-vsplit-nvim = final.vimUtils.buildVimPlugin rec {
           pname = "help-vsplit.nvim";
           version = "1268670";

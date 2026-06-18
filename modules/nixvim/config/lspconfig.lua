@@ -127,8 +127,89 @@ vim.lsp.config("*", {
     root_markers = { ".git", ".jj", },
 })
 
+local function user_sysroot_src()
+  return vim.tbl_get(vim.lsp.config['rust_analyzer'], 'settings', 'rust-analyzer', 'cargo', 'sysrootSrc')
+end
+
+local function default_sysroot_src()
+  local sysroot = vim.tbl_get(vim.lsp.config['rust_analyzer'], 'settings', 'rust-analyzer', 'cargo', 'sysroot')
+  if not sysroot then
+    local result = vim.system({ 'devcontainer', 'exec', 'rustc', '--print', 'sysroot' }, { text = true }):wait()
+
+    local stdout = result.stdout
+    if result.code == 0 and stdout then
+      if string.sub(stdout, #stdout) == '\n' then
+        if #stdout > 1 then
+          sysroot = string.sub(stdout, 1, #stdout - 1)
+        else
+          sysroot = ''
+        end
+      else
+        sysroot = stdout
+      end
+    end
+  end
+
+  return sysroot and vim.fs.joinpath(sysroot, 'lib/rustlib/src/rust/library') or nil
+end
+
+local function is_library(fname)
+  local user_home = vim.fs.normalize(vim.env.HOME)
+  local cargo_home = os.getenv 'CARGO_HOME' or user_home .. '/.cargo'
+  local registry = cargo_home .. '/registry/src'
+  local git_registry = cargo_home .. '/git/checkouts'
+
+  local rustup_home = os.getenv 'RUSTUP_HOME' or user_home .. '/.rustup'
+  local toolchains = rustup_home .. '/toolchains'
+
+  local sysroot_src = user_sysroot_src() or default_sysroot_src()
+
+  for _, item in ipairs { toolchains, registry, git_registry, sysroot_src } do
+    if item and vim.fs.relpath(item, fname) then
+      local clients = vim.lsp.get_clients { name = 'rust_analyzer' }
+      return #clients > 0 and clients[#clients].config.root_dir or nil
+    end
+  end
+end
+
 local _ran_once = {}
 vim.lsp.config('rust_analyzer', {
+    cmd = require('devcontainers').lsp_cmd({ 'rust-analyzer' }),
+    root_dir = function(bufnr, on_dir)
+        local fname = vim.api.nvim_buf_get_name(bufnr)
+        local reused_dir = is_library(fname)
+        if reused_dir then
+            on_dir(reused_dir)
+            return
+        end
+
+        local devcontainer_root = vim.fs.dirname(vim.fs.find('.devcontainer', { path = fname, upward = true })[1])
+        on_dir(devcontainer_root)
+    end,
+    before_init = function(init_params, config)
+        -- See https://github.com/rust-lang/rust-analyzer/blob/eb5da56d839ae0a9e9f50774fa3eb78eb0964550/docs/dev/lsp-extensions.md?plain=1#L26
+        if config.settings and config.settings['rust-analyzer'] then
+            init_params.initializationOptions = config.settings['rust-analyzer']
+        end
+        ---@param command table{ title: string, command: string, arguments: any[] }
+        vim.lsp.commands['rust-analyzer.runSingle'] = function(command)
+            local r = command.arguments[1]
+            local cmd = { 'devcontainer', 'exec', 'cargo', unpack(r.args.cargoArgs) }
+            if r.args.executableArgs and #r.args.executableArgs > 0 then
+                vim.list_extend(cmd, { '--', unpack(r.args.executableArgs) })
+            end
+
+            local proc = vim.system(cmd, { cwd = r.args.cwd, env = r.args.environment })
+
+            local result = proc:wait()
+
+            if result.code == 0 then
+                vim.notify(result.stdout, vim.log.levels.INFO)
+            else
+                vim.notify(result.stderr, vim.log.levels.ERROR)
+            end
+        end
+    end,
     settings = {
         ['rust-analyzer'] = {
             assist = {

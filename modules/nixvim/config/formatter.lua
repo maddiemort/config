@@ -22,8 +22,10 @@ formatter.setup {
         rust = {
             function()
                 return {
-                    exe = "rustfmt",
+                    exe = "devcontainer",
                     args = {
+                        "exec",
+                        "rustfmt",
                         "--edition",
                         "2024",
                     },
