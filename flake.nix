@@ -264,6 +264,8 @@
           };
         in
           maddie.config.programs.neovim.finalPackage;
+
+        neovim-work = self.legacyPackages.${system}.homeConfigurations.maddie-EQ-0265.config.programs.neovim.finalPackage;
       };
     }))
     // {
