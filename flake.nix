@@ -53,6 +53,74 @@
 
     supportedSystems = [aarch64-darwin aarch64-linux];
 
+    vimPluginsOverlay = final: prev: {
+      help-vsplit-nvim = final.vimUtils.buildVimPlugin rec {
+        pname = "help-vsplit.nvim";
+        version = "1268670";
+        src = final.fetchFromGitHub {
+          owner = "anuvyklack";
+          repo = pname;
+          rev = "1268670db1bde2276fbfbadb9b12ec0c984ef229";
+          hash = "sha256-X4PF1L06ShhzlsT8HiMCxXLc9hK0gNwzIwYIYwWwwto=";
+        };
+        meta.homepage = "https://github.com/anuvyklack/${pname}";
+      };
+
+      # Attempt to fix folding in beancount files on first load. See comment in
+      # `home/modules/nvim/config/extra.lua`.
+      telescope-nvim = final.vimPlugins.telescope-nvim.overrideAttrs {
+        src = final.fetchFromGitHub {
+          owner = "nvim-telescope";
+          repo = "telescope.nvim";
+          rev = "bea6665a8f14f31e11a3093a3b4a92be313bf4be";
+          hash = "sha256-YQdVPfWtbvoPScq27r+KRyvM0v6XzuRgzEEIn1qWFWg=";
+        };
+      };
+
+      telescope-spell-errors = final.vimUtils.buildVimPlugin {
+        pname = "telescope-spell-errors";
+        version = "2025-11-28";
+        src = final.fetchFromGitHub {
+          owner = "matkrin";
+          repo = "telescope-spell-errors.nvim";
+          rev = "1567a8bf0998fe65ef6cb8c40f62a0eec0b7d774";
+          hash = "sha256-AlgMr9sGDYJMCFsUPiRJz1mWr87eqF+qrpTMIGGHXoY=";
+        };
+        meta.homepage = "https://github.com/matkrin/telescope-spell-errors.nvim";
+      };
+
+      vim-beancount = final.vimUtils.buildVimPlugin {
+        pname = "vim-beancount";
+        version = "dd2f56a";
+        src = final.fetchFromGitHub {
+          owner = "nathangrigg";
+          repo = "vim-beancount";
+          rev = "dd2f56a122b698454af582cbe7eae471dbdc48f8";
+          hash = "sha256-cZsmFCzF4X9sw0S3V/RR6HCX2H6ksoEY/DIL8PjAjAM=";
+        };
+        meta.homepage = "https://github.com/nathangrigg/vim-beancount/";
+      };
+
+      xcodebuild-nvim = final.vimUtils.buildVimPlugin rec {
+        pname = "xcodebuild.nvim";
+        version = "6ee81bc";
+        src = final.fetchFromGitHub {
+          owner = "wojciech-kulik";
+          repo = pname;
+          rev = "6ee81bcf0334eac180111ac7ac2435d421d1508d";
+          hash = "sha256-e1/QTC3XJvib+LVdMJnaPXgq4HJ9JlczHrdTD0/poF0=";
+        };
+        dependencies = with prev.vimPlugins; [
+          fzf-lua
+          nui-nvim
+          plenary-nvim
+          snacks-nvim
+          telescope-nvim
+        ];
+        meta.homepage = "https://github.com/wojciech-kulik/${pname}";
+      };
+    };
+
     mkOverlays = system: [
       (final: prev: {
         inherit
@@ -81,62 +149,9 @@
           nodejs = final.nodejs_24;
           node-gyp = final.node-gyp.override {nodejs = final.nodejs_24;};
         };
-
-        help-vsplit-nvim = final.vimUtils.buildVimPlugin rec {
-          pname = "help-vsplit.nvim";
-          version = "1268670";
-          src = final.fetchFromGitHub {
-            owner = "anuvyklack";
-            repo = pname;
-            rev = "1268670db1bde2276fbfbadb9b12ec0c984ef229";
-            hash = "sha256-X4PF1L06ShhzlsT8HiMCxXLc9hK0gNwzIwYIYwWwwto=";
-          };
-          meta.homepage = "https://github.com/anuvyklack/${pname}";
-        };
-
-        telescope-spell-errors = final.vimUtils.buildVimPlugin {
-          pname = "telescope-spell-errors";
-          version = "2025-11-28";
-          src = final.fetchFromGitHub {
-            owner = "matkrin";
-            repo = "telescope-spell-errors.nvim";
-            rev = "1567a8bf0998fe65ef6cb8c40f62a0eec0b7d774";
-            hash = "sha256-AlgMr9sGDYJMCFsUPiRJz1mWr87eqF+qrpTMIGGHXoY=";
-          };
-          meta.homepage = "https://github.com/matkrin/telescope-spell-errors.nvim";
-        };
-
-        vim-beancount = final.vimUtils.buildVimPlugin {
-          pname = "vim-beancount";
-          version = "dd2f56a";
-          src = final.fetchFromGitHub {
-            owner = "nathangrigg";
-            repo = "vim-beancount";
-            rev = "dd2f56a122b698454af582cbe7eae471dbdc48f8";
-            hash = "sha256-cZsmFCzF4X9sw0S3V/RR6HCX2H6ksoEY/DIL8PjAjAM=";
-          };
-          meta.homepage = "https://github.com/nathangrigg/vim-beancount/";
-        };
-
-        xcodebuild-nvim = final.vimUtils.buildVimPlugin rec {
-          pname = "xcodebuild.nvim";
-          version = "6ee81bc";
-          src = final.fetchFromGitHub {
-            owner = "wojciech-kulik";
-            repo = pname;
-            rev = "6ee81bcf0334eac180111ac7ac2435d421d1508d";
-            hash = "sha256-e1/QTC3XJvib+LVdMJnaPXgq4HJ9JlczHrdTD0/poF0=";
-          };
-          dependencies = with prev.vimPlugins; [
-            fzf-lua
-            nui-nvim
-            plenary-nvim
-            snacks-nvim
-            telescope-nvim
-          ];
-          meta.homepage = "https://github.com/wojciech-kulik/${pname}";
-        };
       })
+
+      vimPluginsOverlay
 
       (final: prev: {
         tla-nvim = final.callPackage ./pkgs/tla-nvim.nix {};
@@ -148,19 +163,6 @@
     mkUnstableOverlays = system:
       [
         inputs.neovim-nightly-overlay.overlays.default
-
-        (final: prev: {
-          # Attempt to fix folding in beancount files on first load. See comment in
-          # `home/modules/nvim/config/extra.lua`.
-          telescope-nvim = final.vimPlugins.telescope-nvim.overrideAttrs {
-            src = final.fetchFromGitHub {
-              owner = "nvim-telescope";
-              repo = "telescope.nvim";
-              rev = "bea6665a8f14f31e11a3093a3b4a92be313bf4be";
-              hash = "sha256-YQdVPfWtbvoPScq27r+KRyvM0v6XzuRgzEEIn1qWFWg=";
-            };
-          };
-        })
       ]
       ++ mkOverlays system;
 
@@ -274,6 +276,7 @@
 
       overlays = {
         iosevka-custom = import ./overlays/iosevka-custom.nix;
+        vim-plugins = vimPluginsOverlay;
       };
     };
 }
