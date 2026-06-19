@@ -24,6 +24,7 @@ in {
 
     ./config/help-vsplit.lua
     ./config/jj-blame.lua
+    ./config/remote.lua
     ./config/xcodebuild.lua
     ./config/treesitter.lua
 
@@ -61,6 +62,7 @@ in {
     ])
     ++ (with pkgsUnstable; [
       jj-blame-nvim
+      remote-nvim-nvim
       telescope-nvim
       xcodebuild-nvim
 

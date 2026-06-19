@@ -49,6 +49,7 @@
           cargo-modules
           cargo-nextest
           cargo-update
+          devpod
           ice-bar
           swiftlint
           thunderbird

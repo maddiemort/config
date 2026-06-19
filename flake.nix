@@ -68,6 +68,23 @@
         meta.homepage = "https://github.com/anuvyklack/${pname}";
       };
 
+      remote-nvim-nvim = let
+        pname = "remote-nvim.nvim";
+        version = "b269711";
+        owner = "maddiemort";
+      in
+        final.vimUtils.buildVimPlugin rec {
+          inherit pname version;
+          src = final.fetchFromGitHub {
+            inherit owner;
+            repo = pname;
+            rev = version;
+            hash = "sha256-PuS5Ve1/LGNLtaNHTwwzdDYGUJi3AEXDjDMDaoY9I8g=";
+          };
+          doCheck = false;
+          meta.homepage = "https://github.com/${owner}/${pname}";
+        };
+
       # Attempt to fix folding in beancount files on first load. See comment in
       # `home/modules/nvim/config/extra.lua`.
       telescope-nvim = final.vimPlugins.telescope-nvim.overrideAttrs {
