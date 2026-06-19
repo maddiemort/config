@@ -1,4 +1,8 @@
-{lib, ...}: {
+{...}: {
+  imports = [
+    ../work.nix
+  ];
+
   age.secrets.id_ed25519_jj_ikerian = {
     file = ../../secrets/id_ed25519_jj_ikerian.age;
     path = "$HOME/.ssh/id_ed25519_jj_ikerian";
@@ -37,7 +41,7 @@
     file.".ssh/id_ed25519_sk_maddie_ikerian_c.pub".source = ../../keys/maddie-ikerian-c.pub;
 
     stateVersion = "25.11";
-    username = lib.mkForce "madeleine.mortensen";
+    username = "madeleine.mortensen";
   };
 
   xdg.configFile."jj/conf.d/20-EQ-0265.toml".text = ''

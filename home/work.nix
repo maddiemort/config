@@ -1,4 +1,9 @@
 {pkgs, ...}: {
+  age.identityPaths = [
+    ../identities/maddie-ikerian.txt
+    ../identities/maddie-ikerian-c.txt
+  ];
+
   home.packages = with pkgs; [
     devcontainer
     docker

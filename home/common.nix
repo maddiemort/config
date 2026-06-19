@@ -17,19 +17,11 @@
     });
 
   common = {
-    age = {
-      package = age-with-yubikey;
-
-      identityPaths = [
-        ../../identities/maddie-ikerian.txt
-        ../../identities/maddie-ikerian-c.txt
-      ];
-    };
+    age.package = age-with-yubikey;
 
     launchd.agents.activate-agenix.config.KeepAlive.Crashed = lib.mkForce null;
 
     home = {
-      username = lib.mkDefault "maddie";
       homeDirectory = "/Users/${config.home.username}";
 
       packages =
@@ -108,43 +100,43 @@
           # My own keys
           {
             email = "me@maddie.wtf";
-            key = builtins.readFile ../../keys/maddie-wtf.pub;
+            key = builtins.readFile ../keys/maddie-wtf.pub;
           }
           {
             email = "me@maddie.wtf";
-            key = builtins.readFile ../../keys/maddie-wtf-c.pub;
+            key = builtins.readFile ../keys/maddie-wtf-c.pub;
           }
           {
             email = "me@maddie.wtf";
-            key = builtins.readFile ../../keys/maddie-jj-wtf.pub;
+            key = builtins.readFile ../keys/maddie-jj-wtf.pub;
           }
           {
             email = "maddie@ditto.live";
-            key = builtins.readFile ../../keys/maddie-ditto.pub;
+            key = builtins.readFile ../keys/maddie-ditto.pub;
           }
           {
             email = "maddie@ditto.live";
-            key = builtins.readFile ../../keys/maddie-ditto-c.pub;
+            key = builtins.readFile ../keys/maddie-ditto-c.pub;
           }
           {
             email = "maddie@ditto.live";
-            key = builtins.readFile ../../keys/maddie-jj-ditto.pub;
+            key = builtins.readFile ../keys/maddie-jj-ditto.pub;
           }
           {
             email = "maddie@ditto.com";
-            key = builtins.readFile ../../keys/maddie-jj-ditto-com.pub;
+            key = builtins.readFile ../keys/maddie-jj-ditto-com.pub;
           }
           {
             email = "madeleine.mortensen@ikerian.com";
-            key = builtins.readFile ../../keys/maddie-ikerian.pub;
+            key = builtins.readFile ../keys/maddie-ikerian.pub;
           }
           {
             email = "madeleine.mortensen@ikerian.com";
-            key = builtins.readFile ../../keys/maddie-ikerian-c.pub;
+            key = builtins.readFile ../keys/maddie-ikerian-c.pub;
           }
           {
             email = "madeleine.mortensen@ikerian.com";
-            key = builtins.readFile ../../keys/maddie-jj-ikerian.pub;
+            key = builtins.readFile ../keys/maddie-jj-ikerian.pub;
           }
 
           # Known signers who are not me

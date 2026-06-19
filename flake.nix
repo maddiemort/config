@@ -173,54 +173,47 @@
     stableFor = system: pkgsFor system nixpkgs (mkOverlays system);
     unstableFor = system: pkgsFor system nixpkgs-unstable (mkUnstableOverlays system);
 
-    mkDarwin = {
-      system,
-      hostname,
-    }: let
-      pkgs = stableFor system;
-      pkgsUnstable = unstableFor system;
-    in
-      darwinSystem {
-        inherit system pkgs;
-        modules = [
-          inputs.agenix.darwinModules.age
-          inputs.yknotify-rs.darwinModules.default
-          ./system/modules
-          ./system/common.nix
-          ./system/hosts/${hostname}.nix
-        ];
-        specialArgs = {
-          inherit pkgsUnstable;
-          inherit inputs;
-        };
-      };
-
-    mkHome = {
-      system,
-      username,
-      overrides ? [],
-    }: let
-      pkgs = stableFor system;
-      pkgsUnstable = unstableFor system;
-    in
-      homeManagerConfiguration {
-        inherit pkgs;
-        modules =
-          [
-            inputs.agenix.homeManagerModules.age
-            inputs.catppuccin.homeModules.catppuccin
-            ./home/modules
-            ./home/users/${username}.nix
-          ]
-          ++ map (override: ./home/overrides/${override}.nix) overrides;
-        extraSpecialArgs = {
-          inherit pkgsUnstable;
-        };
-      };
+    hosts = [
+      "betelgeuse"
+      "EQ-0265"
+      "merope"
+      "polaris"
+    ];
   in
     (eachSystem supportedSystems (system: let
       pkgs = stableFor system;
       pkgsUnstable = unstableFor system;
+
+      mkHome = {
+        hostname,
+        system,
+      }: let
+        pkgs = stableFor system;
+        pkgsUnstable = unstableFor system;
+      in
+        homeManagerConfiguration {
+          inherit pkgs;
+          modules = [
+            inputs.agenix.homeManagerModules.age
+            inputs.catppuccin.homeModules.catppuccin
+            ./home/modules
+            ./home/common.nix
+            ./home/hosts/${hostname}.nix
+          ];
+          extraSpecialArgs = {
+            inherit pkgsUnstable;
+          };
+        };
+
+      homeConfigurations = builtins.listToAttrs (
+        map (hostname: {
+          name = hostname;
+          value = mkHome {
+            inherit hostname system;
+          };
+        })
+        hosts
+      );
     in {
       devShells.default = pkgs.mkShell {
         name = "maddiemort/config";
@@ -237,61 +230,52 @@
       formatter = pkgsUnstable.alejandra;
 
       legacyPackages = {
-        homeConfigurations = {
-          maddie-betelgeuse = mkHome {
-            inherit system;
-            username = "maddie";
-            overrides = ["betelgeuse" "non-work"];
-          };
-          maddie-EQ-0265 = mkHome {
-            inherit system;
-            username = "maddie";
-            overrides = ["EQ-0265" "work"];
-          };
-          maddie-merope = mkHome {
-            inherit system;
-            username = "maddie";
-            overrides = ["merope" "non-work"];
-          };
-          maddie-polaris = mkHome {
-            inherit system;
-            username = "maddie";
-            overrides = ["polaris" "non-work"];
-          };
-        };
+        inherit homeConfigurations;
       };
 
-      packages = {
-        neovim = let
-          maddie = mkHome {
-            inherit system;
-            username = "maddie";
-          };
-        in
-          maddie.config.programs.neovim.finalPackage;
-
-        neovim-work = self.legacyPackages.${system}.homeConfigurations.maddie-EQ-0265.config.programs.neovim.finalPackage;
-      };
+      packages =
+        {}
+        // pkgs.lib.attrsets.mapAttrs'
+        (hostname: configuration: {
+          name = "neovim-${hostname}";
+          value = configuration.config.programs.neovim.finalPackage;
+        })
+        homeConfigurations;
     }))
     // {
-      darwinConfigurations = {
-        betelgeuse = mkDarwin {
-          system = aarch64-darwin;
-          hostname = "betelgeuse";
-        };
-        EQ-0265 = mkDarwin {
-          system = aarch64-darwin;
-          hostname = "EQ-0265";
-        };
-        merope = mkDarwin {
-          system = aarch64-darwin;
-          hostname = "merope";
-        };
-        polaris = mkDarwin {
-          system = aarch64-darwin;
-          hostname = "polaris";
-        };
-      };
+      darwinConfigurations = let
+        mkDarwin = {
+          hostname,
+          system,
+        }: let
+          pkgs = stableFor system;
+          pkgsUnstable = unstableFor system;
+        in
+          darwinSystem {
+            inherit system pkgs;
+            modules = [
+              inputs.agenix.darwinModules.age
+              inputs.yknotify-rs.darwinModules.default
+              ./system/modules
+              ./system/common.nix
+              ./system/hosts/${hostname}.nix
+            ];
+            specialArgs = {
+              inherit pkgsUnstable;
+              inherit inputs;
+            };
+          };
+      in
+        builtins.listToAttrs (
+          map (hostname: {
+            name = hostname;
+            value = mkDarwin {
+              inherit hostname;
+              system = aarch64-darwin;
+            };
+          })
+          hosts
+        );
 
       overlays = {
         iosevka-custom = import ./overlays/iosevka-custom.nix;
