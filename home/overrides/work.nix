@@ -3,6 +3,7 @@
     docker
     docker-credential-helpers
     jujutsu-lfs
+    lazydocker
   ];
 
   services = {
