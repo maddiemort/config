@@ -47,11 +47,11 @@
     ...
   } @ inputs: let
     inherit (flake-utils.lib) eachSystem;
-    inherit (flake-utils.lib.system) aarch64-darwin aarch64-linux x86_64-darwin;
+    inherit (flake-utils.lib.system) aarch64-darwin aarch64-linux;
     inherit (inputs.home-manager.lib) homeManagerConfiguration;
     inherit (nix-darwin.lib) darwinSystem;
 
-    supportedSystems = [aarch64-darwin aarch64-linux x86_64-darwin];
+    supportedSystems = [aarch64-darwin aarch64-linux];
 
     mkOverlays = system: [
       (final: prev: {
