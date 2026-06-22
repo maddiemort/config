@@ -155,7 +155,7 @@
 
       jj.enable = true;
 
-      nvim = {
+      neovim = {
         enable = true;
         defaultEditor = true;
       };

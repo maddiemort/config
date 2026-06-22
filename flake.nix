@@ -23,6 +23,8 @@
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay/master";
     neovim-nightly-overlay.inputs.nixpkgs.follows = "nixpkgs-unstable";
 
+    nixvim.url = "github:nix-community/nixvim/nixos-26.05";
+
     jj-blame-nvim.url = "github:maddiemort/jj-blame.nvim/main";
     jj-blame-nvim.inputs.nixpkgs.follows = "nixpkgs-unstable";
     jj-blame-nvim.inputs.flake-utils.follows = "flake-utils";
@@ -198,12 +200,13 @@
           modules = [
             inputs.agenix.homeManagerModules.age
             inputs.catppuccin.homeModules.catppuccin
+            inputs.nixvim.homeModules.nixvim
             ./home/modules
             ./home/common.nix
             ./home/hosts/${hostname}.nix
           ];
           extraSpecialArgs = {
-            inherit pkgsUnstable;
+            inherit inputs pkgsUnstable;
           };
         };
 
@@ -234,6 +237,17 @@
       legacyPackages = {
         inherit homeConfigurations;
       };
+
+      packages = {
+        neovim =
+          (inputs.nixvim.lib.evalNixvim {
+            inherit system;
+            modules = [self.nixosModules.neovim];
+            extraSpecialArgs = {
+              inherit pkgs pkgsUnstable;
+            };
+          }).config.build.package;
+      };
     }))
     // {
       darwinConfigurations = let
@@ -254,8 +268,7 @@
               ./system/hosts/${hostname}.nix
             ];
             specialArgs = {
-              inherit pkgsUnstable;
-              inherit inputs;
+              inherit inputs pkgsUnstable;
             };
           };
       in
@@ -270,8 +283,8 @@
           hosts
         );
 
-      homeManagerModules = {
-        nvim = import ./home/modules/nvim;
+      nixosModules = {
+        neovim = ./modules/neovim;
       };
 
       overlays = {

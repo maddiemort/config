@@ -5,7 +5,7 @@
     ./git.nix
     ./helix.nix
     ./jj.nix
-    ./nvim
+    ./neovim.nix
     ./shell
     ./wezterm.nix
     ./zed.nix
