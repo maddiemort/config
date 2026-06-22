@@ -4,6 +4,8 @@
     "zulip"
   ];
 
+  nix.linux-builder.enable = true;
+
   services = {
     yknotify-rs = {
       enable = true;
