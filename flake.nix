@@ -232,15 +232,6 @@
       legacyPackages = {
         inherit homeConfigurations;
       };
-
-      packages =
-        {}
-        // pkgs.lib.attrsets.mapAttrs'
-        (hostname: configuration: {
-          name = "neovim-${hostname}";
-          value = configuration.config.programs.neovim.finalPackage;
-        })
-        homeConfigurations;
     }))
     // {
       darwinConfigurations = let
@@ -276,6 +267,10 @@
           })
           hosts
         );
+
+      homeManagerModules = {
+        nvim = import ./home/modules/nvim;
+      };
 
       overlays = {
         iosevka-custom = import ./overlays/iosevka-custom.nix;
