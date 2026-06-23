@@ -10,6 +10,10 @@
 
   cfg = config.custom.neovim;
 in {
+  imports = [
+    ../../modules/nixvim/options.nix
+  ];
+
   options.custom.neovim = with lib; {
     enable = mkOption rec {
       description = "Whether to enable neovim";
@@ -34,8 +38,8 @@ in {
     programs.nixvim = {
       inherit (cfg) enable;
       imports = [
-        (importApply ../../modules/neovim {
-          inherit lib pkgs pkgsUnstable;
+        (importApply ../../modules/nixvim {
+          inherit config lib pkgs pkgsUnstable;
         })
       ];
     };

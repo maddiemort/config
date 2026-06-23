@@ -259,7 +259,7 @@
         neovim =
           (inputs.nixvim.lib.evalNixvim {
             inherit system;
-            modules = [self.nixosModules.neovim];
+            modules = [self.nixosModules.nixvim];
             extraSpecialArgs = {
               inherit pkgs pkgsUnstable;
             };
@@ -301,7 +301,7 @@
         );
 
       nixosModules = {
-        neovim = ./modules/neovim;
+        nixvim = ./modules/nixvim;
       };
 
       overlays = {

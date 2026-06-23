@@ -12,6 +12,14 @@
     lazydocker
   ];
 
+  custom.nixvim = {
+    beancount = false;
+    latex = false;
+    remote = true;
+    swift = false;
+    extras = false;
+  };
+
   services = {
     colima = {
       enable = true;
