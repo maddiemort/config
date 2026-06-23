@@ -58,11 +58,11 @@
             };
             forwardAgent = false;
             docker = {};
-            vmType = "qemu";
+            vmType = "vz";
             portForwarder = "ssh";
-            rosetta = false;
+            rosetta = true;
             binfmt = true;
-            nestedVirtualization = false;
+            nestedVirtualization = true;
             mountType = "sshfs";
             mountInotify = false;
             cpuType = "host";
