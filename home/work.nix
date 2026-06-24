@@ -32,7 +32,7 @@
             cpu = 8;
             memory = 24;
 
-            disk = 150;
+            disk = 500;
             arch = "host";
             runtime = "docker";
             modelRunner = "docker";
