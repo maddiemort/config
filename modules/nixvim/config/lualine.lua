@@ -136,7 +136,12 @@ local function get_current_bookmark()
     local buf = vim.api.nvim_get_current_buf()
 
     if current_bookmark[buf] == nil then
-        current_bookmark[buf] = refresh_current_bookmark()
+        local success, new_bookmark = pcall(refresh_current_bookmark)
+        if success then
+            current_bookmark[buf] = refresh_current_bookmark()
+        else
+            current_bookmark[buf] = ""
+        end
     end
 
     return current_bookmark[buf]
