@@ -58,14 +58,18 @@ in {
         config.disable_default_key_bindings = true
         config.keys = {
           -- Reload the config file
-          { key = "r", mods = "LEADER", action = "ReloadConfiguration" },
+          { key = "r", mods = "LEADER", action = wezterm.action.ReloadConfiguration },
 
           -- Enter and exit fullscreen
-          { key = "Enter", mods = "ALT", action = "ToggleFullScreen" },
+          { key = "Enter", mods = "ALT", action = wezterm.action.ToggleFullScreen },
+
+          -- Activate the command palette and launcher
+          { key = "p", mods = "LEADER|SHIFT", action = wezterm.action.ActivateCommandPalette },
+          { key = "l", mods = "LEADER", action = wezterm.action.ShowLauncher },
 
           -- Create and close tabs
           { key = "c", mods = "LEADER", action = wezterm.action { SpawnCommandInNewTab = { domain = "CurrentPaneDomain", cwd = "~" } } },
-          { key = "c", mods = "LEADER|SHIFT", action = wezterm.action.ShowLauncher },
+          { key = "d", mods = "LEADER", action = wezterm.action { SpawnCommandInNewTab = { domain = "DefaultDomain", cwd = "~" } } },
           { key = "k", mods = "LEADER", action = wezterm.action { CloseCurrentTab = { confirm = true } } },
 
           -- Select next and previous tabs
@@ -79,7 +83,9 @@ in {
           -- Create horizontal or vertical splits (close by sending EOF with Ctrl-D)
           { key = "|", mods = "LEADER", action = wezterm.action { SplitHorizontal = { domain = "CurrentPaneDomain" } } },
           { key = "|", mods = "LEADER|SHIFT", action = wezterm.action { SplitHorizontal = { domain = "CurrentPaneDomain" } } },
+          { key = "]", mods = "LEADER", action = wezterm.action { SplitHorizontal = { domain = "DefaultDomain" } } },
           { key = "-", mods = "LEADER", action = wezterm.action { SplitVertical = { domain = "CurrentPaneDomain" } } },
+          { key = "=", mods = "LEADER", action = wezterm.action { SplitVertical = { domain = "DefaultDomain" } } },
 
           -- Move between splits
           { key = "h", mods = "SUPER", action = wezterm.action { ActivatePaneDirection = "Left" } },
