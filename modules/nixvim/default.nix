@@ -24,7 +24,6 @@ in {
 
     extraConfigLuaPre = let
       files = [
-        ./config/telescope.lua
         ./config/illuminate.lua
       ];
     in
@@ -65,6 +64,7 @@ in {
 
     extraConfigLuaPost = let
       files = [
+        ./config/telescope.lua
         ./config/extra.lua
       ];
     in
