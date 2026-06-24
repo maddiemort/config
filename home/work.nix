@@ -30,9 +30,9 @@
           setDockerHost = true;
           settings = {
             cpu = 8;
-            memory = 16;
+            memory = 24;
 
-            disk = 100;
+            disk = 150;
             arch = "host";
             runtime = "docker";
             modelRunner = "docker";
