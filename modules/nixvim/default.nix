@@ -174,6 +174,7 @@ in {
           prettier
           shellcheck # For Bash
           tinymist # Typst language server
+          tree-sitter
           typescript-language-server
           vscode-langservers-extracted
         ]
