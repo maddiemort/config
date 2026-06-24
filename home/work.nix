@@ -20,6 +20,15 @@
     extras = false;
   };
 
+  programs.fish.shellAbbrs = {
+    lclean = "make dev/luna.clean";
+    lcheck = "make dev/luna.check";
+    lbuild = "make dev/luna.build";
+    lrun = "make dev/luna.run";
+    lrel = "make dev/luna.run-release";
+    lwatch = "make dev/luna.watch";
+  };
+
   services = {
     colima = {
       enable = true;
