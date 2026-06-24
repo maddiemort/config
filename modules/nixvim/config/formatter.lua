@@ -23,7 +23,10 @@ formatter.setup {
             function()
                 return {
                     exe = "rustfmt",
-                    args = { },
+                    args = {
+                        "--edition",
+                        "2024",
+                    },
                     stdin = true,
                 }
             end,
