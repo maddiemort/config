@@ -1,4 +1,4 @@
-{pkgsUnstable, ...}: {
+{ pkgsUnstable, ... }: {
   age.identityPaths = [
     ../identities/maddie-wtf.txt
     ../identities/maddie-wtf-c.txt
@@ -32,6 +32,5 @@
     extras = true;
   };
 
-  xdg.configFile."jj/conf.d/30-non-work.toml".text = ''
-  '';
+  xdg.configFile."jj/conf.d/30-non-work.toml".text = "";
 }

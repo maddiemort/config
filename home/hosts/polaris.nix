@@ -1,4 +1,4 @@
-{...}: {
+{ ... }: {
   imports = [
     ../non-work.nix
   ];

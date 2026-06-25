@@ -4,14 +4,16 @@
   pkgs,
   pkgsUnstable,
   ...
-}: let
+}:
+let
   inherit (lib) optionals;
   inherit (lib.strings) concatStringsSep;
 
   concatLines = lines: concatStringsSep "\n" lines;
 
   cfg = config.custom.nixvim;
-in {
+in
+{
   imports = [
     ./options.nix
   ];
@@ -22,16 +24,17 @@ in {
     withRuby = true;
     withPython3 = true;
 
-    extraConfigLuaPre = let
-      files = [
-        ./config/illuminate.lua
-      ];
-    in
+    extraConfigLuaPre =
+      let
+        files = [
+          ./config/illuminate.lua
+        ];
+      in
       concatLines (map builtins.readFile files);
 
-    extraConfigLua = let
-      files =
-        [
+    extraConfigLua =
+      let
+        files = [
           ./config/help-vsplit.lua
           ./config/jj-blame.lua
           ./config/treesitter.lua
@@ -59,15 +62,16 @@ in {
         ++ optionals cfg.swift [
           ./config/xcodebuild.lua
         ];
-    in
+      in
       concatLines (map builtins.readFile files);
 
-    extraConfigLuaPost = let
-      files = [
-        ./config/telescope.lua
-        ./config/extra.lua
-      ];
-    in
+    extraConfigLuaPost =
+      let
+        files = [
+          ./config/telescope.lua
+          ./config/extra.lua
+        ];
+      in
       concatLines (map builtins.readFile files);
 
     extraConfigVim = concatLines [
@@ -79,15 +83,18 @@ in {
     ];
 
     extraPlugins =
-      (with pkgs;
+      (
+        with pkgs;
         [
           telescope-spell-errors
           help-vsplit-nvim
         ]
         ++ optionals cfg.beancount [
           vim-beancount
-        ])
-      ++ (with pkgsUnstable;
+        ]
+      )
+      ++ (
+        with pkgsUnstable;
         [
           jj-blame-nvim
           telescope-nvim
@@ -99,70 +106,72 @@ in {
         ]
         ++ optionals cfg.swift [
           xcodebuild-nvim
-        ])
+        ]
+      )
       ++ (
         with pkgsUnstable.vimPlugins;
-          [
-            plenary-nvim
-            telescope-file-browser-nvim
-            telescope-fzf-native-nvim
-            telescope-ui-select-nvim
-            vim-graphql
-            vim-javascript
-            vim-jjdescription
-            vim-jsx-pretty
-            vim-nix
-            vim-numbertoggle
-            vim-toml
+        [
+          plenary-nvim
+          telescope-file-browser-nvim
+          telescope-fzf-native-nvim
+          telescope-ui-select-nvim
+          vim-graphql
+          vim-javascript
+          vim-jjdescription
+          vim-jsx-pretty
+          vim-nix
+          vim-numbertoggle
+          vim-toml
 
-            vim-signify
+          vim-signify
 
-            catppuccin-nvim
-            formatter-nvim
-            indent-blankline-nvim
-            lualine-nvim
-            marks-nvim
-            # nvim-highlight-colors
-            nvim-lint
-            rust-vim
-            snacks-nvim
-            vim-rooter
+          catppuccin-nvim
+          formatter-nvim
+          indent-blankline-nvim
+          lualine-nvim
+          marks-nvim
+          # nvim-highlight-colors
+          nvim-lint
+          rust-vim
+          snacks-nvim
+          vim-rooter
 
-            cmp-cmdline
-            cmp-fuzzy-path
-            cmp-nvim-lsp
-            cmp_luasnip
-            fuzzy-nvim
-            lspkind-nvim
-            luasnip
+          cmp-cmdline
+          cmp-fuzzy-path
+          cmp-nvim-lsp
+          cmp_luasnip
+          fuzzy-nvim
+          lspkind-nvim
+          luasnip
 
-            fidget-nvim
-            nvim-cmp
-            nvim-lspconfig
-            vim-illuminate
-          ]
-          ++ optionals cfg.latex [
-            vimtex
-          ]
-          ++ optionals cfg.swift [
-            swift-vim
-          ]
-          ++ optionals cfg.extras [
-            haskell-vim
-            kotlin-vim
-            typst-vim
-            vim-glsl
-            vim-helm
-            vim-jsonnet
-            vim-mustache-handlebars
-          ]
+          fidget-nvim
+          nvim-cmp
+          nvim-lspconfig
+          vim-illuminate
+        ]
+        ++ optionals cfg.latex [
+          vimtex
+        ]
+        ++ optionals cfg.swift [
+          swift-vim
+        ]
+        ++ optionals cfg.extras [
+          haskell-vim
+          kotlin-vim
+          typst-vim
+          vim-glsl
+          vim-helm
+          vim-jsonnet
+          vim-mustache-handlebars
+        ]
       );
 
     extraPackages =
       (with pkgs; [
         glow
       ])
-      ++ (with pkgsUnstable;
+      ++ (
+        with pkgsUnstable;
         [
           typstyle # For typst formatting in formatter.lua
 
@@ -193,6 +202,7 @@ in {
           coreutils
           xcbeautify
           xcp
-        ]);
+        ]
+      );
   };
 }

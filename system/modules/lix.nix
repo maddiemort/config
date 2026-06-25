@@ -4,11 +4,13 @@
   lib,
   pkgs,
   ...
-}: let
+}:
+let
   cfg = config.custom.lix;
 
   inherit (lib) mkIf;
-in {
+in
+{
   options.custom.lix = with lib; {
     enable = mkEnableOption "Lix package manager & custom configuration";
   };

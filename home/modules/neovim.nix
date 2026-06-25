@@ -4,12 +4,14 @@
   pkgs,
   pkgsUnstable,
   ...
-}: let
+}:
+let
   inherit (lib) mkIf;
   inherit (lib.modules) importApply;
 
   cfg = config.custom.neovim;
-in {
+in
+{
   imports = [
     ../../modules/nixvim/options.nix
   ];
@@ -39,7 +41,12 @@ in {
       inherit (cfg) enable;
       imports = [
         (importApply ../../modules/nixvim {
-          inherit config lib pkgs pkgsUnstable;
+          inherit
+            config
+            lib
+            pkgs
+            pkgsUnstable
+            ;
         })
       ];
     };

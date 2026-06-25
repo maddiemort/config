@@ -1,4 +1,4 @@
-{lib, ...}: {
+{ lib, ... }: {
   homebrew.casks = [
     "skim"
     "zulip"

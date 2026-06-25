@@ -2,9 +2,11 @@
   lib,
   pkgsUnstable,
   ...
-}: let
+}:
+let
   inherit (lib) mkEnableOption mkOption;
-in {
+in
+{
   options.custom.nixvim = with lib.types; {
     package = mkOption {
       type = package;

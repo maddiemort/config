@@ -3,11 +3,13 @@
   lib,
   pkgs,
   ...
-}: let
+}:
+let
   cfg = config.custom.jj;
 
   inherit (lib) mkIf;
-in {
+in
+{
   options.custom.jj = with lib; {
     enable = mkEnableOption "custom Jujutsu configuration";
   };

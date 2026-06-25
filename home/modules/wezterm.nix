@@ -4,11 +4,13 @@
   pkgs,
   pkgsUnstable,
   ...
-}: let
+}:
+let
   cfg = config.custom.wezterm;
 
   inherit (lib) mkIf;
-in {
+in
+{
   options.custom.wezterm = with lib; {
     enable = mkEnableOption "custom Wezterm configuration";
   };

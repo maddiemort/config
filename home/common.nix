@@ -4,16 +4,16 @@
   pkgsUnstable,
   lib,
   ...
-}: let
-  age-with-yubikey = let
-    wrapped = pkgs.age.withPlugins (ps: [ps.age-plugin-yubikey]);
-  in
+}:
+let
+  age-with-yubikey =
+    let
+      wrapped = pkgs.age.withPlugins (ps: [ ps.age-plugin-yubikey ]);
+    in
     wrapped.overrideAttrs (old: {
-      meta =
-        (old.meta or {})
-        // {
-          mainProgram = "age";
-        };
+      meta = (old.meta or { }) // {
+        mainProgram = "age";
+      };
     });
 
   common = {
@@ -24,38 +24,39 @@
     home = {
       homeDirectory = "/Users/${config.home.username}";
 
-      packages =
-        [age-with-yubikey]
-        ++ (with pkgs; [
-          age-plugin-yubikey
-          asciiquarium-transparent
-          dig
-          erdtree
-          fzf
-          gh
-          glow
-          hl-log-viewer
-          hyperfine
-          imagemagick
-          iosevka-custom
-          lora
-          monodraw
-          samply
-          tokei
-        ])
-        ++ (with pkgsUnstable; [
-          cargo-expand
-          cargo-generate
-          cargo-modules
-          cargo-nextest
-          cargo-update
-          devpod
-          ice-bar
-          swiftlint
-          thunderbird
-          typst
-          typstyle
-        ]);
+      packages = [
+        age-with-yubikey
+      ]
+      ++ (with pkgs; [
+        age-plugin-yubikey
+        asciiquarium-transparent
+        dig
+        erdtree
+        fzf
+        gh
+        glow
+        hl-log-viewer
+        hyperfine
+        imagemagick
+        iosevka-custom
+        lora
+        monodraw
+        samply
+        tokei
+      ])
+      ++ (with pkgsUnstable; [
+        cargo-expand
+        cargo-generate
+        cargo-modules
+        cargo-nextest
+        cargo-update
+        devpod
+        ice-bar
+        swiftlint
+        thunderbird
+        typst
+        typstyle
+      ]);
 
       sessionPath = [
         "$HOME/.cargo/bin"
@@ -176,7 +177,7 @@
 
     xdg = {
       configFile = {
-        "bottom/bottom.toml".source = (pkgs.formats.toml {}).generate "bottom.toml" {
+        "bottom/bottom.toml".source = (pkgs.formats.toml { }).generate "bottom.toml" {
           disk = {
             mount_filter = {
               # Whether to ignore any matches. Defaults to true.
@@ -209,8 +210,7 @@
     };
   };
 in
-  lib.mkMerge
-  [
-    common
-    (lib.mkIf pkgs.stdenv.isDarwin darwin)
-  ]
+lib.mkMerge [
+  common
+  (lib.mkIf pkgs.stdenv.isDarwin darwin)
+]

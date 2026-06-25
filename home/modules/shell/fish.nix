@@ -3,11 +3,13 @@
   lib,
   pkgs,
   ...
-}: let
+}:
+let
   cfg = config.custom.shell;
 
   inherit (lib) mkIf;
-in {
+in
+{
   config = mkIf cfg.enable {
     catppuccin.fish.enable = true;
 

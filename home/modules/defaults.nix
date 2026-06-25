@@ -2,7 +2,8 @@
   lib,
   pkgs,
   ...
-}: {
+}:
+{
   config = lib.mkIf pkgs.stdenv.isDarwin {
     targets.darwin.currentHostDefaults = {
       "com.apple.AppleMultitouchTrackpad" = {

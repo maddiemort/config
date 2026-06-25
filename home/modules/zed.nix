@@ -3,11 +3,13 @@
   lib,
   pkgsUnstable,
   ...
-}: let
+}:
+let
   cfg = config.custom.zed;
 
   inherit (lib) mkIf;
-in {
+in
+{
   options.custom.zed = with lib; {
     enable = mkEnableOption "custom Zed configuration";
   };
@@ -72,7 +74,7 @@ in {
         use_system_window_tabs = true;
         relative_line_numbers = "enabled";
         show_wrap_guides = true;
-        wrap_guides = [100];
+        wrap_guides = [ 100 ];
         colorize_brackets = true;
 
         # Fonts
@@ -154,7 +156,10 @@ in {
         # Languages & LSP
         languages = {
           Nix = {
-            language_servers = ["nil" "!nixd"];
+            language_servers = [
+              "nil"
+              "!nixd"
+            ];
           };
         };
 

@@ -3,9 +3,11 @@
   lib,
   ...
 }:
-with lib; let
+with lib;
+let
   cfg = config.custom.git;
-in {
+in
+{
   options.custom.git = with types; {
     enable = mkEnableOption "git configuration";
 
@@ -49,7 +51,7 @@ in {
           };
         };
       });
-      default = [];
+      default = [ ];
     };
   };
 
@@ -111,13 +113,10 @@ in {
         };
       };
 
-      includes =
-        map
-        (include: {
-          inherit (include) condition;
-          path = "${include.path}";
-        })
-        cfg.includes;
+      includes = map (include: {
+        inherit (include) condition;
+        path = "${include.path}";
+      }) cfg.includes;
     };
 
     xdg.configFile."git/ignore".source = ../../static/gitignore;

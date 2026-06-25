@@ -3,16 +3,18 @@
   lib,
   pkgs,
   ...
-}: let
+}:
+let
   cfg = config.custom.auth;
 
   inherit (lib) concatMapStrings mkIf mkMerge;
   inherit (pkgs.stdenv.hostPlatform) isDarwin;
-in {
+in
+{
   options.custom.auth = with lib; {
     publicKeys = mkOption {
       type = with types; attrsOf (either str (listOf str));
-      default = {};
+      default = { };
     };
 
     allowedSigners = mkOption {
@@ -20,45 +22,45 @@ in {
         List of SSH keys that should be considered as valid when used to sign
         Git commits.
       '';
-      type = types.listOf (types.submodule {
-        options = {
-          email = mkOption {
-            description = ''
-              The email address of the owner of the SSH key. If unset, this will
-              default to "*", which is a wildcard that allows any email address
-              for commits signed with this key.
-            '';
-            type = types.str;
-            default = "*";
-            example = "user@example.com";
+      type = types.listOf (
+        types.submodule {
+          options = {
+            email = mkOption {
+              description = ''
+                The email address of the owner of the SSH key. If unset, this will
+                default to "*", which is a wildcard that allows any email address
+                for commits signed with this key.
+              '';
+              type = types.str;
+              default = "*";
+              example = "user@example.com";
+            };
+            key = mkOption {
+              description = ''
+                The SSH key.
+              '';
+              type = types.str;
+            };
           };
-          key = mkOption {
-            description = ''
-              The SSH key.
-            '';
-            type = types.str;
-          };
-        };
-      });
-      default = [];
+        }
+      );
+      default = [ ];
     };
   };
 
   config = {
-    home.file.".ssh/allowed_signers".text = concatMapStrings (key: "${key.email} ${key.key}") cfg.allowedSigners;
+    home.file.".ssh/allowed_signers".text = concatMapStrings (
+      key: "${key.email} ${key.key}"
+    ) cfg.allowedSigners;
 
     programs.ssh = {
       enable = true;
       enableDefaultConfig = false;
 
       settings = mkMerge [
-        (
-          builtins.mapAttrs
-          (_: keys: {
-            IdentityFile = keys;
-          })
-          cfg.publicKeys
-        )
+        (builtins.mapAttrs (_: keys: {
+          IdentityFile = keys;
+        }) cfg.publicKeys)
 
         (mkIf isDarwin {
           "*" = {

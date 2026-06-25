@@ -3,7 +3,8 @@
   pkgs,
   pkgsUnstable,
   ...
-}: {
+}:
+{
   custom = {
     fish.enable = true;
     homebrew.enable = true;

@@ -4,11 +4,13 @@
   pkgs,
   pkgsUnstable,
   ...
-}: let
+}:
+let
   cfg = config.custom.helix;
 
   inherit (lib) mkIf;
-in {
+in
+{
   options.custom.helix = with lib; {
     enable = mkEnableOption "custom Helix configuration";
   };
@@ -23,7 +25,10 @@ in {
         editor = {
           scrolloff = 3;
           scroll-lines = 2;
-          shell = ["fish" "-c"];
+          shell = [
+            "fish"
+            "-c"
+          ];
           line-number = "relative";
           cursorline = true;
           auto-completion = false;
@@ -43,7 +48,7 @@ in {
               "read-only-indicator"
               "file-modification-indicator"
             ];
-            center = [];
+            center = [ ];
             right = [
               "workspace-diagnostics"
               "selections"

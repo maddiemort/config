@@ -2,11 +2,13 @@
   config,
   lib,
   ...
-}: let
+}:
+let
   cfg = config.custom.shell;
 
   inherit (lib) mkIf;
-in {
+in
+{
   config = mkIf cfg.enable {
     catppuccin.starship.enable = true;
 
@@ -104,7 +106,7 @@ in {
           jujutsu = {
             symbol = "[@](green)";
             format = "$symbol( $output) ";
-            detect_folders = [".jj"];
+            detect_folders = [ ".jj" ];
             when = "jj workspace root --ignore-working-copy --quiet";
             command = ''
               jj log \
@@ -141,7 +143,7 @@ in {
           jujutsu-current-bookmark = {
             symbol = "[](green)";
             format = "($symbol $output )";
-            detect_folders = [".jj"];
+            detect_folders = [ ".jj" ];
             when = "jj workspace root --ignore-working-copy --quiet";
             command = ''
               jj log \
@@ -156,7 +158,7 @@ in {
 
           jujutsu-behind-bookmark = {
             format = "[(-$output )](purple)";
-            detect_folders = [".jj"];
+            detect_folders = [ ".jj" ];
             when = "jj workspace root --ignore-working-copy --quiet";
             command = ''
               jj log \
@@ -169,7 +171,7 @@ in {
 
           jujutsu-ahead-bookmark = {
             format = "[(+$output )](purple)";
-            detect_folders = [".jj"];
+            detect_folders = [ ".jj" ];
             when = "jj workspace root --ignore-working-copy --quiet";
             command = ''
               jj log \

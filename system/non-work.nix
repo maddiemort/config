@@ -1,4 +1,4 @@
-{pkgsUnstable, ...}: {
+{ pkgsUnstable, ... }: {
   environment.systemPackages = with pkgsUnstable; [
     spotify
     yt-dlp

@@ -2,7 +2,8 @@
   pkgs,
   pkgsUnstable,
   ...
-}: {
+}:
+{
   imports = [
     ../non-work.nix
   ];
@@ -30,15 +31,16 @@
         prismlauncher
         thorium-reader
 
-        (python314.withPackages (pyPkgs:
-          with pyPkgs; [
+        (python314.withPackages (
+          pyPkgs: with pyPkgs; [
             beancount
             fava
             pygments
             # pymobiledevice3
             python-lsp-black
             python-lsp-server
-          ]))
+          ]
+        ))
       ]);
 
     sessionVariables = {

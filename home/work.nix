@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{ pkgs, ... }: {
   age.identityPaths = [
     ../identities/maddie-ikerian.txt
     ../identities/maddie-ikerian-c.txt
@@ -49,7 +49,7 @@
             kubernetes = {
               enabled = false;
               version = "v1.35.0+k3s1";
-              k3sArgs = ["--disable=traefik"];
+              k3sArgs = [ "--disable=traefik" ];
               port = 0;
             };
             autoActivate = true;
@@ -58,7 +58,7 @@
               mode = "shared";
               interface = "en0";
               preferredRoute = false;
-              dns = [];
+              dns = [ ];
               dnsHosts = {
                 "host.docker.internal" = "host.lima.internal";
               };
@@ -66,7 +66,7 @@
               gatewayAddress = "192.168.5.2";
             };
             forwardAgent = false;
-            docker = {};
+            docker = { };
             vmType = "vz";
             portForwarder = "ssh";
             rosetta = true;
@@ -75,13 +75,13 @@
             mountType = "sshfs";
             mountInotify = false;
             cpuType = "host";
-            provision = [];
+            provision = [ ];
             sshConfig = true;
             sshPort = 0;
-            mounts = [];
+            mounts = [ ];
             diskImage = "";
             rootDisk = 20;
-            env = {};
+            env = { };
           };
         };
       };

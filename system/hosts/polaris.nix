@@ -3,7 +3,8 @@
   pkgs,
   pkgsUnstable,
   ...
-}: {
+}:
+{
   imports = [
     ../non-work.nix
   ];
@@ -19,8 +20,8 @@
       ++ (with pkgsUnstable; [
         ffmpeg
 
-        (python314.withPackages (pyPkgs:
-          with pyPkgs; [
+        (python314.withPackages (
+          pyPkgs: with pyPkgs; [
             beancount
             beangulp
             beanquery
@@ -28,7 +29,8 @@
             pygments
             python-lsp-black
             python-lsp-server
-          ]))
+          ]
+        ))
       ]);
 
     variables = {
@@ -38,7 +40,7 @@
 
   launchd.user.agents = {
     fava = {
-      path = [config.environment.systemPath];
+      path = [ config.environment.systemPath ];
       command = "fava $HOME/Documents/Financial/Accounts/accounts.beancount";
       serviceConfig.KeepAlive = true;
     };

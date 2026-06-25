@@ -4,11 +4,13 @@
   pkgs,
   pkgsUnstable,
   ...
-}: let
+}:
+let
   cfg = config.custom.shell;
 
   inherit (lib) mkIf;
-in {
+in
+{
   imports = [
     ./fish.nix
     ./starship.nix
@@ -128,13 +130,16 @@ in {
         enableFishIntegration = true;
 
         defaultCommand = "${pkgsUnstable.fd}/bin/fd -H --type f -E '**/.git/*' -E '**/.jj/*'";
-        defaultOptions = ["--height 50%" "--border"];
+        defaultOptions = [
+          "--height 50%"
+          "--border"
+        ];
         fileWidgetCommand = "${defaultCommand}";
         fileWidgetOptions = [
           "--preview '${pkgsUnstable.bat}/bin/bat --color=always --plain --line-range=:200 {}'"
         ];
         changeDirWidgetCommand = "${pkgsUnstable.fd}/bin/fd --type d";
-        changeDirWidgetOptions = ["--preview '${pkgs.tree}/bin/tree -C {} | head -200'"];
+        changeDirWidgetOptions = [ "--preview '${pkgs.tree}/bin/tree -C {} | head -200'" ];
       };
 
       jqp.enable = true;
