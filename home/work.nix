@@ -5,12 +5,16 @@
   ];
 
   home.packages = with pkgs; [
+    awscli2
     d4s
     devcontainer
     docker
     docker-credential-helpers
+    glab
     jujutsu-lfs
     lazydocker
+    terraform
+    watch
   ];
 
   custom.nixvim = {
@@ -28,6 +32,8 @@
     lrun = "make dev/luna.run";
     lrel = "make dev/luna.run-release";
     lwatch = "make dev/luna.watch";
+
+    godo = "glab todo list";
   };
 
   services = {
