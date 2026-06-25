@@ -44,7 +44,7 @@ formatter.setup {
         javascriptreact = { require'formatter.filetypes.javascriptreact'.prettier, },
         typescript = { require'formatter.filetypes.typescript'.prettier, },
         typescriptreact = { require'formatter.filetypes.typescriptreact'.prettier, },
-        nix = { require'formatter.filetypes.nix'.alejandra },
+        nix = { require'formatter.filetypes.nix'.nixfmt },
         swift = {
             function()
                 return {

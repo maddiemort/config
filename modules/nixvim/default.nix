@@ -166,11 +166,10 @@ in {
         [
           typstyle # For typst formatting in formatter.lua
 
-          alejandra
           bash-language-server # Bash language server
           lua-language-server
           nil # Nix Language server
-          nixpkgs-fmt # For nil to format stuff
+          nixfmt # For nil to format stuff
           prettier
           shellcheck # For Bash
           tinymist # Typst language server

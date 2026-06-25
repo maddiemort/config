@@ -249,7 +249,7 @@
           ]);
       };
 
-      formatter = pkgsUnstable.alejandra;
+      formatter = pkgs.nixfmt-tree;
 
       legacyPackages = {
         inherit homeConfigurations;

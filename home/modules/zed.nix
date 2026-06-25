@@ -18,12 +18,11 @@ in {
       package = pkgsUnstable.zed-editor;
 
       extraPackages = with pkgsUnstable; [
-        alejandra
         bash-language-server # Bash language server
         beancount-language-server
         lua-language-server
         nil # Nix Language server
-        nixpkgs-fmt # For nil to format stuff
+        nixfmt # For nil to format stuff
         prettier
         shellcheck # For Bash
         texlab # TeX language server
@@ -265,11 +264,7 @@ in {
             };
             initialization_options = {
               formatting = {
-                command = [
-                  "${pkgsUnstable.alejandra}/bin/alejandra"
-                  "--quiet"
-                  "--"
-                ];
+                command = [ "${pkgsUnstable.nixfmt}/bin/nixfmt" ];
               };
             };
           };
