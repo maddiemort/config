@@ -83,11 +83,12 @@ in
           { key = "RightArrow", mods = "SUPER|SHIFT", action = wezterm.action.MoveTabRelative(1) },
 
           -- Create horizontal or vertical splits (close by sending EOF with Ctrl-D)
-          { key = "|", mods = "LEADER", action = wezterm.action { SplitHorizontal = { domain = "CurrentPaneDomain" } } },
-          { key = "|", mods = "LEADER|SHIFT", action = wezterm.action { SplitHorizontal = { domain = "CurrentPaneDomain" } } },
-          { key = "]", mods = "LEADER", action = wezterm.action { SplitHorizontal = { domain = "DefaultDomain" } } },
-          { key = "-", mods = "LEADER", action = wezterm.action { SplitVertical = { domain = "CurrentPaneDomain" } } },
-          { key = "=", mods = "LEADER", action = wezterm.action { SplitVertical = { domain = "DefaultDomain" } } },
+          { key = "|", mods = "LEADER", action = wezterm.action.SplitHorizontal { domain = "CurrentPaneDomain" } },
+          { key = "|", mods = "LEADER|SHIFT", action = wezterm.action.SplitHorizontal { domain = "CurrentPaneDomain" } },
+          { key = "]", mods = "LEADER", action = wezterm.action.SplitPane { direction = "Right", command = { domain = "DefaultDomain" } } },
+          { key = "[", mods = "LEADER", action = wezterm.action.SplitPane { direction = "Left", command = { domain = "DefaultDomain" } } },
+          { key = "-", mods = "LEADER", action = wezterm.action.SplitVertical { domain = "CurrentPaneDomain" } },
+          { key = "=", mods = "LEADER", action = wezterm.action.SplitVertical { domain = "DefaultDomain" } },
 
           -- Move between splits
           { key = "h", mods = "SUPER", action = wezterm.action { ActivatePaneDirection = "Left" } },
