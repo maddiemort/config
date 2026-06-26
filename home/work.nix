@@ -93,7 +93,7 @@
     --when.repositories = ["~/src/gitlab.com/retinai_master"]
 
     [--scope.remotes.origin]
-    auto-track-bookmarks = "mm/*"
+    auto-track-bookmarks = 'regex:"^mm/" ~ regex:"^mm/megamerge"'
 
     [--scope.templates]
     git_push_bookmark = '"mm/push-" ++ change_id.short()'

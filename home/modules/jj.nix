@@ -25,7 +25,7 @@ in {
         [git]
         subprocess = true
         fetch = ["glob:*"]
-        private-commits = "description(exact:'megamerge')"
+        private-commits = 'description(regex:"^megamerge") | bookmarks(regex:"^(mm/)?megamerge")'
 
         [signing]
         backend = "ssh"
@@ -68,7 +68,7 @@ in {
         ''''
 
         [revsets]
-        "bookmark-advance-from" = "closest_local_bookmark(@)"
+        "bookmark-advance-from(to)" = "closest_local_bookmark(to)"
         "bookmark-advance-to" = "move_closest_target(@)"
 
         [revset-aliases]
@@ -97,14 +97,14 @@ in {
         # ancestors, not just the first *bookmarked* revision.
         "closest_local_bookmark(x)" = "heads(::x & bookmarks())"
 
-        # The closest revision along the path of nonempty and described revisions between the
-        # closest local bookmark to `x` and `x` itself.
+        # The closest revision along the path of described revisions between the closest local
+        # bookmark to `x` and `x` itself.
         "move_closest_target(x)" = ''''
           exactly(
             heads(
               reachable(
                 closest_local_bookmark(x),
-                closest_local_bookmark(x)::x ~ description("")
+                closest_local_bookmark(x)::x ~ description(exact:"")
               )
             ),
             1
@@ -129,10 +129,80 @@ in {
         "stranded()" = "mine() ~ ::remote_bookmarks() ~ ((empty() ~ merges()) & description(exact:'''))"
         "my_bookmarks()" = "mine() & bookmarks() | tracked_remote_bookmarks()"
 
+        # Megamerges. These might not actually be merge revisions, as long as they have a megamerge
+        # branch pointing to them or a description that says they're megamerges - this is because
+        # sometimes simplifying parents causes a megamerge to only have one parent.
+        "megamerges()" = 'bookmarks("mm/megamerge/*") | bookmarks("megamerge/*") | description("megamerge*")'
+
+        # Returns the closest megamerge in the parents of `to`.
+        #
+        # It might not actually be a merge revision, as long as it has a megamerge branch pointing
+        # to it or a description that says it's a megamerge - this is because sometimes simplifying
+        # parents causes a megamerge to only have one parent.
+        "closest_megamerge(to)" = "heads(reachable(to, ::to & mutable()) & megamerges())"
+
         [aliases]
         advance = ["bookmark", "advance"]
         merge = ["new", "heads(::@ ~ (empty() & description(exact:''')))"]
         tip = ["new", "current_bookmark(@)"]
+
+        # Inserts the given revset as a new branch under the megamerge.
+        stack = ["rebase", "--simplify-parents", "--after", "trunk()", "--before", "closest_megamerge(@)"]
+
+        # Stacks *all* the revsets after the megamerge together on one branch under the megamerge
+        stage = ["stack", "--revision", "closest_megamerge(@)+:: ~ empty()"]
+
+        # Like `stage`, but inserts the revsets after the megamerge as children of the provided
+        # bookmark (as long as the bookmark is a parent of the megamerge) and advances the bookmark.
+        insert = ["util", "exec", "--", "bash", "-c", """
+          set -euo pipefail
+          operation=$(jj op log --limit 1 --no-graph --no-pager -T 'id.short()')
+          jj rebase \\
+            --simplify-parents \\
+            --revision "closest_megamerge(@)+:: ~ empty()" \\
+            --after "exactly(heads(reachable($1, $1::(closest_megamerge(@)-))), 1)" \\
+            && jj bookmark move "$1" --to "exactly(heads(reachable($1, $1::(closest_megamerge(@)-))), 1)" \\
+            || jj op restore "$operation"
+        """, ""]
+
+        # Rebase all the member branches of the megamerge that we're allowed to modify onto the
+        # trunk, simplifying parents afterwards.
+        retrunk = [
+          "rebase",
+          "--simplify-parents",
+          "--source", "roots(reachable(closest_megamerge(@), trunk()..closest_megamerge(@) & mutable()))",
+          "--onto", "trunk()",
+        ]
+
+        # Pull the given revset into the megamerge (specifically, the new last parent) of the megamerge.
+        include = ["util", "exec", "--", "bash", "-c", """
+          set -euo pipefail
+          jj rebase \\
+            --simplify-parents \\
+            --source "closest_megamerge(@)" \\
+            --onto "parents(closest_megamerge(@))" \\
+            --onto "$1"
+        """, ""]
+
+        # "Promote" the given revset to the first parent of the megamerge. This will include it if
+        # it's not already in the merge.
+        promote = ["util", "exec", "--", "bash", "-c", """
+          set -euo pipefail
+          jj rebase \\
+            --simplify-parents \\
+            --source "closest_megamerge(@)" \\
+            --onto "$1" \\
+            --onto "parents(closest_megamerge(@))"
+        """, ""]
+
+        # Remove the given revset from the parents of the megamerge.
+        exclude = ["util", "exec", "--", "bash", "-c", """
+          set -euo pipefail
+          jj rebase \\
+            --simplify-parents \\
+            --source "closest_megamerge(@)" \\
+            --onto "parents(closest_megamerge(@)) ~ ($1)"
+        """, ""]
 
         track-bookmarks = ["util", "exec", "--", "bash", "-c", """
           set -euo pipefail
@@ -165,7 +235,7 @@ in {
         show-cryptographic-signatures = false
 
         [remotes.origin]
-        auto-track-created-bookmarks = "*"
+        auto-track-created-bookmarks = '~regex:"^(mm/)?megamerge"'
 
         [user]
         name = "Madeleine Mortensen"
