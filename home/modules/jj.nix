@@ -151,6 +151,10 @@ in
         # Inserts the given revset as a new branch under the megamerge.
         stack = ["rebase", "--simplify-parents", "--after", "trunk()", "--before", "closest_megamerge(@)"]
 
+        # Interactively squashes some changes from the current revision (or the provided revision)
+        # into a new branch under the megamerge.
+        squeeze = ["squash", "--interactive", "--after", "trunk()", "--before", "closest_megamerge(@)"]
+
         # Stacks *all* the revsets after the megamerge together on one branch under the megamerge
         stage = ["stack", "--revision", "closest_megamerge(@)+:: ~ empty()"]
 
