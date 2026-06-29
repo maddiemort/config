@@ -11,6 +11,7 @@
     docker
     docker-credential-helpers
     glab
+    gnumake
     jujutsu-lfs
     lazydocker
     terraform
