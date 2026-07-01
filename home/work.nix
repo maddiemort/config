@@ -5,6 +5,7 @@
   ];
 
   home.packages = with pkgs; [
+    d4s
     devcontainer
     docker
     docker-credential-helpers

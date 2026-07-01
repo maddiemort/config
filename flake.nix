@@ -146,43 +146,43 @@
         };
       };
 
-      mkOverlays = system: [
-        (final: prev: {
-          inherit (prev.lixPackageSets.stable)
-            nixpkgs-review
-            nix-eval-jobs
-            nix-fast-build
-            colmena
-            ;
-        })
+      mkOverlays =
+        system:
+        [
+          (final: prev: {
+            inherit (prev.lixPackageSets.stable)
+              nixpkgs-review
+              nix-eval-jobs
+              nix-fast-build
+              colmena
+              ;
+          })
 
-        inputs.agenix.overlays.default
+          inputs.agenix.overlays.default
 
-        (_: _: {
-          inherit (inputs.home-manager.packages.${system}) home-manager;
-          inherit (inputs.jj-blame-nvim.packages.${system}) jj-blame-nvim;
+          (_: _: {
+            inherit (inputs.home-manager.packages.${system}) home-manager;
+            inherit (inputs.jj-blame-nvim.packages.${system}) jj-blame-nvim;
 
-          jujutsu-lfs = inputs.jj-lfs.packages.${system}.jujutsu;
-        })
+            jujutsu-lfs = inputs.jj-lfs.packages.${system}.jujutsu;
+          })
 
-        (final: prev: {
-          nodejs = final.nodejs_latest;
-          nodejs-slim = final.nodejs-slim_latest;
+          (final: prev: {
+            nodejs = final.nodejs_latest;
+            nodejs-slim = final.nodejs-slim_latest;
 
-          devcontainer = prev.devcontainer.override {
-            nodejs = final.nodejs_24;
-            node-gyp = final.node-gyp.override { nodejs = final.nodejs_24; };
-          };
-        })
-
-        vimPluginsOverlay
-
-        (final: prev: {
-          tla-nvim = final.callPackage ./pkgs/tla-nvim.nix { };
-        })
-
-        self.overlays.iosevka-custom
-      ];
+            devcontainer = prev.devcontainer.override {
+              nodejs = final.nodejs_24;
+              node-gyp = final.node-gyp.override { nodejs = final.nodejs_24; };
+            };
+          })
+        ]
+        ++ (with self.overlays; [
+          d4s
+          iosevka-custom
+          tla-nvim
+          vimPluginsOverlay
+        ]);
 
       mkUnstableOverlays =
         system:
@@ -267,6 +267,11 @@
         };
 
         packages = {
+          inherit (pkgs)
+            d4s
+            tla-nvim
+            ;
+
           neovim =
             (inputs.nixvim.lib.evalNixvim {
               inherit system;
@@ -319,7 +324,9 @@
       };
 
       overlays = {
+        d4s = final: prev: { d4s = final.callPackage ./pkgs/d4s.nix { }; };
         iosevka-custom = import ./overlays/iosevka-custom.nix;
+        tla-nvim = final: prev: { tla-nvim = final.callPackage ./pkgs/tla-nvim.nix { }; };
         vim-plugins = vimPluginsOverlay;
       };
     };
