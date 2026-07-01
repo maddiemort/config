@@ -95,6 +95,12 @@
     };
   };
 
+  xdg.configFile."d4s/config.yaml".text = ''
+    d4s:
+      ui:
+        skin: "default"
+  '';
+
   xdg.configFile."jj/conf.d/40-work.toml".text = ''
     [[--scope]]
     --when.repositories = ["~/src/gitlab.com/retinai_master"]
