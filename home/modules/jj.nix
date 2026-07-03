@@ -180,6 +180,15 @@ in
           "--onto", "trunk()",
         ]
 
+        # Rebase all the member branches of the megamerge that we're allowed to modify and that have
+        # not been pushed to a remote onto the trunk, simplifying parents afterwards.
+        retrunk-local = [
+          "rebase",
+          "--simplify-parents",
+          "--source", "(roots(reachable(closest_megamerge(@), trunk()..closest_megamerge(@) & mutable())) ~ ::remote_bookmarks())",
+          "--onto", "trunk()",
+        ]
+
         # Pull the given revset into the megamerge (specifically, the new last parent) of the megamerge.
         include = ["util", "exec", "--", "bash", "-c", """
           set -euo pipefail
