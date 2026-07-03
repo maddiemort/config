@@ -178,6 +178,7 @@
           })
         ]
         ++ (with self.overlays; [
+          colima
           d4s
           iosevka-custom
           tla-nvim
@@ -268,6 +269,7 @@
 
         packages = {
           inherit (pkgs)
+            colima
             d4s
             tla-nvim
             ;
@@ -324,6 +326,30 @@
       };
 
       overlays = {
+        colima = final: prev: {
+          colima = prev.colima.overrideAttrs (
+            _: _:
+            let
+              rev = "fb808892"; # overlapping-and-forward-write
+            in
+            {
+              version = "0.10.1-${rev}";
+              src = final.fetchFromGitHub {
+                owner = "maddiemort";
+                repo = "colima";
+                inherit rev;
+                hash = "sha256-YuTj9QBCKfoCBNKUfN0TtK7vEkZauX3h49D5Q7/zbaY=";
+                # We need the git revision
+                leaveDotGit = true;
+                postFetch = ''
+                  git -C $out rev-parse --short HEAD > $out/.git-revision
+                  rm -rf $out/.git
+                '';
+              };
+            }
+          );
+        };
+
         d4s = final: prev: { d4s = final.callPackage ./pkgs/d4s.nix { }; };
         iosevka-custom = import ./overlays/iosevka-custom.nix;
         tla-nvim = final: prev: { tla-nvim = final.callPackage ./pkgs/tla-nvim.nix { }; };

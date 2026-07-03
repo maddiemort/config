@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ config, pkgs, ... }: {
   age.identityPaths = [
     ../identities/maddie-ikerian.txt
     ../identities/maddie-ikerian-c.txt
@@ -40,13 +40,12 @@
           setDockerHost = true;
           settings = {
             cpu = 8;
-            memory = 24;
-
             disk = 500;
+            memory = 24;
             arch = "host";
             runtime = "docker";
             modelRunner = "docker";
-            hostname = "";
+            hostname = null;
             kubernetes = {
               enabled = false;
               version = "v1.35.0+k3s1";
@@ -73,11 +72,11 @@
             rosetta = true;
             binfmt = true;
             nestedVirtualization = true;
-            mountType = "sshfs";
-            mountInotify = false;
+            mountType = "virtiofs";
+            mountInotify = true;
             cpuType = "host";
             provision = [ ];
-            sshConfig = true;
+            sshConfig = false;
             sshPort = 0;
             mounts = [ ];
             diskImage = "";
