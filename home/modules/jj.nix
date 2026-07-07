@@ -147,23 +147,26 @@ in
         "megatrunk(to)" = "fork_point(closest_megamerge(to) | trunk())"
 
         [aliases]
-        advance = ["bookmark", "advance"]
-        merge = ["new", "heads(::@ ~ (empty() & description(exact:''')))"]
-        tip = ["new", "current_bookmark(@)"]
+        advance.doc = "Alias for `jj bookmark advance`"
+        advance.definition = ["bookmark", "advance"]
 
-        # Inserts the given revset as a new branch under the megamerge.
-        stack = ["rebase", "--simplify-parents", "--after", "trunk()", "--before", "closest_megamerge(@)"]
+        merge.doc = "Create a new revision that merges the specified revision into the current revision's branch"
+        merge.definition = ["new", "heads(::@ ~ (empty() & description(exact:''')))"]
 
-        # Interactively squashes some changes from the current revision (or the provided revision)
-        # into a new branch under the megamerge.
-        squeeze = ["squash", "--interactive", "--after", "trunk()", "--before", "closest_megamerge(@)"]
+        tip.doc = "Create a new revision on top of the tip of the current bookmark"
+        tip.definition = ["new", "current_bookmark(@)"]
 
-        # Stacks *all* the revsets after the megamerge together on one branch under the megamerge
-        stage = ["stack", "--revision", "closest_megamerge(@)+:: ~ empty()"]
+        stack.doc = "Insert the given revset (with `-r`, defaults to `@`) as a new branch under the megamerge"
+        stack.definition = ["rebase", "--simplify-parents", "--after", "megatrunk(@)", "--before", "closest_megamerge(@)"]
 
-        # Like `stage`, but inserts the revsets after the megamerge as children of the provided
-        # bookmark (as long as the bookmark is a parent of the megamerge) and advances the bookmark.
-        insert = ["util", "exec", "--", "bash", "-c", """
+        squeeze.doc = "Interactively squash some changes from the current revision (or the provided revision, with `-r`) into a new branch under the megamerge"
+        squeeze.definition = ["squash", "--interactive", "--after", "megatrunk(@)", "--before", "closest_megamerge(@)"]
+
+        stage.doc = "Stack all the children of the megamerge together on one branch under the megamerge"
+        stage.definition = ["stack", "--revision", "closest_megamerge(@)+:: ~ empty()"]
+
+        insert.doc = "Like `jj stage`, but insert the revsets after the megamerge as children of the provided bookmark (as long as the bookmark is a parent of the megamerge) and advance the bookmark"
+        insert.definition = ["util", "exec", "--", "bash", "-c", """
           set -euo pipefail
           operation=$(jj op log --limit 1 --no-graph --no-pager -T 'id.short()')
           jj rebase \\
@@ -174,26 +177,24 @@ in
             || jj op restore "$operation"
         """, ""]
 
-        # Rebase all the member branches of the megamerge that we're allowed to modify onto the
-        # trunk, simplifying parents afterwards.
-        retrunk = [
+        retrunk.doc = "Rebase all the member branches of the megamerge that we're allowed to modify onto the trunk, simplifying parents afterwards"
+        retrunk.definition = [
           "rebase",
           "--simplify-parents",
           "--source", "roots(reachable(closest_megamerge(@), trunk()..closest_megamerge(@) & mutable()))",
           "--onto", "trunk()",
         ]
 
-        # Rebase all the member branches of the megamerge that we're allowed to modify and that have
-        # not been pushed to a remote onto the trunk, simplifying parents afterwards.
-        retrunk-local = [
+        retrunk-local.doc = "Rebase all the member branches of the megamerge that we're allowed to modify and that have not been pushed to a remote onto the trunk, simplifying parents afterwards"
+        retrunk-local.definition = [
           "rebase",
           "--simplify-parents",
           "--source", "(roots(reachable(closest_megamerge(@), trunk()..closest_megamerge(@) & mutable())) ~ ::remote_bookmarks())",
           "--onto", "trunk()",
         ]
 
-        # Pull the given revset into the megamerge (specifically, the new last parent) of the megamerge.
-        include = ["util", "exec", "--", "bash", "-c", """
+        include.doc = "Pull the given revset into the megamerge (specifically, the new last parent) of the megamerge"
+        include.definition = ["util", "exec", "--", "bash", "-c", """
           set -euo pipefail
           jj rebase \\
             --simplify-parents \\
@@ -202,9 +203,8 @@ in
             --onto "$1"
         """, ""]
 
-        # "Promote" the given revset to the first parent of the megamerge. This will include it if
-        # it's not already in the merge.
-        promote = ["util", "exec", "--", "bash", "-c", """
+        promote.doc = "Promote or include the given revset as the first parent of the megamerge"
+        promote.definition = ["util", "exec", "--", "bash", "-c", """
           set -euo pipefail
           jj rebase \\
             --simplify-parents \\
@@ -213,8 +213,8 @@ in
             --onto "parents(closest_megamerge(@))"
         """, ""]
 
-        # Remove the given revset from the parents of the megamerge.
-        exclude = ["util", "exec", "--", "bash", "-c", """
+        exclude.doc = "Remove the given revset from the parents of the megamerge"
+        exclude.definition = ["util", "exec", "--", "bash", "-c", """
           set -euo pipefail
           jj rebase \\
             --simplify-parents \\
@@ -222,21 +222,24 @@ in
             --onto "parents(closest_megamerge(@)) ~ ($1)"
         """, ""]
 
-        track-bookmarks = ["util", "exec", "--", "bash", "-c", """
+        track-bookmarks.doc = "Interactively choose untracked bookmarks to track"
+        track-bookmarks.definition = ["util", "exec", "--", "bash", "-c", """
           set -euo pipefail
           jj bookmark list --all-remotes --quiet -T untracked_bookmark_name --sort committer-date- |\\
             fzf --no-sort --multi --preview='jj log --color=always -r ::{} --limit $(math "floor($LINES / 2)")' |\\
             xargs -r jj bookmark track
         """, ""]
 
-        untrack-bookmarks = ["util", "exec", "--", "bash", "-c", """
+        untrack-bookmarks.doc = "Interactively choose tracked bookmarks to untrack"
+        untrack-bookmarks.definition = ["util", "exec", "--", "bash", "-c", """
           set -euo pipefail
           jj bookmark list --tracked --quiet -T tracked_bookmark_name --sort committer-date- |\\
             fzf --no-sort --multi --preview='jj log --color=always -r ::{} --limit $(math "floor($LINES / 2)")' |\\
             xargs -r jj bookmark untrack
         """, ""]
 
-        watch = ["util", "exec", "--", "bash", "-c", """
+        watch.doc = "Show a live view of the log"
+        watch.definition = ["util", "exec", "--", "bash", "-c", """
           ${pkgs.watchexec}/bin/watchexec -d 350ms --workdir "$(jj workspace root)" -c --watch .jj --no-vcs-ignore -- \\
             jj --ignore-working-copy --at-op @ --no-pager --limit $(($(tput lines) / 2 - 2))
         """, ""]
