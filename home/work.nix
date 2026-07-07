@@ -1,9 +1,4 @@
-{ config, pkgs, ... }: {
-  age.identityPaths = [
-    ../identities/maddie-ikerian.txt
-    ../identities/maddie-ikerian-c.txt
-  ];
-
+{ pkgs, ... }: {
   home.packages = with pkgs; [
     awscli2
     d4s
