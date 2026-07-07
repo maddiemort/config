@@ -143,6 +143,9 @@ in
         # parents causes a megamerge to only have one parent.
         "closest_megamerge(to)" = "heads(reachable(to, ::to & mutable()) & megamerges())"
 
+        # Returns the fork point of the closest megamerge and the trunk.
+        "megatrunk(to)" = "fork_point(closest_megamerge(to) | trunk())"
+
         [aliases]
         advance = ["bookmark", "advance"]
         merge = ["new", "heads(::@ ~ (empty() & description(exact:''')))"]
