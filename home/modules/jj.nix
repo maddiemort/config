@@ -165,6 +165,21 @@ in
         stage.doc = "Stack all the children of the megamerge together on one branch under the megamerge"
         stage.definition = ["stack", "--revision", "closest_megamerge(@)+:: ~ empty()"]
 
+        fanout.doc = "Insert each of the nonempty children of the megamerge as individual parents of the megamerge"
+        fanout.definition = ["util", "exec", "--", "bash", "-c", """
+          set -euo pipefail
+          operation=$(jj op log --limit 1 --no-graph --no-pager -T 'id.short()')
+          jj rebase \\
+            --source "closest_megamerge(@)+::" \\
+            --onto "closest_megamerge(@)" \\
+            && jj rebase \\
+              --simplify-parents \\
+              --revision "closest_megamerge(@)+:: ~ empty()" \\
+              --after "megatrunk(@)" \\
+              --before "closest_megamerge(@)" \\
+            || jj op restore "$operation"
+        """, ""]
+
         insert.doc = "Like `jj stage`, but insert the revsets after the megamerge as children of the provided bookmark (as long as the bookmark is a parent of the megamerge) and advance the bookmark"
         insert.definition = ["util", "exec", "--", "bash", "-c", """
           set -euo pipefail
