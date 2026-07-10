@@ -2,6 +2,8 @@
 -- EDITOR BEHAVIOUR
 -- ================
 
+vim.g.editorconfig = false
+
 -- -------
 -- Folding
 -- -------

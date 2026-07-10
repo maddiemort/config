@@ -1,16 +1,16 @@
-{ config, pkgs, ... }: {
-  age.identityPaths = [
-    ../identities/maddie-ikerian.txt
-    ../identities/maddie-ikerian-c.txt
-  ];
-
+{ pkgs, ... }: {
   home.packages = with pkgs; [
+    awscli2
     d4s
     devcontainer
     docker
     docker-credential-helpers
+    glab
+    gnumake
     jujutsu-lfs
     lazydocker
+    terraform
+    watch
   ];
 
   custom.nixvim = {
@@ -28,6 +28,8 @@
     lrun = "make dev/luna.run";
     lrel = "make dev/luna.run-release";
     lwatch = "make dev/luna.watch";
+
+    godo = "glab todo list";
   };
 
   services = {
@@ -87,6 +89,12 @@
       };
     };
   };
+
+  xdg.configFile."d4s/config.yaml".text = ''
+    d4s:
+      ui:
+        skin: "default"
+  '';
 
   xdg.configFile."jj/conf.d/40-work.toml".text = ''
     [[--scope]]

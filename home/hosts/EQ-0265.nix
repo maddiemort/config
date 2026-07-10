@@ -1,6 +1,10 @@
-{ ... }: {
+{ config, ... }: {
   imports = [
     ../work.nix
+  ];
+
+  age.identityPaths = [
+    "${config.home.homeDirectory}/.ssh/id_ed25519_maddie_eq_0265"
   ];
 
   age.secrets.id_ed25519_jj_ikerian = {

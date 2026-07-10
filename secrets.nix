@@ -4,6 +4,7 @@ let
   # Public keys of specific machines.
   merope = readFile ./keys/merope.pub;
   EQ-0265 = readFile ./keys/EQ-0265.pub;
+  maddie-EQ-0265 = readFile ./keys/maddie-EQ-0265.pub;
 
   # Each of the secrets is given a list of public keys that should be used to
   # encrypt them. Right now, only the machine-specific keys from above are added
@@ -11,9 +12,18 @@ let
   # necessarily be given access to every secret.
   secrets = {
     "secrets/id_ed25519_jj_wtf.age".publicKeys = [ merope ];
-    "secrets/id_ed25519_jj_ikerian.age".publicKeys = [ EQ-0265 ];
-    "secrets/id_ed25519_sk_maddie_ikerian.age".publicKeys = [ EQ-0265 ];
-    "secrets/id_ed25519_sk_maddie_ikerian_c.age".publicKeys = [ EQ-0265 ];
+    "secrets/id_ed25519_jj_ikerian.age".publicKeys = [
+      EQ-0265
+      maddie-EQ-0265
+    ];
+    "secrets/id_ed25519_sk_maddie_ikerian.age".publicKeys = [
+      EQ-0265
+      maddie-EQ-0265
+    ];
+    "secrets/id_ed25519_sk_maddie_ikerian_c.age".publicKeys = [
+      EQ-0265
+      maddie-EQ-0265
+    ];
     "secrets/id_ed25519_sk_maddie_wtf.age".publicKeys = [ ];
     "secrets/id_ed25519_sk_maddie_wtf_c.age".publicKeys = [ merope ];
   };

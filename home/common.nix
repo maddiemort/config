@@ -53,7 +53,6 @@ let
         devpod
         ice-bar
         swiftlint
-        thunderbird
         typst
         typstyle
       ]);
@@ -164,7 +163,6 @@ let
 
       shell.enable = true;
       wezterm.enable = true;
-      zed.enable = true;
     };
 
     programs = {
