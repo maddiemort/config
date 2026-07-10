@@ -1,5 +1,1 @@
-require'devcontainers'.setup {
-    log = {
-        level = 'trace',
-    },
-}
+require'devcontainers'.setup {}
